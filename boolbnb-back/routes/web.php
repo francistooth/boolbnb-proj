@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Guest\PageController;
 
 /*
@@ -24,15 +24,7 @@ Route::middleware(['auth', 'verified'])
       // TUTTE LE ROTTE DI Admin
       Route::get('/', [DashboardController::class, 'index'])->name('home');
 
-      Route::middleware(['auth', 'verified'])
-        ->prefix('apartments')
-        ->name('apartments.')
-        ->group(function(){
-          // TUTTE LE ROTTE DI APARTMENTS
-
-          Route::get('/', [ApartmentController::class, 'index'])->name('index');
-
-        });
+      Route::resource('apartments', ApartmentController::class);
   });
 
 // guest routes 
