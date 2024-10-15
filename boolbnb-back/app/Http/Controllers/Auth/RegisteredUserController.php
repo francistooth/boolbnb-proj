@@ -34,18 +34,33 @@ class RegisteredUserController extends Controller
 
         $request->validate(
             [
-                'name' => ['string', 'max:50', 'nullable'],
-                'surname' => ['string', 'max:50', 'nullable'],
+                'name' => ['string', 'max:50', 'min:3', 'nullable', 'regex:/^[\pL\s\-]+$/u'],
+                'surname' => ['string', 'max:50', 'min:3', 'nullable', 'regex:/^[\pL\s\-]+$/u'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:150', 'unique:' . User::class],
-                'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
+                'password' => [
+                    'required',
+                    'confirmed',
+                    'min:8',
+                    'max:20',
+                    'regex:/[a-z]/',
+                    'regex:/[A-Z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*?&#]/',
+                    Rules\Password::defaults()
+                ],
+                'year' => ['nullable', 'numeric', 'digits:4', 'min:' . (date('Y') - 100), 'max:' . (date('Y') - 18)],
+                'month' => ['nullable', 'numeric', 'between:1,12'],
+                'day' => ['nullable', 'numeric', 'between:1,31'],
             ],
 
             [
                 'name.string' => 'Il campo nome deve essere una stringa',
                 'name.max' => 'Il campo nome può contenere massimo :max caratteri',
+                'name.regex' => 'Il nome può contenere solo lettere e spazi.',
 
                 'surname.string' => 'Il campo cognome deve essere una stringa',
                 'surname.max' => 'Il campo cognome può contenere massimo :max caratteri',
+                'surname.regex' => 'Il cognome può contenere solo lettere e spazi.',
 
                 'email.required' => 'Il campo email è obbligatorio',
                 'email.string' => 'Il campo email deve essere una stringa',
@@ -57,11 +72,24 @@ class RegisteredUserController extends Controller
                 'password.required' => 'Il campo password è obbligatorio',
                 'password.confirmed' => 'Le password devono combaciare',
                 'password.min' => 'Il campo password deve contenere almeno :min caratteri',
+                'password.max' => 'Il campo password può contenere massimo :max caratteri',
+                'password.regex' => 'La password deve contenere almeno una lettera minuscola, una lettera maiuscola, un numero e un carattere speciale.',
+
+                'year.numeric' => 'L\'anno di nascita deve essere un numero.',
+                'year.digits' => 'L\'anno di nascita deve essere composto da :digits cifre.',
+                'year.min' => 'L\'anno di nascita non può essere inferiore a :min.',
+                'year.max' => 'L\'anno di nascita non può essere superiore a :max.',
+
+                'month.numeric' => 'Il mese di nascita deve essere un numero.',
+                'month.between' => 'Il mese di nascita deve essere compreso tra 1 e 12.',
+
+                'day.numeric' => 'Il giorno di nascita deve essere un numero.',
+                'day.between' => 'Il giorno di nascita deve essere compreso tra 1 e 31.',
             ]
 
         );
 
-        if ($request->year != null || $request->month != null || $request->day != null) {
+        if ($request->year != null && $request->month != null && $request->day != null) {
             $date_birth = $request->year . '-' . $request->month . '-' . $request->day;
         } else {
             $date_birth = null;

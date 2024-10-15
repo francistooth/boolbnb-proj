@@ -30,7 +30,8 @@
 
                             <div class="mb-4 row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}
-                                    <strong class="text-danger">*</strong></label>
+                                    <strong class="text-danger">*</strong>
+                                </label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -99,14 +100,22 @@
                                     <div class="row g-2">
                                         <!-- select giorni -->
                                         <div class="col">
-                                            <select name="year" id="year" class="form-select">
+                                            <select name="year" id="year"
+                                                class="form-select @error('year') is-invalid @enderror">
                                                 <option value="" disabled selected>Anno</option>
                                             </select>
+
+                                            @error('year')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <!-- select mesi -->
                                         <div class="col">
-                                            <select name="month" id="month" class="form-select">
+                                            <select name="month" id="month"
+                                                class="form-select @error('month') is-invalid @enderror">
                                                 <option value="" disabled selected>Mese</option>
                                                 <option value="1">Gennaio</option>
                                                 <option value="2">Febbraio</option>
@@ -121,13 +130,26 @@
                                                 <option value="11">Novembre</option>
                                                 <option value="12">Dicembre</option>
                                             </select>
+
+                                            @error('month')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <!-- select anni -->
                                         <div class="col">
-                                            <select name="day" id="day" class="form-select">
+                                            <select name="day" id="day"
+                                                class="form-select @error('day') is-invalid @enderror">
                                                 <option value="" disabled selected>Giorno</option>
                                             </select>
+
+                                            @error('day')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                     </div>
@@ -140,7 +162,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row mb-0">
+                            <div class="mb-4 row mb-0 justify-content-center">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Registrati') }}
@@ -157,6 +179,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
+            document.getElementById('email').addEventListener('input', function() {
+                const emailInput = this;
+                const emailValue = emailInput.value;
+                const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+                if (emailPattern.test(emailValue)) {
+                    emailInput.classList.remove('is-invalid');
+                } else {
+                    emailInput.classList.add('is-invalid');
+                }
+            });
+
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.querySelector('form');
                 const passwordInput = document.getElementById('password');
