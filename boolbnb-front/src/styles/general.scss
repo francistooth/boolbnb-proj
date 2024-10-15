@@ -1,0 +1,9 @@
+@use './partials/variables' as *;
+@use "@fortawesome/fontawesome-free/css/all.min.css";
+@use "/node_modules/bootstrap/scss/bootstrap";
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
