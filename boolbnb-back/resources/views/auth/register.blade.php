@@ -136,6 +136,12 @@
 
                             <div class="mb-4 row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    <div class="password-error-messages text-danger"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 row mb-0">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Registrati') }}
                                     </button>
@@ -150,8 +156,40 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- JavaScript per selezione data nascita -->
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.querySelector('form');
+                const passwordInput = document.getElementById('password');
+                const passwordConfirmInput = document.getElementById('password-confirm');
+
+                form.addEventListener('submit', function(event) {
+                    let errorMessages = [];
+
+                    if (passwordInput.value.startsWith(' ')) {
+                        errorMessages.push('La password non può iniziare con uno spazio');
+                    }
+
+                    if (passwordInput.value !== passwordConfirmInput.value) {
+                        errorMessages.push('Le password devono combaciare');
+                    }
+
+                    if (errorMessages.length > 0) {
+                        event.preventDefault();
+
+                        const errorContainer = document.querySelector('.password-error-messages');
+                        if (!errorContainer) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.classList.add('password-error-messages', 'text-danger', 'mt-2');
+                            form.querySelector('.mb-4.row.mb-0').prepend(errorDiv);
+                        }
+
+                        document.querySelector('.password-error-messages').innerHTML = errorMessages.join(
+                            '<br>');
+                    }
+                });
+            });
+
+            // JavaScript per selezione data nascita
             window.onload = function() {
                 const daySelect = document.getElementById('day');
                 const monthSelect = document.getElementById('month');
