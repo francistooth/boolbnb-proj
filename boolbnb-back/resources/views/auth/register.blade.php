@@ -97,17 +97,16 @@
 
                                 <div class="col-md-6">
                                     <div class="row g-2">
-                                        <!-- Day Select -->
+                                        <!-- select giorni -->
                                         <div class="col">
-                                            <select id="year" class="form-select">
+                                            <select name="year" id="year" class="form-select">
                                                 <option value="" disabled selected>Anno</option>
-                                                <!-- JavaScript popolerà gli anni -->
                                             </select>
                                         </div>
 
-                                        <!-- Month Select -->
+                                        <!-- select mesi -->
                                         <div class="col">
-                                            <select id="month" class="form-select">
+                                            <select name="month" id="month" class="form-select">
                                                 <option value="" disabled selected>Mese</option>
                                                 <option value="1">Gennaio</option>
                                                 <option value="2">Febbraio</option>
@@ -124,11 +123,10 @@
                                             </select>
                                         </div>
 
-                                        <!-- Year Select -->
+                                        <!-- select anni -->
                                         <div class="col">
-                                            <select id="day" class="form-select">
+                                            <select name="day" id="day" class="form-select">
                                                 <option value="" disabled selected>Giorno</option>
-                                                <!-- JavaScript popolerà i giorni -->
                                             </select>
                                         </div>
 
@@ -149,17 +147,17 @@
             </div>
         </div>
 
-        <!-- Bootstrap JS and Popper -->
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- JavaScript to populate day and year -->
+        <!-- JavaScript per selezione data nascita -->
         <script>
             window.onload = function() {
                 const daySelect = document.getElementById('day');
                 const monthSelect = document.getElementById('month');
                 const yearSelect = document.getElementById('year');
 
-                // Popolare gli anni (dall'anno corrente fino a 100 anni fa)
+                // popola gli anni (dall'anno corrente -17 anni fino a 100 anni fa)
                 const currentYear = new Date().getFullYear() - 17;
                 for (let i = currentYear; i >= currentYear - 100; i--) {
                     let option = document.createElement('option');
@@ -168,29 +166,29 @@
                     yearSelect.appendChild(option);
                 }
 
-                // Funzione per popolare i giorni in base al mese e all'anno
+                // popola i giorni in base al mese e all'anno
                 function populateDays(month, year) {
-                    // Cancella i giorni attualmente esistenti
+                    // cancella i giorni attualmente esistenti
                     daySelect.innerHTML = '<option value="" disabled selected>Giorno</option>';
 
                     let daysInMonth;
                     switch (month) {
-                        case 2: // Febbraio
-                            // Controlla se l'anno è bisestile
+                        case 2: // febbraio
+                            // controlla se l'anno è bisestile
                             daysInMonth = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
                             break;
                         case 4:
                         case 6:
                         case 9:
-                        case 11: // Aprile, Giugno, Settembre, Novembre
+                        case 11: // aprile, giugno, settembre, novembre
                             daysInMonth = 30;
                             break;
-                        default: // Altri mesi
+                        default: // altri mesi
                             daysInMonth = 31;
                             break;
                     }
 
-                    // Popola la selezione dei giorni
+                    // popola la selezione dei giorni
                     for (let i = 1; i <= daysInMonth; i++) {
                         let option = document.createElement('option');
                         option.value = i;
@@ -199,7 +197,7 @@
                     }
                 }
 
-                // Quando il mese cambia, aggiorna i giorni
+                // quando il mese cambia, aggiorna i giorni
                 monthSelect.addEventListener('change', function() {
                     const selectedMonth = parseInt(monthSelect.value);
                     const selectedYear = parseInt(yearSelect.value) ||
@@ -207,10 +205,10 @@
                     populateDays(selectedMonth, selectedYear);
                 });
 
-                // Quando l'anno cambia, aggiorna i giorni (per verificare gli anni bisestili)
+                // quando l'anno cambia, aggiorna i giorni (per verificare gli anni bisestili)
                 yearSelect.addEventListener('change', function() {
                     const selectedMonth = parseInt(monthSelect.value) ||
-                        1; // Se il mese non è selezionato, usa gennaio
+                        1; // se il mese non è selezionato, usa gennaio
                     const selectedYear = parseInt(yearSelect.value);
                     populateDays(selectedMonth, selectedYear);
                 });
