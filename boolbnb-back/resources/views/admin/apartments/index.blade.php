@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container d-flex justify-content-between align-items-center mt-4">
-        <h2> Appartamenti in BoolBnB </h2>
+        <h2> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
 
         <a class="btn btn-danger" href="#"> <i class="fa-solid fa-plus">  </i></a> {{--  {{route('apartments.create')}} --}}
     </div>
