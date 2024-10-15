@@ -45,20 +45,50 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row">
-                                <label for="date_birth"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
+                            <div class="mb-4 row align-items-center">
+                                <label class="col-md-4 col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
+
 
                                 <div class="col-md-6">
-                                    <input id="date_birth" type="text"
-                                        class="form-control @error('date_birth') is-invalid @enderror" name="date_birth"
-                                        value="{{ old('date_birth') }}" required autocomplete="date_birth" autofocus>
+                                    <div class="row g-2">
+                                        <!-- Day Select -->
+                                        <div class="col">
+                                            <label for="day" class="form-label">Giorno</label>
+                                            <select name="day" id="day" class="form-select">
+                                                <option value="" disabled selected>Giorno</option>
+                                                <!-- JavaScript will populate days -->
+                                            </select>
+                                        </div>
 
-                                    @error('date_birth')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        <!-- Month Select -->
+                                        <div class="col">
+                                            <label for="month" class="form-label">Mese</label>
+                                            <select name="month" id="month" class="form-select">
+                                                <option value="" disabled selected>Mese</option>
+                                                <option value="01">Gennaio</option>
+                                                <option value="02">Febbraio</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Aprile</option>
+                                                <option value="05">Maggio</option>
+                                                <option value="06">Giugno</option>
+                                                <option value="07">Luglio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Settembre</option>
+                                                <option value="10">Ottobre</option>
+                                                <option value="11">Novembre</option>
+                                                <option value="12">Dicembre</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Year Select -->
+                                        <div class="col">
+                                            <label for="year" class="form-label">Anno</label>
+                                            <select name="year" id="year" class="form-select">
+                                                <option value="" disabled selected>Anno</option>
+                                                <!-- JavaScript will populate years -->
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -118,5 +148,36 @@
                 </div>
             </div>
         </div>
+
+        <!-- Bootstrap JS and Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JavaScript to populate day and year -->
+        <script>
+            window.onload = function() {
+                //select month
+                const monthSelect = document.getElementById('month');
+                // Populate days (1-31)
+                const daySelect = document.getElementById('day');
+
+                for (let i = 1; i <= 31; i++) {
+                    let option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    daySelect.appendChild(option);
+                }
+
+                // Populate years (from current year to 100 years ago)
+                const yearSelect = document.getElementById('year');
+                const currentYear = new Date().getFullYear() - 17;
+                for (let i = currentYear; i >= currentYear - 100; i--) {
+                    let option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    yearSelect.appendChild(option);
+                }
+            };
+        </script>
+
     </div>
 @endsection
