@@ -34,15 +34,18 @@ class RegisteredUserController extends Controller
 
         $request->validate(
             [
-                'name' => ['string', 'max:50'],
+                'name' => ['string', 'max:50', 'nullable'],
+                'surname' => ['string', 'max:50', 'nullable'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:150', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
-                'surname' => ['string', 'max:50'],
             ],
 
             [
                 'name.string' => 'Il campo nome deve essere una stringa',
                 'name.max' => 'Il campo nome può contenere massimo :max caratteri',
+
+                'surname.string' => 'Il campo cognome deve essere una stringa',
+                'surname.max' => 'Il campo cognome può contenere massimo :max caratteri',
 
                 'email.required' => 'Il campo email è obbligatorio',
                 'email.string' => 'Il campo email deve essere una stringa',
@@ -54,9 +57,6 @@ class RegisteredUserController extends Controller
                 'password.required' => 'Il campo password è obbligatorio',
                 'password.confirmed' => 'Le password devono combaciare',
                 'password.min' => 'Il campo password deve contenere almeno :min caratteri',
-
-                'surname.string' => 'Il campo cognome deve essere una stringa',
-                'surname.max' => 'Il campo cognome può contenere massimo :max caratteri',
             ]
 
         );
