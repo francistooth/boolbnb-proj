@@ -14,12 +14,13 @@ export default {
 
 <template>
 
-  <header>
-    <div class="d-flex justify-content-between mx-3 align-items-center">
-      <RouterLink to="/"><img src="./assets/logo_boolbn.png" width="75" height="75" /></RouterLink>
-      
-      <HeaderView />
-    </div>
+  <div class="container-fluid">
+    <header>
+      <div class="d-flex justify-content-between mx-3 align-items-center">
+        <RouterLink to="/"><img src="./assets/logo_boolbn.png" width="75" height="75" /></RouterLink>
+        
+        <HeaderView />
+      </div>
     
 
     
@@ -27,10 +28,11 @@ export default {
       
       
     
-  </header>
-  <RouterView />
+    </header>
+    <RouterView />
   
-  <FooterView />
+    <FooterView />
+  </div>
 </template>
 
 <style lang="scss" scoped>
