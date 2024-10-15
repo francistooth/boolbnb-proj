@@ -19,14 +19,14 @@ use App\Http\Controllers\Guest\PageController;
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->name('admin.')
-    ->group(function(){
+    ->group(function () {
         // TUTTE LE ROTTE DI Admin
         Route::get('/', [DashboardController::class, 'index'])->name('home');
     });
 
 
-// guest routes 
+// guest routes
 
 Route::get('/', [PageController::class, 'index'])->name('guest');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
