@@ -32,4 +32,8 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+  #map {
+    width: 100vw;
+    height: 100vh;
+  }
 }

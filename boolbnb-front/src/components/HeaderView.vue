@@ -12,8 +12,8 @@ export default {
                 Accedi
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Login</a></li>
-                <li><a class="dropdown-item" href="#">Registrati</a></li>
+                <li><a class="dropdown-item" href="http://127.0.0.1:8001/login">Login</a></li>
+                <li><a class="dropdown-item" href="http://127.0.0.1:8001/register">Registrati</a></li>
             </ul>
         </div>
       </nav>
