@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:150', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
                 'surname' => ['string', 'max:50'],
-                'date_birth' => ['date', 'date_format:d/m/Y']
+                'date_birth' => ['date', 'date_format:Y-m-d']
             ],
 
             [
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
                 'surname.max' => 'Il campo cognome può contenere massimo :max caratteri',
 
                 'date_birth.date' => 'Il campo Data di Nascita deve essere una data',
-                'date_birth.date_format' => 'Il campo Data di Nascita deve essere del seguente formato GG/MM/AAAA',
+                'date_birth.date_format' => 'Il campo Data di Nascita deve essere del seguente formato AAAA-MM-GG',
             ]
 
         );
@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'surname' => $request->surname,
-            'date_birth' => date("Y-m-d", strtotime($request->date_birth)),
+            'date_birth' => $request->date_birth,
         ]);
 
         event(new Registered($user));
