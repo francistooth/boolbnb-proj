@@ -3,49 +3,72 @@
 @section('content')
   <div class="container">
     
-    <h6> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+    <h6> Proprietario degli appartamenti: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
-    <div class="d-flex justify-content-between align-items-center mt-4">
-      <h2>Show dell'appartamento</h2>
+    <h2>Show dell'appartamento</h2>
 
-      <h2> $new_apartment->title </h2>
-      <div class="picture"></div>
-      <p> $new_apartment->description </p>
-      <div class="d-flex flex-column">
-        <h3> caratteristiche appartamento </h3>
-        <span> $new_apartment->room </span>
-        <span>$new_apartment->bed</span>
-        <span>$new_apartment->bathroom</span>
-        <span>$new_apartment->sqm</span>
+    <div class="d-flex flex-wrap mt-4">
+      @foreach ($apartments as $apartment)
+
+      <div class="card " style="width: 18rem;">
+                        {{-- Immagine/i appartamento --}}
+              <div class="picture">
+                {{ $apartment->img_name}}
+              </div>
+              <div class="card-body">
+                      {{-- Nome appartamento --}}
+                <h5 class="card-title">
+                  {{ $apartment->title }}
+                </h5>
+                            {{-- Descrizione appartamento --}}
+                <p class="card-text">
+                  <p> {{$apartment->description}} </p>
+                </p>
+                            {{-- Caratteristiche dell'appartamento --}}
+                <div class="card-text d-flex flex-column">
+                  <h5> Caratteristiche appartamento </h5>
+                  <span> Numero Stanze : {{$apartment->room}} </span>
+                  <span>Numeri Letti :{{$apartment->bed}}</span>
+                  <span>Numero Bagni: {{$apartment->bathroom}}</span>
+                  <span>Grandezza: {{$apartment->sqm}} m²</span>
+                </div>
+                  {{-- Servizi Appartamento --}}
+                <div class="card-text d-flex flex-column">
+                  <h5>Servizi : </h5>
+                    @foreach ($services as $service)
+                      <span>
+                        {{$service->name}}
+                      </span>
+                    @endforeach
+                </div>
+
+                {{-- Indirizzo appartamento --}}
+                <div class="card-text d-flex flex-column">
+                  <h4> Indirizzo : </h4>
+                  <span class="text-secondary">
+                    {{$apartment->address}}
+                  </span> 
+                </div>
+
+                {{-- Longitudine e latitudine --}}
+                <div class="card-text d-flex flex-column">
+                  <h4>Longitudine e Latitudine</h4>
+                  <span class="text-secondary">
+                    {{$apartment->coordinate_long_lat}}
+                  </span> 
+
+                  {{-- Disponibilità --}}
+                  <div>
+                  <h4>Disponibilte</h4>
+                    <button class="btn btn-success">
+                      {{$apartment->is_visible}}         
+                    </button>
+                  </div> 
+                </div> 
+              </div>
+      @endforeach
       </div>
-
-      <h4>
-        Servizi
-      </h4>
-
-      <span>
-        Service_id
-      </span>
-
-      <h4> Adress </h4>
-      <span class="text-secondary">
-        $new_apartment->address
-      </span> 
-
-      <span class="text-secondary">
-        $new_apartment->coordinate_long_lat
-      </span> 
-
-      <button class="btn btn-success">
-        $new_apartment->is_visible
-      </button>
-      
-      {{-- .picture{
-        width: 400px;
-        height: 200px;
-        background-color: yellow;
-        border: black 2px solid
-      } --}}
     </div>
+  </div>
 
 @endsection
