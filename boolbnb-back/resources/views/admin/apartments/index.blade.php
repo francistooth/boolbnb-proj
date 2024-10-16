@@ -20,7 +20,7 @@
                     {{-- <a class="stretched-link z-1" href="{{ route('apartments.show', $apartment) }}"></a> --}}
                     {{-- <img class="card-img-top w-100 images" src="{{ asset('storage/' . $apartment->path_image) }}" alt=""> --}}
                     <div class="card-body w-100">
-                        <img class="w-25" src="{{ $apartment->img_path }}" alt="{{ $apartment->title }}">
+                        <img class="w-50" src="{{ $apartment->img_path }}" alt="{{ $apartment->title }}">
                         <h5 class="card-title mt-3">
                             {{ $apartment->title }}
                         </h5>

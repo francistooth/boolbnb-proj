@@ -6,8 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\UserResourceController;
-
-
+use App\Http\Controllers\Admin\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +30,7 @@ Route::middleware(['auth', 'verified'])
         Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);
+        Route::resource('message', MessageController::class)->except(['create', 'edit', 'update']);
     });
 
 // guest routes

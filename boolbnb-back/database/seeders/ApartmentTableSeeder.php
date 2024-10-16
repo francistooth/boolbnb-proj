@@ -31,7 +31,7 @@ class ApartmentTableSeeder extends Seeder
             $new_apartment->sqm = (($new_apartment->room * 20) + ($new_apartment->bathroom * 10));
             $new_apartment->address = $apartment['address'];
             $new_apartment->coordinate_long_lat = Helper::generateCoordinate($new_apartment->address);
-            $new_apartment->img_path = "@/img/apartment" . rand(1, 16) . ".jpg";
+            $new_apartment->img_path = "/img/apartment" . rand(1, 16) . ".jpg";
             $new_apartment->img_name = $new_apartment->img_path;
             $new_apartment->is_visible = true;
             $new_apartment->save();

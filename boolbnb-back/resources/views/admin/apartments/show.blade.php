@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('delete'))
+            <div class="alert alert-danger mx-auto">
+                {{ session('delete') }}
+            </div>
+        @endif
         @if (session('update'))
             <div class="alert alert-success mx-auto">
                 {{ session('update') }}
@@ -13,9 +18,8 @@
             <div class="card " style="width: 18rem;">
                 {{-- Immagine/i appartamento --}}
                 <div class="picture">
-                    <img src="{{ asset('storage/' . $apartment->img_path) }}" {{-- alt="{{ $work->original_name_img }}" --}} class="img-thumbnail"
+                    <img src="{{ asset('storage/' . $apartment->img_path) }}" class="img-thumbnail"
                         onerror="this.src='/img/default-image.jpg'">
-
                 </div>
                 <div class="card-body">
                     {{-- Nome appartamento --}}
@@ -54,9 +58,28 @@
                     <div>
                         <h4>Visibilità</h4>
                         <button class="btn btn-success">
-                            {{ $apartment->is_visible }}
+                            @if ($apartment->is_visible)
+                                Si
+                            @else
+                                No
+                            @endif
                         </button>
                     </div>
+                    <ul>
+                        <li>Messaggi</li>
+                        @foreach ($apartment->messages as $message)
+                            <li>{{ $message->id }} {{ $message->message }} <form
+                                    class="btn btn-danger rounded border-0 z-3 w-25 d-flex align-items-center justify-content-center"
+                                    action="{{ route('admin.message.destroy', $message) }}" method="POST"
+                                    onsubmit="return confirm('sei sicuro di voler cancellare {{ $message->id }}')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn"> <i class="text-light fa-solid fa-trash">
+                                        </i></button>
+                                </form>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
