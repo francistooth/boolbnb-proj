@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Guest\PageController;
+use App\Http\Controllers\Admin\UserResourceController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +26,9 @@ Route::middleware(['auth', 'verified'])
   ->group(function(){
       // TUTTE LE ROTTE DI Admin
       Route::get('/', [DashboardController::class, 'index'])->name('home');
-
       Route::resource('apartments', ApartmentController::class);
-  });
+      Route::resource('user', UserResourceController::class);
+    });
 
 // guest routes
 
