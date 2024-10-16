@@ -61,7 +61,13 @@ class ApartmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $apartments = Apartment::find($id);
+
+        if($apartments->user_id !== Auth::id()){
+          abort(404);
+      }
+
+        return view('admin.apartments.show', compact('apartments'));
     }
 
     /**

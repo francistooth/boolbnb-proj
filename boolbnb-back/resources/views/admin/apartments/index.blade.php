@@ -4,8 +4,14 @@
   <div class="container d-flex justify-content-between align-items-center mt-4">
     <h2> Dashboard di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
 
-    <a class="btn btn-danger" href="{{route('admin.apartments.create')}}"> <i class="fa-solid fa-plus">  </i></a> {{--  {{route('apartments.create')}} --}}
+    <div>
+      <a class="btn btn-danger" href="{{route('admin.apartments.create')}}"> <i class="fa-solid fa-plus">  </i></a> {{--  {{route('apartments.create')}} --}}
+      <a class="btn btn-warning" href="{{route('admin.apartments.show' , Auth::id())}}"> <i class="fa-solid fa-plus">  </i></a>
+    </div>
+
   </div>
+
+
 
 
   <div class="container">

@@ -39,11 +39,11 @@ class UserResourceController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::find($id);
+        // $user = User::find($id);
+
+        $user = User::all();
 
         return view('admin.user.show' , compact('user'));
-        // return redirect()->route('admin.user.show', $user);
-
     }
 
     /**
