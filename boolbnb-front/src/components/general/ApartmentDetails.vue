@@ -1,5 +1,5 @@
-<script >
-import {store} from '../../store';
+<script>
+import { store } from '../../store';
 import Map from '../partials/Map.vue';
 
 export default {
@@ -7,15 +7,15 @@ export default {
     components: {
         Map
     },
-    data(){
-        return{
+    data() {
+        return {
             store,
         }
-        
+
     },
-    mounted(){
+    mounted() {
         console.log(store);
-        
+
     }
 }
 </script>
@@ -36,15 +36,15 @@ export default {
                     <img src="/img/glamp1.jpeg" class="" alt="...">
                     <img src="/img/glamp1.jpeg" class="" alt="...">
                 </div>
-                
+
             </div>
             <div class="col-2"></div>
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <h4 class="">{{store.apartments.title}}</h4>
+                <h4 class="">{{ store.apartments.title }}</h4>
                 <p>{{ store.apartments.address }}</p>
-                <p class="mt-4">{{store.apartments.description}}</p>
+                <p class="mt-4">{{ store.apartments.description }}</p>
             </div>
         </div>
         <div class="row mt-5">
@@ -85,7 +85,7 @@ export default {
                                 <li>Guide locali e mappe</li>
                             </ul>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ export default {
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <Map />
+                <Map style="width: 500px; height:500px;" />
             </div>
         </div>
     </div>
@@ -107,23 +107,26 @@ export default {
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
 
-.big-img{
-    img{
+.big-img {
+    img {
         width: 100%;
     }
 }
-.divisor{
+
+.divisor {
     height: 2.5px;
     background-color: black;
 }
-.features{
+
+.features {
     font-size: 1.4rem;
-    .row{
+
+    .row {
         font-size: 1rem;
     }
 }
-li{
+
+li {
     list-style: none;
 }
-
 </style>
