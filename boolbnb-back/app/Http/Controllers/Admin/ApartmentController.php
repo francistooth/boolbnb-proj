@@ -10,6 +10,7 @@ use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -45,13 +46,21 @@ class ApartmentController extends Controller
 
         $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
 
+        //DA SISTEMARE
+        // if (array_key_exists('img_path', $data)) {
+        //     $path_image = Storage::put('uploads', $data['img_path']);
+        //     $name_image = $request->file('img_path')->getClientOriginalName();
+        //     $data['img_path'] = $path_image;
+        //     $data['img_name'] = $name_image;
+        // }
+
         $new_apartment = Apartment::create($data);
 
         if (array_key_exists('services', $data)) {
             $new_apartment->services()->attach($data['services']);
         }
 
-        dd($new_apartment);
+        // dd($new_apartment);
 
         return redirect(route('admin.apartments.show', $new_apartment));
     }
@@ -63,9 +72,9 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::find($id);
 
-        if($apartments->user_id !== Auth::id()){
-          abort(404);
-      }
+        if ($apartments->user_id !== Auth::id()) {
+            abort(404);
+        }
 
         return view('admin.apartments.show', compact('apartments'));
     }
@@ -73,9 +82,11 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Apartment $apartment)
     {
-        //
+        $services = Service::all();
+
+        return view('admin.apartments.edit', compact('apartment', 'services'));
     }
 
     /**
