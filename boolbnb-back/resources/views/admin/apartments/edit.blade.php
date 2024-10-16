@@ -92,7 +92,17 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
+            {{-- <div class="form-group mb-3">
+                <label for="img_path" class="form-label">Immagine</label>
+                <input id="img_path" class="form-control" name="img_path" type="file" onchange="showImage(event)">
+                @error('img_path')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+                <img id="thumb" class="thumb pt-1" src="{{ asset('storage/' . $apartment->img_path) }}"
+                    onerror="this.src='/img/no-image.jpg'">
+            </div> --}}
+
+            <div class="form-group mb-3">
                 <label for="technologies" class="form-label d-block">Tecnologia utilizzata:</label>
 
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -111,6 +121,14 @@
                 </div>
             </div>
 
+            <div class="form-group mb-3">
+                <div class="form-check form-switch">
+                    <input type="hidden" name="is_visible" value="0">
+                    <input name="is_visible" class="form-check-input" type="checkbox" role="switch" value="1"
+                        id="is_visible" checked>
+                    <label class="form-check-label" for="is_visible">Appartamento visibile al pubblico</label>
+                </div>
+            </div>
 
             <div class="mb-3">
                 <button type="submit" href="#" class="btn btn-success">Modifica</button>
@@ -122,6 +140,12 @@
     </div>
 
     <script>
+        function showImage(event) {
+            const thumb = document.getElementById('thumb');
+            thumb.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const addressInput = document.getElementById('address');
             const suggestionsBox = document.getElementById('address-suggestions');
