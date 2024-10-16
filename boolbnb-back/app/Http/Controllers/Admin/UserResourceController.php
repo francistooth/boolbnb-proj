@@ -42,6 +42,8 @@ class UserResourceController extends Controller
         $user = User::find($id);
 
         return view('admin.user.show' , compact('user'));
+        // return redirect()->route('admin.user.show', $user);
+
     }
 
     /**
