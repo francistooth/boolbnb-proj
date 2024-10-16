@@ -5,10 +5,8 @@
         <h2> Dashboard di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
 
         <div>
-            <a class="btn btn-danger" href="{{ route('admin.apartments.create') }}"> <i class="fa-solid fa-plus"> </i></a>
-            {{--  {{route('apartments.create')}} --}}
-            <a class="btn btn-warning" href="{{ route('admin.apartments.show', Auth::id()) }}"> <i class="fa-solid fa-plus">
-                </i></a>
+            <a class="btn btn-success" href="{{ route('admin.apartments.create') }}"> Aggiungi un appartamento <i
+                    class="fa-solid fa-plus"> </i></a>
         </div>
 
     </div>
@@ -30,10 +28,15 @@
                             {{ $apartment->description }}
                         </p>
 
-                        <div class="d-flex justify-content-between align-self-end">
-                            <a class="btn btn-primary rounded border-0 w-25 z-3 d-flex align-items-center justify-content-center"
-                                href="{{ route('admin.apartments.edit', $apartment) }}"> <i class="fa-solid fa-pen">
+                        <div class="d-flex justify-content-center align-self-end">
+                            <a class="btn btn-primary m-2" href="{{ route('admin.apartments.edit', $apartment) }}"> <i
+                                    class="fa-solid fa-pen">
                                 </i></a>
+
+                            <a class="btn btn-primary m-2" href="{{ route('admin.apartments.show', $apartment) }}"> <i
+                                    class="fa-solid fa-eye">
+                                </i></a>
+
                             {{-- <!-- <a class="btn btn-danger  rounded border-0 w-25 position-relative z-3" href="{{route('projects.delete', $project)}}"> <i class="fa-solid fa-trash">  </i></a> --> --}}
                             {{-- <form class="btn btn-danger rounded border-0 z-3 w-25 d-flex align-items-center justify-content-center" action="{{route('projects.delete', $project) }}" method="POST">
                     @csrf
