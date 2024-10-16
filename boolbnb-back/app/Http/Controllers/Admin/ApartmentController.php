@@ -92,9 +92,37 @@ class ApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ApartmentRequest $request, Apartment $apartment)
     {
-        //
+        $data = $request->all();
+
+        if ($data['title'] != $apartment->title) {
+            $data['slug'] = Helper::generateSlug($data['title'], Apartment::class);
+        }
+
+        $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
+
+        // if (array_key_exists('img_path', $data)) {
+        //     if ($project->path_image) {
+        //         Storage::delete($project->path_image);
+        //     }
+        //     $path_image = Storage::put('uploads', $data['img_path']);
+        //     $name_image = $request->file('img_path')->getClientOriginalName();
+        //     $data['img_path'] = $path_image;
+        //     $data['img_name'] = $name_image;
+        // }
+
+        $apartment->update($data);
+
+        if (array_key_exists('services', $data)) {
+            $apartment->services()->sync($data['services']);
+        } else {
+            $apartment->services()->detach();
+        }
+
+        dd($apartment);
+
+        return redirect()->route('admin.apartments.show', compact('apartment'));
     }
 
     /**
