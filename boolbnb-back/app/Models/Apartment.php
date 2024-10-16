@@ -35,10 +35,11 @@ class Apartment extends Model
         'bed',
         'bathroom',
         'sqm',
-        'adress',
+        'address',
         'coordinate_long_lat',
         'img_path',
         'img_name',
-        'is_visible'
+        'is_visible',
+        'user_id',
     ];
 }
