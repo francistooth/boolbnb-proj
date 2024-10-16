@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -93,6 +94,10 @@ class RegisteredUserController extends Controller
             $date_birth = $request->year . '-' . $request->month . '-' . $request->day;
         } else {
             $date_birth = null;
+        }
+
+        if ($request->name === null) {
+            $request->name = Str::before($request->email, '@');
         }
 
         $user = User::create([
