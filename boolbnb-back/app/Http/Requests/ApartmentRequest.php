@@ -27,14 +27,13 @@ class ApartmentRequest extends FormRequest
             'room' => 'required|integer|min:1',
             'bed' => 'required|integer|min:1',
             'bathroom' => 'required|integer|min:1',
-            'sqm' => 'required|integer|min:10',
-            /* 'address' => 'required|string', */
+            'sqm' => 'required|integer|min:10|max:50000',
             'img_path' => 'nullable',
             'img_name' => 'nullable',
-            'sqm' => 'required|integer|min:10|max:50000',
-            'address' => 'required|string',
-            'img_path' => 'nullable|string',
-            'img_name' => 'nullable|string',
+            'sqm' => 'required|integer|min:10',
+            'address' => 'required' /* string */,
+            'img_path' => 'nullable'/* |string */,
+            'img_name' => 'nullable'/* |string */,
         ];
     }
 
