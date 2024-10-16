@@ -21,13 +21,17 @@ use App\Http\Controllers\Admin\UserResourceController;
 */
 
 Route::middleware(['auth', 'verified'])
-  ->prefix('admin')
-  ->name('admin.')
-  ->group(function(){
-      // TUTTE LE ROTTE DI Admin
-      Route::get('/', [DashboardController::class, 'index'])->name('home');
-      Route::resource('apartments', ApartmentController::class);
-      Route::resource('user', UserResourceController::class);
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // TUTTE LE ROTTE DI Admin
+        Route::get('/', [DashboardController::class, 'index'])->name('home');
+        Route::get('apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
+        Route::patch('apartments/{id}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
+        Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
+        Route::resource('apartments', ApartmentController::class);
+
+        Route::resource('user', UserResourceController::class);
     });
 
 // guest routes

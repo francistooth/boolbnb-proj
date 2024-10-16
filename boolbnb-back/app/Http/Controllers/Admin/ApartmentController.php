@@ -123,11 +123,29 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     { {
-            if ($apartment->img_path) {
-                Storage::delete($apartment->img_path);
-            }
             $apartment->delete();
             return redirect()->route('admin.apartments.index')->with('delete', 'L\' appartamento in  ' . $apartment['address'] . ' è stato cancellato');
         }
+    }
+    public function trash()
+    {
+        $apartments = Apartment::onlyTrashed()->orderBy('id')->get();
+        return view('admin.apartments.trash', compact('apartments'));
+    }
+    public function restore($id)
+    {
+        $apartment = Apartment::withTrashed()->find($id);
+        $apartment->restore();
+        return redirect()->route('admin.apartments.index')->with('message', 'l\' appartamento ' . $apartment->title . 'é stato ripristinto');
+    }
+
+    public function delete($id)
+    {
+        $apartment = Apartment::withTrashed()->find($id);
+        if ($apartment->img_name) {
+            Storage::delete($apartment->path_img);
+        }
+        $apartment->forceDelete();
+        return redirect()->route('admin.apartments.index')->with('delete', 'L\' appartamento ' . $apartment->title . 'é stato eliminato definitivamente');
     }
 }
