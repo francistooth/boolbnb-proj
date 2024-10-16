@@ -182,7 +182,7 @@
             document.getElementById('email').addEventListener('input', function() {
                 const emailInput = this;
                 const emailValue = emailInput.value;
-                const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+                const emailPattern = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
                 if (emailPattern.test(emailValue)) {
                     emailInput.classList.remove('is-invalid');
@@ -247,12 +247,9 @@
                     switch (month) {
                         case 2: // febbraio
                             // controlla se l'anno è bisestile
-                            daysInMonth = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
+                            daysInMonth = year % 4 === 0 ? 29 : 28;
                             break;
-                        case 4:
-                        case 6:
-                        case 9:
-                        case 11: // aprile, giugno, settembre, novembre
+                        case 4, 6, 9, 11: // aprile, giugno, settembre, novembre
                             daysInMonth = 30;
                             break;
                         default: // altri mesi
