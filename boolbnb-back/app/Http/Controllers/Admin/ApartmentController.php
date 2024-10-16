@@ -115,9 +115,7 @@ class ApartmentController extends Controller
             $apartment->services()->detach();
         }
 
-        dd($apartment);
-
-        return redirect()->route('admin.apartments.show', compact('apartment'));
+        return redirect()->route('admin.apartments.show', compact('apartment'))->with('update', 'Il  tuo Appartamento è stato  aggiornato');;
     }
 
     /**
