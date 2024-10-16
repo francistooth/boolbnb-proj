@@ -23,10 +23,8 @@ class ApartmentSponsorTableSeeder extends Seeder
             $apartment = Apartment::inRandomOrder()->first();
             $sponsor = Sponsor::inRandomOrder()->first()->id;
             $create_at = Carbon::now();
-            $sponsor_id = $sponsor;
-
             // Definisci il numero di giorni basato sullo sponsor_id
-            switch ($sponsor_id) {
+            switch ($sponsor) {
                 case 1:
                     $daysToAdd = 1;
                     break;

@@ -29,8 +29,8 @@ class ApartmentRequest extends FormRequest
             'bathroom' => 'required|integer|min:1',
             'sqm' => 'required|integer|min:10',
             'address' => 'required|string',
-            'img_path' => 'nullable|string',
-            'img_name' => 'nullable|string',
+            'img_path' => 'nullable',
+            'img_name' => 'nullable',
         ];
     }
 
@@ -63,8 +63,8 @@ class ApartmentRequest extends FormRequest
             'address.required' => "L'indirizzo è obbligatorio.",
             'address.string' => "L'indirizzo deve essere una stringa valida.",
 
-            'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
-            'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.',
+           /*  'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
+            'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.', */
         ];
     }
 }

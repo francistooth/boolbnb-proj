@@ -68,17 +68,10 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Apartment $apartments)
+    public function show(Apartment $apartment)
     {
-        $apartments = Apartment::all();
 
-        $services = Service::all();
-
-      //   if($apartments->user_id !== Auth::id()){
-      //     abort(404);
-      // }
-
-        return view('admin.apartments.show', compact('apartments' , 'services'));
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**

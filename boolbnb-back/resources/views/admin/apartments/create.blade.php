@@ -18,7 +18,8 @@
 
         <div class="d-flex justify-content-between align-items-center mt-4">
 
-            <form class="d-flex flex-column gap-4" method="POST" action="{{ route('admin.apartments.store') }}">
+            <form class="d-flex flex-column gap-4" method="POST" action="{{ route('admin.apartments.store') }}"
+                enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -113,7 +114,9 @@
 
                 <div class="form-group">
                     <label for="img_path">Immagine:</label>
-                    <input type="file" id="img_path" name="img_path" class="form-control mb-4">
+                    <input type="file" id="img_path" name="img_path" class="form-control mb-4"
+                        onchange="Preview(event)">
+                    <img src="\img\default-image.jpg" id="thumb" class="img-thumbnail w-25 mt-2">
                 </div>
 
                 <div class="form-group">
@@ -193,5 +196,11 @@
                 }
             });
         });
+
+
+        function Preview(event) {
+            const thumb = document.getElementById('thumb');
+            thumb.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 @endsection
