@@ -46,13 +46,13 @@ class ApartmentController extends Controller
 
         $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
 
-        //DA SISTEMARE
-        // if (array_key_exists('img_path', $data)) {
-        //     $path_image = Storage::put('uploads', $data['img_path']);
-        //     $name_image = $request->file('img_path')->getClientOriginalName();
-        //     $data['img_path'] = $path_image;
-        //     $data['img_name'] = $name_image;
-        // }
+
+        if (array_key_exists('img_path', $data)) {
+            $path_image = Storage::put('uploads', $data['img_path']);
+            $name_image = $request->file('img_path')->getClientOriginalName();
+            $data['img_path'] = $path_image;
+            $data['img_name'] = $name_image;
+        }
 
         $new_apartment = Apartment::create($data);
 

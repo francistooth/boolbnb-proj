@@ -118,7 +118,11 @@
                     <label for="img_path">Immagine:</label>
                     <input type="file" id="img_path" name="img_path" class="form-control mb-4"
                         onchange="Preview(event)">
-                    <img src="\img\default-image.jpg" id="thumb" class="img-thumbnail w-25 mt-2">
+                    <img value='{{ old('img_path') }}' src="\img\default-image.jpg" id="thumb"
+                        class="img-thumbnail w-25 mt-2">
+                    @error('img_path')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -136,24 +140,24 @@
 
     <script>
         /*    document.addEventListener('DOMContentLoaded', function() {
-                                            const addressInput = document.getElementById('address');
-                                            const suggestionsBox = document.getElementById('address-suggestions');
-                                            const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
+                                                    const addressInput = document.getElementById('address');
+                                                    const suggestionsBox = document.getElementById('address-suggestions');
+                                                    const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
 
-                                            // Funzione per fare la chiamata all'API TomTom
-                                            function fetchAddressSuggestions(query) {
-                                                const apiUrl =
-                                                    `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
+                                                    // Funzione per fare la chiamata all'API TomTom
+                                                    function fetchAddressSuggestions(query) {
+                                                        const apiUrl =
+                                                            `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
 
-                                                fetch(apiUrl)
-                                                    .then(response => response.json())
-                                                    .then(data => {
-                                                        showSuggestions(data.results);
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Errore nella chiamata API TomTom:', error);
-                                                    });
-                                            } */
+                                                        fetch(apiUrl)
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                showSuggestions(data.results);
+                                                            })
+                                                            .catch(error => {
+                                                                console.error('Errore nella chiamata API TomTom:', error);
+                                                            });
+                                                    } */
 
         /*    // Funzione per mostrare i suggerimenti nella tendina
                         function showSuggestions(results) {
