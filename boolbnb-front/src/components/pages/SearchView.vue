@@ -7,22 +7,25 @@ import Map from '../partials/Map.vue';
     components: {
     ApartmentCard,
     Map
-  }
+    }
   }
 </script>
 
 
 
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid mt-5">
     <div class="row">
       <div class="col-7 myborder">
+        <div class="my-3">
+          Campo con filtri
+        </div>
         <div class="d-flex flex-wrap justify-content-between mx-5 ">
           <ApartmentCard v-for="index in 12" class="my-2 boh"/>
         </div>
       </div>
       <div class="col-5">
-        <Map />
+        <Map class="try" />
       </div>
     </div>
     
@@ -39,4 +42,5 @@ import Map from '../partials/Map.vue';
 .boh{
     width: calc(100%/4 - 20px);
 }
+
 </style>
