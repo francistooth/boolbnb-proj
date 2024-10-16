@@ -15,7 +15,7 @@ class UserResourceController extends Controller
     {
         $user = User::all();
 
-        return view('user.index' , compact('user'));
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -37,13 +37,10 @@ class UserResourceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        // $user = User::find($id);
 
-        $user = User::all();
-
-        return view('admin.user.show' , compact('user'));
+        return view('admin.user.show', compact('user'));
     }
 
     /**

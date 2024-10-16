@@ -30,8 +30,7 @@ Route::middleware(['auth', 'verified'])
         Route::patch('apartments/{id}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
         Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
         Route::resource('apartments', ApartmentController::class);
-
-        Route::resource('user', UserResourceController::class);
+        Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);
     });
 
 // guest routes

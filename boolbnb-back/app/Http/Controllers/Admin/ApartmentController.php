@@ -97,15 +97,16 @@ class ApartmentController extends Controller
 
         $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
 
-        // if (array_key_exists('img_path', $data)) {
-        //     if ($apartment->path_image) {
-        //         Storage::delete($apartment->path_image);
-        //     }
-        //     $path_image = Storage::put('uploads', $data['img_path']);
-        //     $name_image = $request->file('img_path')->getClientOriginalName();
-        //     $data['img_path'] = $path_image;
-        //     $data['img_name'] = $name_image;
-        // }
+        if (array_key_exists('img_path', $data)) {
+            /* se carico un altra immagine al posto di quella vecchia devo cancellare la vecchia dallo storage */
+            if ($apartment->path_image) {
+                Storage::delete($apartment->path_image);
+            }
+            $path_image = Storage::put('uploads', $data['img_path']);
+            $name_image = $request->file('img_path')->getClientOriginalName();
+            $data['img_path'] = $path_image;
+            $data['img_name'] = $name_image;
+        }
 
         $apartment->update($data);
 
