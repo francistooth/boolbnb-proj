@@ -82,24 +82,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Indirizzo:</label>
-                    <input value="{{ old('address') }}" type="text" id="address" name="address" class="form-control"
-                        required>
+                    <label for="street">Via:</label>
+                    <input value="{{ old('street') }}" type="text" id="street" name="street" class="form-control"
+                        required placeholder="Via Roma">
+                    <label for="civic">Numero Civico</label>
+                    <input value="{{ old('civic') }}" type="number" id="civic" name="civic" class="form-control"
+                        required placeholder="78">
+                    <label for="city">Città</label>
+                    <input value="{{ old('city') }}" type="text" id="city" name="city" class="form-control"
+                        required placeholder="Roma">
 
-                    {{-- risultati chiamata API --}}
+                    {{--
+                  risultati chiamata API
                     <div id="address-suggestions" class="list-group" style="position: absolute; z-index: 100;">
-                    </div>
+                    </div> --}}
 
                     @error('address')
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
                 </div>
-
                 <div class="mb-3">
                     <label for="services" class="form-label d-block">Servizi disponibili:</label>
-
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-
                         @foreach ($services as $service)
                             <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
                                 id="service-{{ $service->id }}" autocomplete="off"
@@ -108,10 +112,8 @@
                             <label class="btn btn-outline-primary"
                                 for="service-{{ $service->id }}">{{ $service->name }}</label>
                         @endforeach
-
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="img_path">Immagine:</label>
                     <input type="file" id="img_path" name="img_path" class="form-control mb-4"
@@ -133,70 +135,70 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const addressInput = document.getElementById('address');
-            const suggestionsBox = document.getElementById('address-suggestions');
-            const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
+        /*    document.addEventListener('DOMContentLoaded', function() {
+                                            const addressInput = document.getElementById('address');
+                                            const suggestionsBox = document.getElementById('address-suggestions');
+                                            const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
 
-            // Funzione per fare la chiamata all'API TomTom
-            function fetchAddressSuggestions(query) {
-                const apiUrl =
-                    `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
+                                            // Funzione per fare la chiamata all'API TomTom
+                                            function fetchAddressSuggestions(query) {
+                                                const apiUrl =
+                                                    `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
 
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        showSuggestions(data.results);
-                    })
-                    .catch(error => {
-                        console.error('Errore nella chiamata API TomTom:', error);
+                                                fetch(apiUrl)
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        showSuggestions(data.results);
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Errore nella chiamata API TomTom:', error);
+                                                    });
+                                            } */
+
+        /*    // Funzione per mostrare i suggerimenti nella tendina
+                        function showSuggestions(results) {
+                            suggestionsBox.innerHTML = ''; // Pulire i vecchi suggerimenti
+                            if (results && results.length > 0) {
+                                results.forEach(result => {
+                                    const suggestionItem = document.createElement('a');
+                                    suggestionItem.classList.add('list-group-item', 'list-group-item-action');
+                                    suggestionItem.textContent = result.address.freeformAddress;
+
+                                    // Gestisci clic sull'indirizzo suggerito
+                                    suggestionItem.addEventListener('click', function() {
+                                        addressInput.value = result.address.freeformAddress;
+                                        suggestionsBox.innerHTML =
+                                            ''; // Nascondi i suggerimenti dopo aver selezionato
+                                    });
+
+                                    suggestionsBox.appendChild(suggestionItem);
+                                });
+                            } else {
+                                const noResult = document.createElement('a');
+                                noResult.classList.add('list-group-item', 'list-group-item-action');
+                                noResult.textContent = 'Nessun risultato trovato';
+                                suggestionsBox.appendChild(noResult);
+                            }
+                        }
+             */
+        /*  // Ascolta l'input dell'utente e attiva la ricerca
+         addressInput.addEventListener('input', function() {
+             const query = addressInput.value.trim();
+             if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
+                 fetchAddressSuggestions(query);
+             } else {
+                 suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
+             }
+         }); */
+
+        /*  // Nascondi i suggerimenti se l'utente clicca altrove
+                    document.addEventListener('click', function(event) {
+                        if (!suggestionsBox.contains(event.target) && event.target !== addressInput) {
+                            suggestionsBox.innerHTML = ''; // Nascondi i suggerimenti
+                        }
                     });
-            }
-
-            // Funzione per mostrare i suggerimenti nella tendina
-            function showSuggestions(results) {
-                suggestionsBox.innerHTML = ''; // Pulire i vecchi suggerimenti
-                if (results && results.length > 0) {
-                    results.forEach(result => {
-                        const suggestionItem = document.createElement('a');
-                        suggestionItem.classList.add('list-group-item', 'list-group-item-action');
-                        suggestionItem.textContent = result.address.freeformAddress;
-
-                        // Gestisci clic sull'indirizzo suggerito
-                        suggestionItem.addEventListener('click', function() {
-                            addressInput.value = result.address.freeformAddress;
-                            suggestionsBox.innerHTML =
-                                ''; // Nascondi i suggerimenti dopo aver selezionato
-                        });
-
-                        suggestionsBox.appendChild(suggestionItem);
-                    });
-                } else {
-                    const noResult = document.createElement('a');
-                    noResult.classList.add('list-group-item', 'list-group-item-action');
-                    noResult.textContent = 'Nessun risultato trovato';
-                    suggestionsBox.appendChild(noResult);
-                }
-            }
-
-            // Ascolta l'input dell'utente e attiva la ricerca
-            addressInput.addEventListener('input', function() {
-                const query = addressInput.value.trim();
-                if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
-                    fetchAddressSuggestions(query);
-                } else {
-                    suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
-                }
-            });
-
-            // Nascondi i suggerimenti se l'utente clicca altrove
-            document.addEventListener('click', function(event) {
-                if (!suggestionsBox.contains(event.target) && event.target !== addressInput) {
-                    suggestionsBox.innerHTML = ''; // Nascondi i suggerimenti
-                }
-            });
-        });
-
+                });
+         */
 
         function Preview(event) {
             const thumb = document.getElementById('thumb');
