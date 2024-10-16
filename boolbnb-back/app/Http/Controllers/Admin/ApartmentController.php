@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApartmentRequest;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
+use App\Models\Service;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
@@ -14,8 +18,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-      $apartments = Apartment::all()->where('user_id', Auth::id());
-      return view('admin.apartments.index', ['apartments' => $apartments]);
+        $apartments = Apartment::all()->where('user_id', Auth::id());
+        return view('admin.apartments.index', ['apartments' => $apartments]);
     }
 
     /**
@@ -23,15 +27,33 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-      return view('admin.apartments.create');
+        $services = Service::all();
+
+        return view('admin.apartments.create', compact('services'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ApartmentRequest $request)
     {
-      //
+        $data = $request->all();
+
+        $data['slug'] = Helper::generateSlug($data['title'], Apartment::class);
+
+        $data['user_id'] = Auth::id();
+
+        $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
+
+        $new_apartment = Apartment::create($data);
+
+        if (array_key_exists('services', $data)) {
+            $new_apartment->services()->attach($data['services']);
+        }
+
+        dd($new_apartment);
+
+        return redirect(route('admin.apartments.show', $new_apartment));
     }
 
     /**
