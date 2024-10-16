@@ -27,7 +27,7 @@ class ApartmentRequest extends FormRequest
             'room' => 'required|integer|min:1',
             'bed' => 'required|integer|min:1',
             'bathroom' => 'required|integer|min:1',
-            'sqm' => 'required|integer|min:10',
+            'sqm' => 'required|integer|min:10|max:50000',
             'address' => 'required|string',
             'img_path' => 'nullable|string',
             'img_name' => 'nullable|string',
@@ -59,6 +59,7 @@ class ApartmentRequest extends FormRequest
             'sqm.required' => 'La superficie è obbligatoria.',
             'sqm.integer' => 'La superficie deve essere un numero intero.',
             'sqm.min' => 'La superficie deve essere almeno 10 metri quadrati.',
+            'sqm.max' => 'La superficie può essere massimo di 50000 metri quadrati.',
 
             'address.required' => "L'indirizzo è obbligatorio.",
             'address.string' => "L'indirizzo deve essere una stringa valida.",
