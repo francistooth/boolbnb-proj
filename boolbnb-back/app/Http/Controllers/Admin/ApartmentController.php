@@ -41,7 +41,7 @@ class ApartmentController extends Controller
         $data = $request->all();
 
         $data['slug'] = Helper::generateSlug($data['title'], Apartment::class);
-
+        $data['address'] = $data['street'] . ',' . $data['civic'] . ',' . $data['city'];
         $data['user_id'] = Auth::id();
 
         $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
@@ -60,7 +60,7 @@ class ApartmentController extends Controller
             $new_apartment->services()->attach($data['services']);
         }
 
-        // dd($new_apartment);
+
 
         return redirect(route('admin.apartments.show', $new_apartment));
     }
@@ -68,17 +68,10 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Apartment $apartments)
+    public function show(Apartment $apartment)
     {
-        $apartments = Apartment::all();
 
-        $services = Service::all();
-
-      //   if($apartments->user_id !== Auth::id()){
-      //     abort(404);
-      // }
-
-        return view('admin.apartments.show', compact('apartments' , 'services'));
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**

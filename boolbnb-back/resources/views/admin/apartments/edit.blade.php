@@ -103,22 +103,21 @@
             </div> --}}
 
             <div class="form-group mb-3">
-                <label for="technologies" class="form-label d-block">Tecnologia utilizzata:</label>
+                <label for="technologies" class="form-label d-block">Servizi utilizzata:</label>
 
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-
-                    @foreach ($services as $services)
-                        <input value="{{ $services->id }}" name="services[]" type="checkbox" class="btn-check"
-                            id="services-{{ $services->id }}" autocomplete="off"
+                    @foreach ($services as $service)
+                        <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
+                            id="service-{{ $service->id }}" autocomplete="off"
                             @if (
-                                ($errors->any() && in_array($services->id, old('services', []))) ||
-                                    (!$errors->any() && $apartment->services->contains($services))) checked @endif>
+                                ($errors->any() && in_array($service->id, old('services', []))) ||
+                                    (!$errors->any() && $apartment->services->contains($service->id))) checked @endif>
 
                         <label class="btn btn-outline-primary"
-                            for="services-{{ $services->id }}">{{ $services->name }}</label>
+                            for="service-{{ $service->id }}">{{ $service->name }}</label>
                     @endforeach
-
                 </div>
+
             </div>
 
             <div class="form-group mb-3">
@@ -146,69 +145,69 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const addressInput = document.getElementById('address');
-            const suggestionsBox = document.getElementById('address-suggestions');
-            const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
+        /*  document.addEventListener('DOMContentLoaded', function() {
+             const addressInput = document.getElementById('address');
+             const suggestionsBox = document.getElementById('address-suggestions');
+             const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
 
-            // Funzione per fare la chiamata all'API TomTom
-            function fetchAddressSuggestions(query) {
-                const apiUrl =
-                    `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
+             // Funzione per fare la chiamata all'API TomTom
+             function fetchAddressSuggestions(query) {
+                 const apiUrl =
+                     `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
 
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        showSuggestions(data.results);
-                    })
-                    .catch(error => {
-                        console.error('Errore nella chiamata API TomTom:', error);
-                    });
-            }
+                 fetch(apiUrl)
+                     .then(response => response.json())
+                     .then(data => {
+                         showSuggestions(data.results);
+                     })
+                     .catch(error => {
+                         console.error('Errore nella chiamata API TomTom:', error);
+                     });
+             }
 
-            // Funzione per mostrare i suggerimenti nella tendina
-            function showSuggestions(results) {
-                suggestionsBox.innerHTML = ''; // Pulire i vecchi suggerimenti
-                if (results && results.length > 0) {
-                    results.forEach(result => {
-                        const suggestionItem = document.createElement('a');
-                        suggestionItem.classList.add('list-group-item', 'list-group-item-action');
-                        suggestionItem.textContent = result.address.freeformAddress;
+             // Funzione per mostrare i suggerimenti nella tendina
+             function showSuggestions(results) {
+                 suggestionsBox.innerHTML = ''; // Pulire i vecchi suggerimenti
+                 if (results && results.length > 0) {
+                     results.forEach(result => {
+                         const suggestionItem = document.createElement('a');
+                         suggestionItem.classList.add('list-group-item', 'list-group-item-action');
+                         suggestionItem.textContent = result.address.freeformAddress;
 
-                        // Gestisci clic sull'indirizzo suggerito
-                        suggestionItem.addEventListener('click', function() {
-                            addressInput.value = result.address.freeformAddress;
-                            suggestionsBox.innerHTML =
-                                ''; // Nascondi i suggerimenti dopo aver selezionato
-                        });
+                         // Gestisci clic sull'indirizzo suggerito
+                         suggestionItem.addEventListener('click', function() {
+                             addressInput.value = result.address.freeformAddress;
+                             suggestionsBox.innerHTML =
+                                 ''; // Nascondi i suggerimenti dopo aver selezionato
+                         });
 
-                        suggestionsBox.appendChild(suggestionItem);
-                    });
-                } else {
-                    const noResult = document.createElement('a');
-                    noResult.classList.add('list-group-item', 'list-group-item-action');
-                    noResult.textContent = 'Nessun risultato trovato';
-                    suggestionsBox.appendChild(noResult);
-                }
-            }
+                         suggestionsBox.appendChild(suggestionItem);
+                     });
+                 } else {
+                     const noResult = document.createElement('a');
+                     noResult.classList.add('list-group-item', 'list-group-item-action');
+                     noResult.textContent = 'Nessun risultato trovato';
+                     suggestionsBox.appendChild(noResult);
+                 }
+             }
 
-            // Ascolta l'input dell'utente e attiva la ricerca
-            addressInput.addEventListener('input', function() {
-                const query = addressInput.value.trim();
-                if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
-                    fetchAddressSuggestions(query);
-                } else {
-                    suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
-                }
-            });
+             // Ascolta l'input dell'utente e attiva la ricerca
+             addressInput.addEventListener('input', function() {
+                 const query = addressInput.value.trim();
+                 if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
+                     fetchAddressSuggestions(query);
+                 } else {
+                     suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
+                 }
+             });
 
-            // Nascondi i suggerimenti se l'utente clicca altrove
-            document.addEventListener('click', function(event) {
-                if (!suggestionsBox.contains(event.target) && event.target !== addressInput) {
-                    suggestionsBox.innerHTML = ''; // Nascondi i suggerimenti
-                }
-            });
-        });
+             // Nascondi i suggerimenti se l'utente clicca altrove
+             document.addEventListener('click', function(event) {
+                 if (!suggestionsBox.contains(event.target) && event.target !== addressInput) {
+                     suggestionsBox.innerHTML = ''; // Nascondi i suggerimenti
+                 }
+             });
+         }); */
     </script>
 
 @endsection
