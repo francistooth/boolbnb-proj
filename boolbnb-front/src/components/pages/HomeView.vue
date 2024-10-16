@@ -11,7 +11,7 @@ export default {
 
 <template>
   <main>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-5 pt-3">
       <div>
         
         <div class="d-flex flex-wrap justify-content-between mx-5 ">

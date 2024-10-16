@@ -5,9 +5,9 @@ export default {
 </script>
 
 <template>
-    <nav class="d-flex">
-        <RouterLink to="/ricerca-avanzata">Cerca</RouterLink>
-        <div class="dropdown">
+    <nav class="d-flex align-items-center ">
+        <RouterLink to="/ricerca-avanzata">Ricerca Avanzata</RouterLink>
+        <div class="dropdown ms-5">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Accedi
             </button>
@@ -22,5 +22,14 @@ export default {
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
+
+a{
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 6px;
+    background-color: rgb(177,216,252) ;
+}
 </style>
 
