@@ -98,8 +98,8 @@ class ApartmentController extends Controller
         $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
 
         // if (array_key_exists('img_path', $data)) {
-        //     if ($project->path_image) {
-        //         Storage::delete($project->path_image);
+        //     if ($apartment->path_image) {
+        //         Storage::delete($apartment->path_image);
         //     }
         //     $path_image = Storage::put('uploads', $data['img_path']);
         //     $name_image = $request->file('img_path')->getClientOriginalName();
@@ -121,8 +121,13 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Apartment $apartment)
+    { {
+            if ($apartment->img_path) {
+                Storage::delete($apartment->img_path);
+            }
+            $apartment->delete();
+            return redirect()->route('admin.apartments.index')->with('delete', 'L\' appartamento in  ' . $apartment['address'] . ' è stato cancellato');
+        }
     }
 }

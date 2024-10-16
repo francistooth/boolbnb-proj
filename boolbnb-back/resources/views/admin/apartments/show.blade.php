@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('update'))
+            <div class="alert alert-success mx-auto">
+                {{ session('update') }}
+            </div>
+        @endif
         <h6> Proprietario degli appartamenti: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
         <h2>Show dell'appartamento</h2>
         <div class="d-flex flex-wrap mt-4">
@@ -45,9 +50,9 @@
                             {{ $apartment->address }}
                         </span>
                     </div>
-                    {{-- Disponibilità --}}
+                    {{-- Visibilità --}}
                     <div>
-                        <h4>Disponibilte</h4>
+                        <h4>Visibilità</h4>
                         <button class="btn btn-success">
                             {{ $apartment->is_visible }}
                         </button>

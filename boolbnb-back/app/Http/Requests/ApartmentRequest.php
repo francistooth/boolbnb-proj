@@ -31,7 +31,7 @@ class ApartmentRequest extends FormRequest
             'img_path' => 'nullable',
             'img_name' => 'nullable',
             'sqm' => 'required|integer|min:10',
-            'address' => 'required' /* string */,
+            /*  'address' => 'required' string, */
             'img_path' => 'nullable'/* |string */,
             'img_name' => 'nullable'/* |string */,
         ];
@@ -64,8 +64,8 @@ class ApartmentRequest extends FormRequest
             'sqm.min' => 'La superficie deve essere almeno 10 metri quadrati.',
             'sqm.max' => 'La superficie può essere massimo di 50000 metri quadrati.',
 
-            /* 'address.required' => "L'indirizzo è obbligatorio.",
-            'address.string' => "L'indirizzo deve essere una stringa valida.", */
+            'address.required' => "L'indirizzo è obbligatorio.",
+            /* 'address.string' => "L'indirizzo deve essere una stringa valida.", */
 
             /*  'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
             'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.', */
