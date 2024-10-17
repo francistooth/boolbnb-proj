@@ -64,22 +64,14 @@
                                 No
                             @endif
                         </button>
-                        <button class="btn btn-warming"><a
+                        <button class="btn btn-warning text-white"><a
                                 href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
                                     class="fa-regular fa-envelope"></i></a> </button>
                     </div>
                     <ul>
                         <li>Messaggi</li>
                         @foreach ($apartment->messages as $message)
-                            <li>{{ $message->id }} {{ $message->message }} <form
-                                    class="btn btn-danger rounded border-0 z-3 w-25 d-flex align-items-center justify-content-center"
-                                    action="{{ route('admin.message.destroy', $message) }}" method="POST"
-                                    onsubmit="return confirm('sei sicuro di voler cancellare {{ $message->id }}')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn"> <i class="text-light fa-solid fa-trash">
-                                        </i></button>
-                                </form>
+                            <li>{{ $message->id }} {{ $message->message }}
                             </li>
                         @endforeach
                     </ul>

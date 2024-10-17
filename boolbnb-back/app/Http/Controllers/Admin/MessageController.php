@@ -18,7 +18,7 @@ class MessageController extends Controller
     {
 
         $apartment_id = $request->get('apartment');
-        $messages = Message::all()->where('apartment_id', $apartment_id);
+        $messages = Message::where('apartment_id', $apartment_id)->get();
 
         return view('admin.message.index', compact('messages'));
     }
@@ -68,9 +68,10 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        /*
-        Sistemare il form di destrou delle email nelllo show degli appartamenti  bisogno passare anche il parametro apartamento id */
+
+        $apartment_id = $message->apartment_id;
+
         $message->delete();
-        return redirect()->route('admin.apartments.show')->with('delete', 'Il messaggio da ' . $message['email'] . ' è stato cancellato correttamente');
+        return redirect()->route('admin.message.index', ['apartment' => $apartment_id])->with('delete', 'Il messaggio da ' . $message['email'] . ' è stato cancellato correttamente');
     }
 }
