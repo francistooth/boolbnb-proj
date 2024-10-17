@@ -44,7 +44,7 @@ class ApartmentController extends Controller
         $data['address'] = $data['street'] . ',' . $data['civic'] . ',' . $data['city'];
         $data['user_id'] = Auth::id();
 
-        $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
+        $data['coordinate'] = Helper::generateCoordinate($data['address']);
 
 
         if (array_key_exists('img_path', $data)) {
@@ -98,7 +98,7 @@ class ApartmentController extends Controller
             $data['slug'] = Helper::generateSlug($data['title'], Apartment::class);
         }
 
-        $data['coordinate_long_lat'] = Helper::generateCoordinate($data['address']);
+        $data['coordinate'] = Helper::generateCoordinate($data['address']);
 
         if (array_key_exists('img_path', $data)) {
             /* se carico un altra immagine al posto di quella vecchia devo cancellare la vecchia dallo storage */

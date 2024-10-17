@@ -31,17 +31,13 @@ class Helper
     {
         $encoded_address = urlencode($string);
         $data_coordinate = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $encoded_address . '.json?key=PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG');
-        $coordinate_long_lat = json_decode($data_coordinate);
+        $coordinate = json_decode($data_coordinate);
 
-        if (!empty($coordinate_long_lat->results[0])) {
-            $lon = $coordinate_long_lat->results[0]->position->lon;
-            $lat = $coordinate_long_lat->results[0]->position->lat;
-            // Imposta coordinate_long_lat usando ST_PointFromText
-            return $coordinate_long_lat = DB::raw("ST_PointFromText('POINT($lon $lat)')");
+        if (!empty($coordinate->results[0])) {
+            $lon = $coordinate->results[0]->position->lon;
+            $lat = $coordinate->results[0]->position->lat;
+
+            return $coordinate = $lon . ', ' . $lat;
         }
-        /*
-        query per decodificare i dati nel db
-        DB::raw('ST_AsText(coordinate_long_lat) as coordinate_long_lat'))->get();
-        */
     }
 }
