@@ -89,13 +89,12 @@
                     <!-- LABEL -->
                     <label for="address">
                         Indirizzo: <strong class="text-danger">*</strong>
-                        <span class="text-secondary">inserire in ordine indirizzo, civico e città</span>
                     </label>
 
                     <!-- USER INPUT -->
                     <input type="text" id="address" name="address"
                         class="form-control @error('address') is-invalid @enderror"
-                        placeholder="Es: via Lecce 184, Lizzanello" required autocomplete="off">
+                        placeholder="Es: Via del Corso 73, 00186 Roma" required autocomplete="off">
 
                     <!-- RISULTATI API -->
                     <div id="address-suggestions" class="list-group"></div>
@@ -170,7 +169,7 @@
                     .then(response => response.json())
                     .then(data => {
                         suggestionsArray = data.results.map(result => result.address
-                        .freeformAddress); // Salva i risultati nel array
+                            .freeformAddress); // Salva i risultati nel array
                         showSuggestions(data.results);
                     })
                     .catch(error => {
@@ -191,9 +190,9 @@
                         suggestionItem.addEventListener('click', function() {
                             addressInput.value = result.address.freeformAddress;
                             suggestionsBox.innerHTML =
-                            ''; // Nascondi i suggerimenti dopo aver selezionato
+                                ''; // Nascondi i suggerimenti dopo aver selezionato
                             errorMessage.textContent =
-                            ''; // Rimuovi l'errore se selezionato un indirizzo valido
+                                ''; // Rimuovi l'errore se selezionato un indirizzo valido
                         });
 
                         suggestionsBox.appendChild(suggestionItem);
@@ -228,7 +227,7 @@
                 if (!suggestionsArray.includes(addressInput.value)) {
                     event.preventDefault(); // Blocca l'invio del form
                     errorMessage.textContent =
-                    'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
+                        'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
                 }
             });
         });
