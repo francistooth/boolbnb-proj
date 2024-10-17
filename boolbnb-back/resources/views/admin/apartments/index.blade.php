@@ -30,9 +30,6 @@
                                 <a class="btn btn-primary m-2" href="{{ route('admin.apartments.edit', $apartment) }}"> <i
                                         class="fa-solid fa-pen">
                                     </i></a>
-                                {{-- <a class="btn btn-primary m-2" href="{{ route('admin.apartments.show', $apartment) }}"> <i
-                                        class="fa-solid fa-eye">
-                                    </i></a> --}}
                                 <form
                                     class="btn btn-danger rounded border-0 z-3 w-25 d-flex align-items-center justify-content-center"
                                     action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
@@ -51,5 +48,34 @@
                 <li> You own no apartments. </li>
             @endempty
         </ul>
+        
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                <thead>
+                    <tr>
+                        <th scope="col"> Immagine </th>
+                        <th scope="col"> Titolo </th>
+                        <th scope="col"> Sponsorizzato </th>
+                        <th scope="col"> Visibile </th>
+                        <th scope="col"> Azioni </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($apartments as $apartment)
+                        <tr class="">
+                            <a href="{{route('admin.apartments.show', $apartment)}}" class="stretched-link z-1">
+                                <td> <img class="w-50" src="{{ asset('storage/' . $apartment->img_path)  }}" alt="{{ $apartment->img_name }}"> </td>
+                                <td> {{ $apartment->title }} </td>
+                            </a>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 @endsection
