@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\UserResourceController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\SponsorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);
         Route::resource('message', MessageController::class)->except(['create', 'edit', 'update']);
+        Route::resource('sponsor', SponsorController::class)->except(['create', 'edit', 'update', 'destroy']);
     });
 
 // guest routes

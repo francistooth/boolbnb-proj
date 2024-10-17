@@ -59,22 +59,19 @@
                         <h4>Visibilità</h4>
                         <button class="btn btn-success">
                             @if ($apartment->is_visible)
-                                Si
+                                <i class="fa-solid fa-eye"></i>
                             @else
-                                No
+                                <i class="fa-solid fa-eye-slash"></i>
                             @endif
                         </button>
                         <button class="btn btn-warning text-white"><a
                                 href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                    class="fa-regular fa-envelope"></i></a> </button>
+                                    class="fa-regular fa-envelope"></i></a>
+                        </button>
+                        <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
+                                    class="fa-solid fa-bullhorn"></i></a></button>
                     </div>
-                    <ul>
-                        <li>Messaggi</li>
-                        @foreach ($apartment->messages as $message)
-                            <li>{{ $message->id }} {{ $message->message }}
-                            </li>
-                        @endforeach
-                    </ul>
+
                 </div>
             </div>
         </div>
