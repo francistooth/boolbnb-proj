@@ -13,7 +13,7 @@
             </div>
         @endif
         <h6> Proprietario degli appartamenti: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
-        <h2>Show dell'appartamento</h2>
+        <h2> Dettagli dell'appartamento </h2>
         <div class="d-flex flex-wrap mt-4">
             <div class="card " style="width: 18rem;">
                 {{-- Immagine/i appartamento --}}
@@ -32,7 +32,7 @@
                     </p>
                     {{-- Caratteristiche dell'appartamento --}}
                     <div class="card-text d-flex flex-column">
-                        <h5> Caratteristiche appartamento </h5>
+                        <h5> Caratteristiche: </h5>
                         <span> Numero Stanze : {{ $apartment->room }} </span>
                         <span>Numeri Letti :{{ $apartment->bed }}</span>
                         <span>Numero Bagni: {{ $apartment->bathroom }}</span>
@@ -40,7 +40,7 @@
                     </div>
                     {{-- Servizi Appartamento --}}
                     <div class="card-text d-flex flex-column">
-                        <h5>Servizi : </h5>
+                        <h5>Servizi: </h5>
                         @foreach ($apartment->services as $service)
                             <span>
                                 {{ $service->name }}
@@ -49,14 +49,14 @@
                     </div>
                     {{-- Indirizzo appartamento --}}
                     <div class="card-text d-flex flex-column">
-                        <h4> Indirizzo : </h4>
-                        <span class="text-secondary">
+                        <h5> Indirizzo: </h5>
+                        <span>
                             {{ $apartment->address }}
                         </span>
                     </div>
                     {{-- Visibilità --}}
                     <div>
-                        <h4>Visibilità</h4>
+                        <h5>Visibilità</h5>
                         <button class="btn btn-success">
                             @if ($apartment->is_visible)
                                 <i class="fa-solid fa-eye"></i>
