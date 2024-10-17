@@ -41,7 +41,7 @@ class Apartment extends Model
         'bathroom',
         'sqm',
         'address',
-        'coordinate_long_lat',
+        'coordinate',
         'img_path',
         'img_name',
         'is_visible',
