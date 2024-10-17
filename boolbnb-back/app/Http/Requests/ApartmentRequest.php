@@ -31,50 +31,50 @@ class ApartmentRequest extends FormRequest
             'img_path' => 'nullable|image',
             'img_name' => 'nullable|string',
             'services' => 'required',
-            /*  'address' => 'required' string, */
+            'address' => 'required|string|regex:/^[\w\s\.,\'èòàùìéí-]+ \d+,\s*\d{5} \w+$/',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'title.required' => 'Il titolo è obbligatorio.',
-            'title.string' => 'Il titolo deve essere una stringa.',
-            'title.max' => 'Il titolo non può superare i :max caratteri.',
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.string' => 'Il titolo deve essere una stringa',
+            'title.max' => 'Il titolo non può superare i :max caratteri',
 
-            'description.required' => 'La descrizione è obbligatoria.',
-            'description.string' => 'La descrizione deve essere un testo valido.',
+            'description.required' => 'La descrizione è obbligatoria',
+            'description.string' => 'La descrizione deve essere un testo valido',
 
-            'room.required' => 'Il numero di stanze è obbligatorio.',
-            'room.integer' => 'Il numero di stanze deve essere un numero intero.',
+            'room.required' => 'Il numero di stanze è obbligatorio',
+            'room.integer' => 'Il numero di stanze deve essere un numero intero',
             'room.min' => 'Il numero di stanze deve essere almeno :min',
             'room.max' => 'Il numero delle stanze non può superare le :max',
 
-            'bed.required' => 'Il numero di letti è obbligatorio.',
-            'bed.integer' => 'Il numero di letti deve essere un numero intero.',
+            'bed.required' => 'Il numero di letti è obbligatorio',
+            'bed.integer' => 'Il numero di letti deve essere un numero intero',
             'bed.min' => 'Il numero di letti deve essere almeno :min',
             'bed.max' => 'Il numero dei letti non può superare i :max',
 
-            'bathroom.required' => 'Il numero di bagni è obbligatorio.',
-            'bathroom.integer' => 'Il numero di bagni deve essere un numero intero.',
+            'bathroom.required' => 'Il numero di bagni è obbligatorio',
+            'bathroom.integer' => 'Il numero di bagni deve essere un numero intero',
             'bathroom.min' => 'Il numero di bagni deve essere almeno :min',
             'bathroom.max' => 'Il numero dei bagni non può superare i :max',
 
-            'sqm.required' => 'La superficie è obbligatoria.',
-            'sqm.integer' => 'La superficie deve essere un numero intero.',
-            'sqm.min' => 'La superficie deve essere almeno :min metri quadrati.',
-            'sqm.max' => 'La superficie può essere massimo di :max metri quadrati.',
+            'sqm.required' => 'La superficie è obbligatoria',
+            'sqm.integer' => 'La superficie deve essere un numero intero',
+            'sqm.min' => 'La superficie deve essere almeno :min metri quadrati',
+            'sqm.max' => 'La superficie può essere massimo di :max metri quadrati',
 
-            /* 'address.required' => "L'indirizzo è obbligatorio.",
-             'address.string' => "L'indirizzo deve essere una stringa valida.", */
+            'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida',
+            'img_path.image' => 'E\' possibile inserire solo immagini',
 
-            'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
-            'img_path.image' => 'E\' possibile inserire solo immagini.',
+            'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida',
 
-            'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.',
+            'services.required' => 'I servizi sono obbligatori',
 
-
-            'services.required' => 'I servizi sono obbligatori.'
+            'address.required' => 'L\'indirizzo è obbligatorio.',
+            'address.string' => 'L\'indirizzo deve essere una stringa valida.',
+            'address.regex' => 'L\'indirizzo deve essere del formato \'[Via/Piazza/Piazzale/Viale/Vico/Corso] [Nome] [Civico], [CAP] [Città]\'',
         ];
     }
 }

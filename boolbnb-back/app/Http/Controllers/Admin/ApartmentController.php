@@ -41,7 +41,6 @@ class ApartmentController extends Controller
         $data = $request->all();
 
         $data['slug'] = Helper::generateSlug($data['title'], Apartment::class);
-        $data['address'] = $data['street'] . ',' . $data['civic'] . ',' . $data['city'];
         $data['user_id'] = Auth::id();
 
         $data['coordinate'] = Helper::generateCoordinate($data['address']);
