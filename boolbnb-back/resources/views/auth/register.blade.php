@@ -92,68 +92,15 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            <div class="mb-4 row">
                                 <label class="col-md-4 col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
 
 
                                 <div class="col-md-6">
-                                    <div class="row g-2">
-                                        <!-- select giorni -->
-                                        <div class="col">
-                                            <select name="year" id="year"
-                                                class="form-select @error('year') is-invalid @enderror">
-                                                <option value="" disabled selected>Anno</option>
-                                            </select>
-
-                                            @error('year')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <!-- select mesi -->
-                                        <div class="col">
-                                            <select name="month" id="month"
-                                                class="form-select @error('month') is-invalid @enderror">
-                                                <option value="" disabled selected>Mese</option>
-                                                <option value="1">Gennaio</option>
-                                                <option value="2">Febbraio</option>
-                                                <option value="3">Marzo</option>
-                                                <option value="4">Aprile</option>
-                                                <option value="5">Maggio</option>
-                                                <option value="6">Giugno</option>
-                                                <option value="7">Luglio</option>
-                                                <option value="8">Agosto</option>
-                                                <option value="9">Settembre</option>
-                                                <option value="10">Ottobre</option>
-                                                <option value="11">Novembre</option>
-                                                <option value="12">Dicembre</option>
-                                            </select>
-
-                                            @error('month')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <!-- select anni -->
-                                        <div class="col">
-                                            <select name="day" id="day"
-                                                class="form-select @error('day') is-invalid @enderror">
-                                                <option value="" disabled selected>Giorno</option>
-                                            </select>
-
-                                            @error('day')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                    </div>
+                                    <input type="date" id="date_birth" name="date_birth" value="2018-07-22"
+                                        min="1935-01-01" max="2006-12-31" class="form-control" />
                                 </div>
+
                             </div>
 
                             <div class="mb-4 row mb-0">
