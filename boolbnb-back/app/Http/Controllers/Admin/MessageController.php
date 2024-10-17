@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use App\Models\Apartment;
+use Illuminate\Support\Facades\Auth;
+
 
 class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $apartment_id = $request->get('apartment');
+        $messages = Message::all()->where('apartment_id', $apartment_id);
+
+        return view('admin.message.index', compact('messages'));
     }
 
     /**

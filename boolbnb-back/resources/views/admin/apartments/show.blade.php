@@ -64,6 +64,9 @@
                                 No
                             @endif
                         </button>
+                        <button class="btn btn-warming"><a
+                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                    class="fa-regular fa-envelope"></i></a> </button>
                     </div>
                     <ul>
                         <li>Messaggi</li>

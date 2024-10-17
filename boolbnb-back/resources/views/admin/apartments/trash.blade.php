@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid overflow-auto">
-        <table id="Dash" class="table ">
+        <table class="table ">
             <thead>
                 <tr>
                     <th scope="col">#id
