@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Sponsor;
 
-class SponsorController extends Controller
+class VisitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sponsors = Sponsor::all();
-
-        return view('admin.sponsor.index', compact('sponsors'));
+        //
     }
 
     /**
@@ -31,7 +28,7 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        /*  legare questa rotta al pagamento */
+        //
     }
 
     /**

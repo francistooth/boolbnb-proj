@@ -8,6 +8,7 @@ use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\UserResourceController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\SponsorController;
+use App\Http\Controllers\Admin\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,10 @@ Route::middleware(['auth', 'verified'])
         Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);
+        Route::resource('sponsor', SponsorController::class)->except(['edit', 'update', 'destroy']);
         Route::resource('message', MessageController::class)->except(['create', 'edit', 'update']);
-        Route::resource('sponsor', SponsorController::class)->except(['create', 'edit', 'update', 'destroy']);
+        /* probabilmente il visit controller serve solo nelle route api */
+        Route::resource('visit', VisitController::class)->except(['index', 'create', 'edit', 'update', 'destroy']);
     });
 
 // guest routes
