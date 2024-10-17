@@ -23,7 +23,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="title">Titolo:</label>
+                    <label for="title">Titolo: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('title') }}" type="text" id="title" name="title" class="form-control"
                         required>
 
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Descrizione:</label>
+                    <label for="description">Descrizione: <strong class="text-danger">*</strong></label>
                     <textarea id="description" name="description" class="form-control" required>{{ old('description') }}</textarea>
 
                     @error('description')
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="room">Numero stanze:</label>
+                    <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('room') }}" type="number" id="room" name="room" class="form-control"
                         required>
 
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="bathroom">Numero di bagni</label>
+                    <label for="bathroom">Numero di bagni: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bathroom') }}" type="number" id="bathroom" name="bathroom" class="form-control"
                         required>
 
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="bed">Numero di letti</label>
+                    <label for="bed">Numero di letti: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bed') }}" type="number" id="bed" name="bed" class="form-control"
                         required>
 
@@ -72,9 +72,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="sqm">Metri quadrati:</label>
+                    <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('sqm') }}" type="number" id="sqm" name="sqm" class="form-control"
-                        required>
+                        required min="0"
+                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                     @error('sqm')
                         <small class="text-danger">*{{ $message }}</small>
@@ -102,7 +103,8 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="services" class="form-label d-block">Servizi disponibili:</label>
+                    <label for="services" class="form-label d-block">Servizi disponibili: <strong
+                            class="text-danger">*</strong></label>
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         @foreach ($services as $service)
                             <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
@@ -113,7 +115,13 @@
                                 for="service-{{ $service->id }}">{{ $service->name }}</label>
                         @endforeach
                     </div>
+
+                    @error('services')
+                        <small class="text-danger">*{{ $message }}</small>
+                    @enderror
+
                 </div>
+
                 <div class="form-group">
                     <label for="img_path">Immagine:</label>
                     <input type="file" id="img_path" name="img_path" class="form-control mb-4"
@@ -140,24 +148,24 @@
 
     <script>
         /*    document.addEventListener('DOMContentLoaded', function() {
-                                                    const addressInput = document.getElementById('address');
-                                                    const suggestionsBox = document.getElementById('address-suggestions');
-                                                    const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
+                                                                                                        const addressInput = document.getElementById('address');
+                                                                                                        const suggestionsBox = document.getElementById('address-suggestions');
+                                                                                                        const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
 
-                                                    // Funzione per fare la chiamata all'API TomTom
-                                                    function fetchAddressSuggestions(query) {
-                                                        const apiUrl =
-                                                            `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
+                                                                                                        // Funzione per fare la chiamata all'API TomTom
+                                                                                                        function fetchAddressSuggestions(query) {
+                                                                                                            const apiUrl =
+                                                                                                                `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
 
-                                                        fetch(apiUrl)
-                                                            .then(response => response.json())
-                                                            .then(data => {
-                                                                showSuggestions(data.results);
-                                                            })
-                                                            .catch(error => {
-                                                                console.error('Errore nella chiamata API TomTom:', error);
-                                                            });
-                                                    } */
+                                                                                                            fetch(apiUrl)
+                                                                                                                .then(response => response.json())
+                                                                                                                .then(data => {
+                                                                                                                    showSuggestions(data.results);
+                                                                                                                })
+                                                                                                                .catch(error => {
+                                                                                                                    console.error('Errore nella chiamata API TomTom:', error);
+                                                                                                                });
+                                                                                                        } */
 
         /*    // Funzione per mostrare i suggerimenti nella tendina
                         function showSuggestions(results) {

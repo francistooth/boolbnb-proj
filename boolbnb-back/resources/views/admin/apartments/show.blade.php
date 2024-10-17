@@ -69,7 +69,7 @@
                                     class="fa-regular fa-envelope"></i></a>
                         </button>
                         <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
-                                    class="fa-solid fa-bullhorn"></i></a></button>
+                                    class="fa-solid fa-sack-dollar"></i></a></button>
                     </div>
 
                 </div>

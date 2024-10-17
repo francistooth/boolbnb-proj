@@ -24,16 +24,14 @@ class ApartmentRequest extends FormRequest
         return [
             'title' => 'required|string|max:100',
             'description' => 'required|string',
-            'room' => 'required|integer|min:1|max:250',
-            'bed' => 'required|integer|min:1|max:250',
-            'bathroom' => 'required|integer|min:1|max:250',
-            'sqm' => 'required|integer|min:10|max:50000',
+            'room' => 'required|numeric|min:1|max:250',
+            'bed' => 'required|numeric|min:1|max:250',
+            'bathroom' => 'required|numeric|min:1|max:250',
+            'sqm' => 'required|numeric|min:10|max:50000',
             'img_path' => 'nullable',
             'img_name' => 'nullable',
-            'sqm' => 'required|integer|min:10',
+            'services' => 'required',
             /*  'address' => 'required' string, */
-            'img_path' => 'nullable',
-            'img_name' => 'nullable',
         ];
     }
 
@@ -72,6 +70,8 @@ class ApartmentRequest extends FormRequest
 
             'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
             'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.',
+
+            'services.required' => 'I servizi sono obbligatori.'
         ];
     }
 }
