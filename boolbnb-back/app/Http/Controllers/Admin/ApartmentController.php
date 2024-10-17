@@ -70,6 +70,9 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        if ($apartment->user_id !== Auth::id()) {
+            abort(404);
+        }
 
         return view('admin.apartments.show', compact('apartment'));
     }
@@ -116,7 +119,7 @@ class ApartmentController extends Controller
             $apartment->services()->detach();
         }
 
-        return redirect()->route('admin.apartments.show', compact('apartment'))->with('update', 'Il  tuo Appartamento è stato  aggiornato');;
+        return redirect()->route('admin.apartments.show', compact('apartment'))->with('update', 'Il tuo appartamento è stato aggiornato');;
     }
 
     /**
