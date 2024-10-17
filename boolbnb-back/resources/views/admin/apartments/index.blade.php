@@ -13,47 +13,12 @@
                 {{ session('delete') }}
             </div>
         @endif
-        <ul class="row gap-3 row-cols-1 row-cols-md-4 justify-content-center">
-            @foreach ($apartments as $apartment)
-                <li class="mt-3 card p-4 mb-4 bg-white shadow rounded d-flex flex-column">
-                    {{-- <img class="card-img-top w-100 images" src="{{ asset('storage/' . $apartment->path_image) }}" alt=""> --}}
-                    <a href="{{route('admin.apartments.show', $apartment)}}" class="stretched-link z-1">
-                        <div class="card-body w-100">
-                            <img class="w-50" src="{{ asset('storage/' . $apartment->img_path)  }}" alt="{{ $apartment->img_name }}"> {{-- $apartment->img_path --}}
-                            <h5 class="card-title mt-3">
-                                {{ $apartment->title }}
-                            </h5>
-                            <p class="card-text mt-3">
-                                {{ $apartment->description }}
-                            </p>
-                            <div class="d-flex justify-content-center align-self-end">
-                                <a class="btn btn-primary m-2" href="{{ route('admin.apartments.edit', $apartment) }}"> <i
-                                        class="fa-solid fa-pen">
-                                    </i></a>
-                                <form
-                                    class="btn btn-danger rounded border-0 z-3 w-25 d-flex align-items-center justify-content-center"
-                                    action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
-                                    onsubmit="return confirm('sei sicuro di voler cancellare {{ $apartment['title'] }}')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn"> <i class="text-light fa-solid fa-trash">
-                                        </i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            @endforeach
-            @empty($apartments)
-                <li> You own no apartments. </li>
-            @endempty
-        </ul>
         
         <div
-            class="table-responsive"
+            class="table-responsive mt-5"
         >
             <table
-                class="table table-primary"
+                class="table rounded"
             >
                 <thead>
                     <tr>
@@ -67,12 +32,44 @@
                 <tbody>
                     @foreach ($apartments as $apartment)
                         <tr class="">
-                            <a href="{{route('admin.apartments.show', $apartment)}}" class="stretched-link z-1">
-                                <td> <img class="w-50" src="{{ asset('storage/' . $apartment->img_path)  }}" alt="{{ $apartment->img_name }}"> </td>
-                                <td> {{ $apartment->title }} </td>
-                            </a>
+                                <td class="w-25"> 
+                                  <a href="{{route('admin.apartments.show', $apartment)}}">
+                                      <img
+                                      class="w-50 rounded"
+                                      src="{{ asset('storage/' . $apartment->img_path)  }}"
+                                      alt="{{ $apartment->img_name }}">
+                                  </a>
+                                </td> 
+                                <td class=""> {{ $apartment->title }} </td>
+                                <td> {{ $apartment->sponsors->count() }} </td>
+                                <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
+                                <td class="w-10">
+                                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                                        <a
+                                          class="btn btn-primary"
+                                          href="{{ route('admin.apartments.edit', $apartment) }}">
+                                          <i
+                                          class="fa-solid fa-pen">
+                                          </i>
+                                        </a>
+                                        <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
+                                            class="fa-solid fa-sack-dollar"></i></a></button>
+                                        <form
+                                            class="d-flex align-items-center border-0 m-2 w-25"
+                                            action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
+                                            onsubmit="return confirm('sei sicuro di voler cancellare {{ $apartment['title'] }}')">
+                                            @csrf
+                                            @method('DELETE')
+                                                <button type="submit" class="btn btn-danger rounded z-3"> <i class="text-light fa-solid fa-trash"> </i></button>
+                                        </form>
+                                    </div> 
+                                </td>
                         </tr>
                     @endforeach
+
+                    @empty($apartments)
+                        <li> You own no apartments. </li>
+                    @endempty
                 </tbody>
             </table>
         </div>
