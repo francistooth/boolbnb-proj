@@ -90,11 +90,6 @@ class RegisteredUserController extends Controller
 
         );
 
-        if ($request->year != null && $request->month != null && $request->day != null) {
-            $date_birth = $request->year . '-' . $request->month . '-' . $request->day;
-        } else {
-            $date_birth = null;
-        }
 
         if ($request->name === null) {
             $request->name = Str::before($request->email, '@');
@@ -105,7 +100,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'surname' => $request->surname,
-            'date_birth' => $date_birth
+            'date_birth' => $request->date_birth
         ]);
 
         event(new Registered($user));
