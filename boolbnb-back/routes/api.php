@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); */
+
+Route::get('/appartamenti', [PageController::class, 'allApartments']);
+Route::get('/dettaglio/{slug}', [PageController::class, 'apartment']);
+Route::get('/filtro-servizi/{slug}', [PageController::class, 'servicesApt']);
+Route::get('/servizi', [PageController::class, 'service']);
