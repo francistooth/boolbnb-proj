@@ -28,8 +28,8 @@ class ApartmentRequest extends FormRequest
             'bed' => 'required|numeric|min:1|max:250',
             'bathroom' => 'required|numeric|min:1|max:250',
             'sqm' => 'required|numeric|min:10|max:50000',
-            'img_path' => 'nullable',
-            'img_name' => 'nullable',
+            'img_path' => 'nullable|image',
+            'img_name' => 'nullable|string',
             'services' => 'required',
             /*  'address' => 'required' string, */
         ];
@@ -69,7 +69,10 @@ class ApartmentRequest extends FormRequest
              'address.string' => "L'indirizzo deve essere una stringa valida.", */
 
             'img_path.string' => 'Il percorso dell\'immagine deve essere una stringa valida.',
+            'img_path.image' => 'E\' possibile inserire solo immagini.',
+
             'img_name.string' => 'Il nome dell\'immagine deve essere una stringa valida.',
+
 
             'services.required' => 'I servizi sono obbligatori.'
         ];
