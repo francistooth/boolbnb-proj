@@ -21,3 +21,5 @@ use App\Http\Controllers\Api\PageController;
 
 Route::get('/appartamenti', [PageController::class, 'allApartments']);
 Route::get('/dettaglio/{slug}', [PageController::class, 'apartment']);
+Route::get('/filtro-servizi/{slug}', [PageController::class, 'servicesApt']);
+Route::get('/servizi', [PageController::class, 'service']);
