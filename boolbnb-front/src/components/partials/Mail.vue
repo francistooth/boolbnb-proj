@@ -6,7 +6,7 @@ export default {
 </script>
 
 <template>
-
+    <h1>PROVA</h1>
 </template>
 
 <script lang="scss" scoped></script>
