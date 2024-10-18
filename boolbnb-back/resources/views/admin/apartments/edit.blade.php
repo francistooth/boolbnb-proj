@@ -86,15 +86,15 @@
             {{-- input address con logica JS --}}
             @include('admin._partials.apiAddress', ['old' => old('address', $apartment->address)])
 
-            {{-- <div class="form-group mb-3">
+            <div class="form-group mb-3">
                 <label for="img_path" class="form-label">Immagine</label>
                 <input id="img_path" class="form-control" name="img_path" type="file" onchange="showImage(event)">
                 @error('img_path')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
-                <img id="thumb" class="thumb pt-1" src="{{ asset('storage/' . $apartment->img_path) }}"
-                    onerror="this.src='/img/no-image.jpg'">
-            </div> --}}
+                <img src='{{ asset('storage/' . $apartment->img_path) }}' onerror="this.src='/img/default-image.jpg'"
+                    id="thumb" class="img-thumbnail w-25 mt-2">
+            </div>
 
             <div class="form-group mb-3">
                 <label for="technologies" class="form-label d-block">Servizi disponibili: <strong
