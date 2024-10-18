@@ -11,12 +11,41 @@ export default {
     data() {
         return {
             store,
+            apartment: {
+                title: '',
+                description: '',
+                room: '',
+                bed: '',
+                bathroom: '',
+                sqm: '',
+                address: '',
+                coordinate: '',
+                img_path: '',
+                img_name: '',
+                is_visible: '',
+                services: []
+            }
         }
 
+    }, methods: {
+        getApi(slug) {
+            axios.get(store.apiUrl + 'dettaglio/' + slug)
+                .then(res => {
+                    if (res.data.success) {
+                        this.apartment = res.data.apartment;
+                        console.log(this.apartment);
+                    } else {
+                        console.log('errore 404');
+                        this.$router.push({ name: '404' })
+                    }
+
+                })
+
+        }
     },
     mounted() {
         console.log(store);
-
+        this.getApi(slug);
     }
 }
 </script>
@@ -43,9 +72,9 @@ export default {
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <h4 class="">{{ store.apartments.title }}</h4>
-                <p>{{ store.apartments.address }}</p>
-                <p class="mt-4">{{ store.apartments.description }}</p>
+                <h4 class="">{{ apartment.title }}</h4>
+                <p></p>
+                <p class="mt-4"></p>
             </div>
         </div>
         <div class="row mt-5">
@@ -65,27 +94,6 @@ export default {
                                 <li>Parcheggio gratuito</li>
                             </ul>
                         </div>
-                        <div class="col-3">
-                            <ul class="lh-lg">
-                                <li>Trasferimenti aeroportuali</li>
-                                <li>Cancellazione gratuita</li>
-                                <li>Aria condizionata</li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="lh-lg">
-                                <li>Lavanderia</li>
-                                <li>Cucina attrezzata</li>
-                                <li>TV via cavo/satellite</li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="lh-lg">
-                                <li>Piscina</li>
-                                <li>Servizio di pulizia</li>
-                                <li>Guide locali e mappe</li>
-                            </ul>
-                        </div>
 
                     </div>
                 </div>
@@ -98,7 +106,7 @@ export default {
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <Map style="width: 500px; height:500px;" />
+                <Map :cordinate="apartment" style="width: 500px; height:500px;" />
             </div>
         </div>
     </div>

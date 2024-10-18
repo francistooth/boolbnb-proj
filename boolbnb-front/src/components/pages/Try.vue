@@ -1,7 +1,7 @@
 <script>
 import Mail from '../partials/Mail.vue';
 export default {
-    name: 'Try',
+    name: 'try',
     components: {
         Mail
     }
