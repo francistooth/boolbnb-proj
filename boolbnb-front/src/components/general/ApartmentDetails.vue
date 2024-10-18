@@ -1,6 +1,7 @@
 <script>
 import { store } from '../../store';
 import Map from '../partials/Map.vue';
+import axios from 'axios';
 
 
 export default {
@@ -8,6 +9,7 @@ export default {
     components: {
         Map
     },
+
     data() {
         return {
             store,
@@ -29,11 +31,13 @@ export default {
 
     }, methods: {
         getApi(slug) {
+
             axios.get(store.apiUrl + 'dettaglio/' + slug)
                 .then(res => {
                     if (res.data.success) {
+
                         this.apartment = res.data.apartment;
-                        console.log(this.apartment);
+
                     } else {
                         console.log('errore 404');
                         this.$router.push({ name: '404' })
@@ -44,7 +48,7 @@ export default {
         }
     },
     mounted() {
-        console.log(store);
+        const slug = this.$route.params.slug
         this.getApi(slug);
     }
 }
@@ -55,26 +59,22 @@ export default {
         <div class="row">
             <div class="col-2"></div>
             <div class="col-4 big-img">
-                <img src="/img/glamp1.jpeg" class="" alt="...">
-            </div>
-            <div class="col-4">
-                <div class="d-flex justify-content-between pb-2">
-                    <img src="/img/glamp1.jpeg" class="" alt="...">
-                    <img src="/img/glamp1.jpeg" class="" alt="...">
-                </div>
-                <div class="d-flex justify-content-between">
-                    <img src="/img/glamp1.jpeg" class="" alt="...">
-                    <img src="/img/glamp1.jpeg" class="" alt="...">
-                </div>
-
+                <img :src="apartment.img_path" :alt="apartment.img_name">
             </div>
             <div class="col-2"></div>
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <h4 class="">{{ apartment.title }}</h4>
-                <p></p>
-                <p class="mt-4"></p>
+                <h4>{{ apartment.title }}</h4>
+                <h5>Indirizzo:{{ apartment.address }}</h5>
+                <p>{{ apartment.description }}</p>
+                <ul>
+                    <li>Letti : {{ apartment.bed }}</li>
+                    <li>Bagni : {{ apartment.bathroom }}</li>
+                    <li>Stanze : {{ apartment.room }}</li>
+                    <li>Metri : {{ apartment.sqm }}</li>
+
+                </ul>
             </div>
         </div>
         <div class="row mt-5">
@@ -89,12 +89,9 @@ export default {
                     <div class="row">
                         <div class="col-3">
                             <ul class="lh-lg">
-                                <li>WiFi gratuito</li>
-                                <li>Colazione inclusa</li>
-                                <li>Parcheggio gratuito</li>
+                                <li v-for="service in apartment.services">{{ service.name }}</li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
