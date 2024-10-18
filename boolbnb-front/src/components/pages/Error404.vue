@@ -1,15 +1,21 @@
-<script >
+<script>
 export default {
-    name: "NotFound",
+  name: 'Error404'
 }
 </script>
 
+
 <template>
-  <h1>404 non esisti vai da un altra parte</h1>
+  <div>
+    <h1>Errore 404</h1>
+    <p>
+      Pagina non trovata
+    </p>
+  </div>
 </template>
+
 
 
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
-
 </style>

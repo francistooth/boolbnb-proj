@@ -11,8 +11,7 @@
     <title>BoolBnB</title>
 
 
-    <link rel="icon" type="image/x-icon"
-        href="https://cdn.discordapp.com/attachments/1295679608045309975/1295700684578226178/android-chrome-192x192.png?ex=670f9acc&is=670e494c&hm=6314558ae7c950953a1daa8914749ad477f2f0faf1e5abcb8507ddb9c4237db2&">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -35,8 +34,9 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <div class="logo_laravel">
-                    </div>
+                    <img style="width: 50px"
+                        src="img/favicon.png"
+                        alt="logo-boolbnb">
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
 
