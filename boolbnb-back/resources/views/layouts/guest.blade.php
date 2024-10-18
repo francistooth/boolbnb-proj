@@ -11,8 +11,7 @@
     <title>BoolBnB</title>
 
 
-    <link rel="icon" type="image/x-icon"
-        href="https://cdn.discordapp.com/attachments/1295679608045309975/1295700684578226178/android-chrome-192x192.png?ex=670f9acc&is=670e494c&hm=6314558ae7c950953a1daa8914749ad477f2f0faf1e5abcb8507ddb9c4237db2&">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -38,7 +37,7 @@
                     <div class="logo_laravel">
                         <div class="logo_laravel">
                             <img style="width: 50px"
-                                src="https://cdn.discordapp.com/attachments/1295679608045309975/1295700684578226178/android-chrome-192x192.png?ex=670f9acc&is=670e494c&hm=6314558ae7c950953a1daa8914749ad477f2f0faf1e5abcb8507ddb9c4237db2&"
+                                src="img/favicon.png"
                                 alt="logo-boolbnb">
                         </div>
                     </div>
