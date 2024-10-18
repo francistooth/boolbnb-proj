@@ -31,7 +31,7 @@ class ApartmentRequest extends FormRequest
             'img_path' => 'nullable|image',
             'img_name' => 'nullable|string',
             'services' => 'required',
-            'address' => 'required|string|regex:/^[\w\s\.,\'èòàùìéí-]+ \d+,\s*\d{5} \w+$/',
+            'address' => 'required|string|regex:/^[\w\s\.,\'èòàùìéí-]+ \d+,\s*\d{5}[\w\s\'èòàùìéí-]+$/',
         ];
     }
 
@@ -74,7 +74,7 @@ class ApartmentRequest extends FormRequest
 
             'address.required' => 'L\'indirizzo è obbligatorio.',
             'address.string' => 'L\'indirizzo deve essere una stringa valida.',
-            'address.regex' => 'L\'indirizzo deve essere del formato \'[Via/Piazza/Piazzale/Viale/Vico/Corso] [Nome] [Civico], [CAP] [Città]\'',
+            'address.regex' => 'L\'indirizzo deve essere del formato \'Via o Piazza ecc NomeVia Civico, CAP Città\'',
         ];
     }
 }

@@ -17,7 +17,8 @@
 
         <h2>Modifica appartamento: {{ $apartment->title }}</h2>
 
-        <form action="{{ route('admin.apartments.update', $apartment) }}" method="post" enctype="multipart/form-data">
+        <form id="apartmentForm" action="{{ route('admin.apartments.update', $apartment) }}" method="post"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -82,19 +83,8 @@
                 @enderror
             </div>
 
-            <div class="form-group mb-3">
-                <label for="address">Indirizzo: <strong class="text-danger">*</strong></label>
-                <input value="{{ old('address', $apartment->address) }}" type="text" id="address" name="address"
-                    class="form-control" required>
-
-                {{-- risultati chiamata API --}}
-                <div id="address-suggestions" class="list-group" style="position: absolute; z-index: 100;">
-                </div>
-
-                @error('address')
-                    <small class="text-danger">*{{ $message }}</small>
-                @enderror
-            </div>
+            {{-- input address con logica JS --}}
+            @include('admin._partials.apiAddress', ['old' => old('address', $apartment->address)])
 
             {{-- <div class="form-group mb-3">
                 <label for="img_path" class="form-label">Immagine</label>
@@ -152,71 +142,6 @@
             const thumb = document.getElementById('thumb');
             thumb.src = URL.createObjectURL(event.target.files[0]);
         }
-
-
-        /*  document.addEventListener('DOMContentLoaded', function() {
-             const addressInput = document.getElementById('address');
-             const suggestionsBox = document.getElementById('address-suggestions');
-             const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
-
-             // Funzione per fare la chiamata all'API TomTom
-             function fetchAddressSuggestions(query) {
-                 const apiUrl =
-                     `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
-
-                 fetch(apiUrl)
-                     .then(response => response.json())
-                     .then(data => {
-                         showSuggestions(data.results);
-                     })
-                     .catch(error => {
-                         console.error('Errore nella chiamata API TomTom:', error);
-                     });
-             }
-
-             // Funzione per mostrare i suggerimenti nella tendina
-             function showSuggestions(results) {
-                 suggestionsBox.innerHTML = ''; // Pulire i vecchi suggerimenti
-                 if (results && results.length > 0) {
-                     results.forEach(result => {
-                         const suggestionItem = document.createElement('a');
-                         suggestionItem.classList.add('list-group-item', 'list-group-item-action');
-                         suggestionItem.textContent = result.address.freeformAddress;
-
-                         // Gestisci clic sull'indirizzo suggerito
-                         suggestionItem.addEventListener('click', function() {
-                             addressInput.value = result.address.freeformAddress;
-                             suggestionsBox.innerHTML =
-                                 ''; // Nascondi i suggerimenti dopo aver selezionato
-                         });
-
-                         suggestionsBox.appendChild(suggestionItem);
-                     });
-                 } else {
-                     const noResult = document.createElement('a');
-                     noResult.classList.add('list-group-item', 'list-group-item-action');
-                     noResult.textContent = 'Nessun risultato trovato';
-                     suggestionsBox.appendChild(noResult);
-                 }
-             }
-
-             // Ascolta l'input dell'utente e attiva la ricerca
-             addressInput.addEventListener('input', function() {
-                 const query = addressInput.value.trim();
-                 if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
-                     fetchAddressSuggestions(query);
-                 } else {
-                     suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
-                 }
-             });
-
-             // Nascondi i suggerimenti se l'utente clicca altrove
-             document.addEventListener('click', function(event) {
-                 if (!suggestionsBox.contains(event.target) && event.target !== addressInput) {
-                     suggestionsBox.innerHTML = ''; // Nascondi i suggerimenti
-                 }
-             });
-         }); */
     </script>
 
 @endsection
