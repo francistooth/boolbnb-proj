@@ -36,7 +36,9 @@
                 <a class="navbar-brand d-flex align-items-center" href="http://localhost:5174">
                     <div class="logo_laravel">
                         <div class="logo_laravel">
-                            <img style="width: 50px" src="img/favicon.png" alt="logo-boolbnb">
+                            <img style="width: 50px"
+                                src="img/favicon.png"
+                                alt="logo-boolbnb">
                         </div>
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
