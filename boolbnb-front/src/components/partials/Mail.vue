@@ -12,16 +12,22 @@ export default {
             store,
             email: 'pino@gmail.it',
             message: 'Ciao sono Pino',
-            apartmentId: 40,
         }
     },
 
     methods: {
 
-
         sendForm() {
-            console.log(this.slug)
-            axios.post(store.apiUrl + 'messaggi')
+
+            const data = {
+                //name da eliminare?
+                name: this.email,
+                email: this.email,
+                message: this.message,
+                slug: this.slug
+            }
+
+            axios.post(store.apiUrl + 'messaggi', data)
                 .then(response => {
                     console.log(response.data);
 
@@ -30,8 +36,7 @@ export default {
                     console.log(error.message);
                 });
         }
-    }
-
+    },
 }
 </script>
 

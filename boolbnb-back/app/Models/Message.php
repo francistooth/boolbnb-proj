@@ -17,6 +17,8 @@ class Message extends Model
     protected $fillable = [
         'apartment_id',
         'email',
-        'message'
+        'message',
+        //name da eliminare?
+        'name'
     ];
 }
