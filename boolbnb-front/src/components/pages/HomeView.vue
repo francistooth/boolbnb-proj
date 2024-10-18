@@ -45,38 +45,37 @@ export default {
 </script>
 
 <template>
-  <main>
-    <div class="d-flex justify-content-center mt-5 pt-3">
+
+  <div class="d-flex justify-content-center mt-5 pt-3">
+    <div>
+
+      <div class="d-flex justify-content-center">
+        <form action="">
+          <select class="border-0" name="" id="">
+            <option class="w-50" value="1">Roma</option>
+          </select>
+          <button type="submit" class="btn btn-success">Cerca</button>
+        </form>
+      </div>
       <div>
-
-        <div class="d-flex justify-content-center">
-          <form action="">
-            <select class="border-0" name="" id="">
-              <option class="w-50" value="1">Roma</option>
-            </select>
-            <button type="submit" class="btn btn-success">Cerca</button>
-          </form>
-        </div>
-        <div>
-          <h2 class="mx-5">Appartamenti in evidenza</h2>
-          <div class="d-flex flex-wrap justify-content-between mx-5 ">
-            <router_link class="sponsorcard" v-for="apartment in sponsors"
-              :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-              <ApartmentCard :data="apartment" />
-            </router_link>
-
-          </div>
-        </div>
+        <h2 class="mx-5">Appartamenti in evidenza</h2>
         <div class="d-flex flex-wrap justify-content-between mx-5 ">
-          <router_link class="boh2" v-for="apartment in apartments"
+          <router-link class="sponsorcard" v-for="apartment in sponsors"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <ApartmentCard :data="apartment" />
-          </router_link>
+          </router-link>
 
         </div>
       </div>
+      <div class="d-flex flex-wrap justify-content-between mx-5 ">
+        <router-link class="boh2" v-for="apartment in apartments"
+          :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+          <ApartmentCard :data="apartment" />
+        </router-link>
+      </div>
     </div>
-  </main>
+  </div>
+
 </template>
 
 

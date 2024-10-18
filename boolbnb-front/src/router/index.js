@@ -4,6 +4,7 @@ import SearchView from "../components/pages/SearchView.vue";
 import ApartmentDetails from "../components/general/ApartmentDetails.vue";
 import Try from "../components/pages/Try.vue";
 import Error404 from "../components/pages/Error404.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,7 +20,7 @@ const router = createRouter({
     },
     {
       path: "/try",
-      name: "Try",
+      name: "try",
       component: Try,
     },
     {
@@ -34,7 +35,7 @@ const router = createRouter({
     },
     {
       path: "/:pathMatch(.*)*",
-      redirect: "404",
+      redirect: "/404",
     },
   ],
 });
