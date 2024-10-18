@@ -1,17 +1,30 @@
 <script>
+import axios from 'axios';
+import { store } from '../../store';
 
 export default {
     name: 'mail',
 
     data(){
         return{
+            store,
             email: 'pino@gmail.it',
             message: 'Ciao sono Pino',
+            apartmentId: 40,
         }
     },
 
     methods: {
-
+        sendForm(){
+            axios.post(store.apiUrl + 'messaggi')
+                .then(response => {
+                    console.log(response.data);
+                    
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+        }
     }
 
 }
@@ -19,7 +32,7 @@ export default {
 
 <template>
 
-    <form action="#">
+    <form action="#" @submit.prevent="sendForm">
 
         <div>
             <label for="email" class="form-label">Email:</label>
