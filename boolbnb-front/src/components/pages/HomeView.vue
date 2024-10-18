@@ -1,10 +1,45 @@
 <script>
 import ApartmentCard from '../general/ApartmentCard.vue';
-
+import axios from 'axios';
+import { store } from '../../store';
 export default {
   name: "HomeView",
   components: {
     ApartmentCard
+  },
+  data() {
+    return {
+      store,
+      apartments: [],
+      sponsors: [],
+    }
+  },
+  methods: {
+    getAllapartments() {
+      axios.get(store.apiUrl + 'appartamenti')
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data.apartments);
+            let all = res.data.apartments;
+            all.forEach(element => {
+              if (element.sponsors.length > 0) {
+                this.sponsors.push(element)
+              } else {
+                this.apartments.push(element)
+              }
+            });
+          } else {
+            this.$router.push({ name: '404' })
+          }
+        })
+        .catch(err => { console.log(err.messages) })
+
+    },
+
+  },
+  mounted() {
+    console.log(store);
+    this.getAllapartments()
   }
 }
 </script>
@@ -25,11 +60,19 @@ export default {
         <div>
           <h2 class="mx-5">Appartamenti in evidenza</h2>
           <div class="d-flex flex-wrap justify-content-between mx-5 ">
-            <ApartmentCard v-for="index in 8" class="my-2 sponsorcard" />
+            <router_link class="sponsorcard" v-for="apartment in sponsors"
+              :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+              <ApartmentCard :data="apartment" />
+            </router_link>
+
           </div>
         </div>
         <div class="d-flex flex-wrap justify-content-between mx-5 ">
-          <ApartmentCard v-for="index in 12" class="my-2 boh2" />
+          <router_link class="boh2" v-for="apartment in apartments"
+            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+            <ApartmentCard :data="apartment" />
+          </router_link>
+
         </div>
       </div>
     </div>

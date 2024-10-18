@@ -2,6 +2,7 @@
 import { store } from '../../store';
 import Map from '../partials/Map.vue';
 
+
 export default {
     name: "ApartmentCard",
     components: {
