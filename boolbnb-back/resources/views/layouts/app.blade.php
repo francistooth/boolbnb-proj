@@ -11,7 +11,7 @@
     <title>BoolBnB</title>
 
 
-    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,17 +29,12 @@
 
 <body>
     <div id="app">
-
-
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <img style="width: 50px"
-                        src="img/favicon.png"
-                        alt="logo-boolbnb">
+                <a class="navbar-brand d-flex align-items-center" href="http://localhost:5174">
+                    <img style="width: 50px" src="../img/favicon.png" alt="logo-boolbnb">
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -50,7 +45,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="http://localhost:5174">{{ __('Home') }}</a>
                         </li>
                     </ul>
 
@@ -98,7 +93,7 @@
             </div>
         </nav>
 
-        <main class="">
+        <main>
             @yield('content')
         </main>
     </div>

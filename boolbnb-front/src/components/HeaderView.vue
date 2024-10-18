@@ -8,28 +8,28 @@ export default {
     <nav class="d-flex align-items-center ">
         <RouterLink to="/ricerca-avanzata">Ricerca Avanzata</RouterLink>
         <div class="dropdown ms-5">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Accedi
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="http://127.0.0.1:8001/login">Login</a></li>
-                <li><a class="dropdown-item" href="http://127.0.0.1:8001/register">Registrati</a></li>
+                <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a></li>
+                <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a></li>
             </ul>
         </div>
-      </nav>
+    </nav>
 </template>
 
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
 
-a{
+a {
     text-decoration: none;
     color: black;
     border: 1px solid black;
     border-radius: 12px;
     padding: 6px;
-    background-color: rgb(177,216,252) ;
+    background-color: rgb(177, 216, 252);
 }
 </style>
-
