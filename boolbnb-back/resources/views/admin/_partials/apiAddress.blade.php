@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group mb-3">
     <!-- LABEL -->
     <label for="address">
         Indirizzo: <strong class="text-danger">*</strong>

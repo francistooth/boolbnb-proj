@@ -22,7 +22,7 @@
                 action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data">
                 @csrf
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="title">Titolo: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('title') }}" type="text" id="title" name="title"
                         class="form-control @error('title') is-invalid @enderror" required>
@@ -32,7 +32,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="description">Descrizione: <strong class="text-danger">*</strong></label>
                     <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
 
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('room') }}" type="number" id="room" name="room"
                         class="form-control @error('room') is-invalid @enderror" required
@@ -52,7 +52,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="bathroom">Numero di bagni: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bathroom') }}" type="number" id="bathroom" name="bathroom"
                         class="form-control @error('bathroom') is-invalid @enderror" required
@@ -63,7 +63,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="bed">Numero di letti: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bed') }}" type="number" id="bed" name="bed"
                         class="form-control @error('bed') is-invalid @enderror" required
@@ -74,7 +74,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('sqm') }}" type="number" id="sqm" name="sqm"
                         class="form-control @error('sqm') is-invalid @enderror" required min="0"
@@ -108,7 +108,7 @@
 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="img_path">Immagine:</label>
                     <input type="file" id="img_path" name="img_path" class="form-control mb-4"
                         onchange="Preview(event)">
@@ -119,7 +119,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-check form-switch">
                         <input type="hidden" name="is_visible" value="0">
                         <input name="is_visible" class="form-check-input" type="checkbox" role="switch" value="1"
