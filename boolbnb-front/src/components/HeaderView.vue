@@ -7,6 +7,7 @@ export default {
 <template>
     <nav class="d-flex align-items-center ">
         <RouterLink to="/ricerca-avanzata">Ricerca Avanzata</RouterLink>
+        <RouterLink to="/try">Try</RouterLink>
         <div class="dropdown ms-5">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
