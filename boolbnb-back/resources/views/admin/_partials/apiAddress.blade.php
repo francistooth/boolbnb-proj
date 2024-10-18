@@ -37,7 +37,7 @@
         // Funzione per fare la chiamata all'API TomTom
         function apiCall(query) {
             const apiUrl =
-                `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}`;
+                `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}&limit=5&countrySet=IT`;
 
             fetch(apiUrl)
                 .then(response => response.json())
