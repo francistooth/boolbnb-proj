@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function allApartments()
     {
-        $apartments = Apartment::orderBy('id')->with('services', 'sponsors')->paginate(10);
+        $apartments = Apartment::orderBy('id')->with('services', 'sponsors')->get();
         if ($apartments) {
             $success = true;
             foreach ($apartments as $apartment) {
@@ -48,8 +48,9 @@ class PageController extends Controller
         return response()->json(compact('success', 'apartment'));
     }
 
-    public function service(){
-         $service=Service::all();
+    public function service()
+    {
+        $service = Service::all();
         if ($service) {
             $success = true;
         } else {
