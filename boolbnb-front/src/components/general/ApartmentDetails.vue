@@ -1,13 +1,15 @@
 <script>
 import { store } from '../../store';
 import Map from '../partials/Map.vue';
+import Mail from '../partials/Mail.vue';
 import axios from 'axios';
 
 
 export default {
     name: "ApartmentCard",
     components: {
-        Map
+        Map,
+        Mail
     },
 
     data() {
@@ -103,7 +105,13 @@ export default {
         </div>
         <div class="row mt-5">
             <div class="col-8 offset-2">
-                <Map :cordinate="apartment" style="width: 500px; height:500px;" />
+                <Map :cordinate="apartment" style="width: 500px; height:500px;"></Map>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-8 offset-2">
+                <Mail :slug="apartment.slug">
+                </Mail>
             </div>
         </div>
     </div>

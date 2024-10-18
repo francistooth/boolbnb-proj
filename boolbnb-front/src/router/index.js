@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../components/pages/HomeView.vue";
 import SearchView from "../components/pages/SearchView.vue";
 import ApartmentDetails from "../components/general/ApartmentDetails.vue";
-import Try from "../components/pages/Try.vue";
 import Error404 from "../components/pages/Error404.vue";
 
 const router = createRouter({
@@ -17,11 +16,6 @@ const router = createRouter({
       path: "/ricerca-avanzata",
       name: "search",
       component: SearchView,
-    },
-    {
-      path: "/try",
-      name: "try",
-      component: Try,
     },
     {
       path: "/dettagli-appartamento/:slug",

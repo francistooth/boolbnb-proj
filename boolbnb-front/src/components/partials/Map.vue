@@ -5,14 +5,14 @@ export default {
   props: {
     cordinate: Object
   },
-  mounted() {
-
-  },
-
-  setup() {
+  setup(cordinate) {
 
 
     const mapRef = ref(null);
+
+    // Log the props value
+
+
     function addMarker(map, location, popupText) {
       const tt = window.tt;
       var popupOffset = 25;
@@ -36,7 +36,7 @@ export default {
       map.on('load', function () {
         const markers = [
           {
-            location: JSON.parse(props.cordinate.cordinate), // Assicurati che le coordinate siano in un formato corretto
+            location: JSON.parse(this.cordinate), // Assicurati che le coordinate siano in un formato corretto
             popupText: props.cordinate.title
           },
           /*  { location: [12.49755, 41.89775], popupText: "Attico vicino al Colosseo" },

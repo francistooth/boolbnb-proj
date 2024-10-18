@@ -7,7 +7,6 @@ export default {
 <template>
     <nav class="d-flex align-items-center ">
         <router-link :to="{ name: 'search' }">Ricerca Avanzata</router-link>
-        <router-link :to="{ name: 'try' }">Try</router-link>
         <div class="dropdown ms-5">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">

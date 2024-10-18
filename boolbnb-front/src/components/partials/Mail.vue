@@ -4,9 +4,11 @@ import { store } from '../../store';
 
 export default {
     name: 'mail',
-
-    data(){
-        return{
+    props: {
+        slug: String,
+    },
+    data() {
+        return {
             store,
             email: 'pino@gmail.it',
             message: 'Ciao sono Pino',
@@ -15,11 +17,14 @@ export default {
     },
 
     methods: {
-        sendForm(){
+
+
+        sendForm() {
+            console.log(this.slug)
             axios.post(store.apiUrl + 'messaggi')
                 .then(response => {
                     console.log(response.data);
-                    
+
                 })
                 .catch(error => {
                     console.log(error.message);
@@ -53,22 +58,20 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-form{
+form {
     margin: 50px auto;
     width: 50%;
 
-    div{
+    div {
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
 
-        label{
+        label {
             width: 100%;
             text-align: center;
         }
     }
 }
-
 </style>
