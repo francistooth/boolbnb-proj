@@ -25,14 +25,16 @@ export default { name: "searchbar" };
     background-image: url('../../assets/jumbo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 70vh;
+    height: 60vh;
     width: 100%;
+    position: relative;
+    margin-top: -280px;
 
 
     .search {
         position: relative;
         box-shadow: 0 0 40px rgba(51, 51, 51, .1);
-        margin-top: 200px;
+        margin-top: 250px;
 
         input {
             height: 60px;
