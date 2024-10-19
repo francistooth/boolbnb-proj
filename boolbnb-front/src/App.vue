@@ -3,10 +3,12 @@
 import HeaderView from './components/HeaderView.vue'
 import FooterView from './components/FooterView.vue'
 
+
 export default {
   components: {
     HeaderView,
-    FooterView
+    FooterView,
+
   }
 }
 
@@ -14,21 +16,22 @@ export default {
 
 <template>
 
-  <div class="container-fluid">
-    <header>
-      <div class="d-flex justify-content-between mx-3 align-items-center mt-3">
-        <HeaderView />
-      </div>
-    </header>
-    <main>
-      <RouterView />
-    </main>
-    <FooterView />
-  </div>
+
+  <header>
+    <div class="d-flex justify-content-between  align-items-center ">
+      <HeaderView />
+
+    </div>
+  </header>
+  <main>
+    <RouterView />
+  </main>
+  <FooterView />
+
 </template>
 
 <style lang="scss" scoped>
-main {
-  margin-top: 170px;
+header {
+  margin: 0;
 }
 </style>

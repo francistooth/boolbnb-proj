@@ -2,12 +2,13 @@
 import ApartmentCard from '../general/ApartmentCard.vue';
 import axios from 'axios';
 import { store } from '../../store';
-import Searchbar from '../partials/searchbar.vue';
+import Searchbar from '../partials/Searchbar.vue';
 export default {
   name: "HomeView",
   components: {
     ApartmentCard,
     Searchbar
+
   },
   data() {
     return {
@@ -47,10 +48,7 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex justify-content-center">
-    <Searchbar></Searchbar>
-  </div>
-
+  <Searchbar></Searchbar>
   <div class="d-flex justify-content-center mt-5 pt-3">
     <div>
       <div>
