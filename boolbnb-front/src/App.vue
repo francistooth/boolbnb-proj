@@ -17,13 +17,18 @@ export default {
   <div class="container-fluid">
     <header>
       <div class="d-flex justify-content-between mx-3 align-items-center mt-3">
-        <RouterLink to="/"><img src="./assets/logo_boolbn.png" width="75" height="75" /></RouterLink>
         <HeaderView />
       </div>
     </header>
-    <RouterView />
+    <main>
+      <RouterView />
+    </main>
     <FooterView />
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  margin-top: 170px;
+}
+</style>

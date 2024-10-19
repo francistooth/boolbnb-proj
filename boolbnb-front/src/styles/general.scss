@@ -1,11 +1,26 @@
-@use "./partials/variables" as *;
-@use "@fortawesome/fontawesome-free/css/all.min.css";
-@use "/node_modules/bootstrap/scss/bootstrap";
+@use "./partials/_variables";
+
+@use "bootstrap/scss/bootstrap" with (
+  $primary: variables.$primary_color,
+  $secondary: variables.$secondary_color,
+  $success: variables.$success_color,
+  $info: variables.$info_color,
+  $warning: variables.$warning_color,
+  $danger: variables.$danger_color,
+  $light: variables.$light_color,
+  $dark: variables.$dark_color
+);
+
+//@use "/node_modules/bootstrap/scss/bootstrap";
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+#body {
+  background-image: linear-gradient(red);
 }
 a {
   color: currentColor;

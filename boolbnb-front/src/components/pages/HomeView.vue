@@ -2,10 +2,12 @@
 import ApartmentCard from '../general/ApartmentCard.vue';
 import axios from 'axios';
 import { store } from '../../store';
+import Searchbar from '../partials/searchbar.vue';
 export default {
   name: "HomeView",
   components: {
-    ApartmentCard
+    ApartmentCard,
+    Searchbar
   },
   data() {
     return {
@@ -45,20 +47,14 @@ export default {
 </script>
 
 <template>
+  <div class="d-flex justify-content-center">
+    <Searchbar></Searchbar>
+  </div>
 
   <div class="d-flex justify-content-center mt-5 pt-3">
     <div>
-
-      <div class="d-flex justify-content-center">
-        <form action="">
-          <select class="border-0" name="" id="">
-            <option class="w-50" value="1">Roma</option>
-          </select>
-          <button type="submit" class="btn btn-success">Cerca</button>
-        </form>
-      </div>
       <div>
-        <h2 class="mx-5">Appartamenti in evidenza</h2>
+        <h1 class="mx-5 text-center text-uppercase text-primary">Appartamenti in evidenza</h1>
         <div class="d-flex flex-wrap justify-content-between mx-5 ">
           <router-link class="sponsorcard" v-for="apartment in sponsors"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
@@ -86,7 +82,6 @@ export default {
   width: calc(100%/5 - 20px);
   height: auto;
 }
-
 
 .boh2 {
   width: calc(100%/6 - 20px);
