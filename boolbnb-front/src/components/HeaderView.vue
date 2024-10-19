@@ -78,7 +78,8 @@ export default {
 }
 
 .dropdown-menu {
-    background: #03727d
+    background: (0, 0, 0, 0.3);
+
 }
 
 a.dropdown-toggle {
@@ -86,7 +87,7 @@ a.dropdown-toggle {
 }
 
 a.dropdown-item:hover {
-    color: #03727d !important
+    color: #353a5085 !important
 }
 
 .nav-item a {
@@ -121,7 +122,7 @@ a.dropdown-item:hover {
 
 #navbarNavDropdown.collapsing .navbar-nav,
 #navbarNavDropdown.show .navbar-nav {
-    background: #037582;
+    background: transparent;
     padding: 12px;
 }
 </style>

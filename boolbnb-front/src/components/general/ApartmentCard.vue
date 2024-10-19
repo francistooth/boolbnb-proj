@@ -24,39 +24,49 @@ export default {
 </script>
 
 <template>
-    <!-- <RouterLink to="/dettagli-appartamento"><img src="/img/glamp1.jpeg" class="card-img-top" alt="..."></RouterLink> -->
-    <!--  <div class="card" style="width: 18rem;">
-        <img :src="data.img_path" class="card-img-top box-img" :alt="data.img_name">
-        <div class="card-body">
-            <h5 class="card-title">{{ data.title }}</h5>
-            <p class="card-text">{{ data.address }}</p>
-        </div>
-    </div> -->
-    <div class="container">
-        <!-- <section class="mx-auto my-5" style="max-width: 23rem;"> -->
-
-        <div class="card booking-card v-2 mt-2 mb-4 rounded-bottom">
-            <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                data-mdb-ripple-color="light">
-                <img :src="data.img_path" :alt="data.img_name" class="img-fluid">
-            </div>
-            <div class="card-body">
-                <h4 class="card-title font-weight-bold">{{ data.title }}</h4>
-                <p class="card-text">{{ data.address }}</p>
-                <hr class="my-4">
-
+    <router-link :to="{ name: 'dettagli', params: { slug: data.slug } }">
+        <div class="card text-light d-flex justify-content-end align-items-center"
+            :style="{ backgroundImage: 'url(' + data.img_path + ')' }">
+            <div class="box text-center p-1">
+                <h5 class="card-title">{{ data.title }}</h5>
+                <p class="card-text ">{{ data.address }}</p>
             </div>
         </div>
-
-        <!-- </section> -->
-    </div>
+    </router-link>
 </template>
 
 
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
 
-ul {
+.card {
+    aspect-ratio: 5/6;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &:hover p {
+        display: block;
+    }
+
+    p {
+        display: none;
+        text-align: center;
+
+    }
+
+    .box {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+
+
+    }
+
+
+}
+
+/* ................................ */
+/* ul {
     list-style: none;
 }
 
@@ -64,29 +74,5 @@ ul {
     width: 200px;
     height: 200px;
 
-}
-
-body {
-    background-color: #f5f7fa;
-}
-
-.card.booking-card.v-2 {
-    background-color: #c7f2e3;
-}
-
-.card.booking-card.v-2 .fa {
-    color: #f7aa00;
-}
-
-.card.booking-card.v-2 .card-body .card-text {
-    color: #db2d43;
-}
-
-.card.card.booking-card.v-2 .chip {
-    background-color: #87e5da;
-}
-
-.card.booking-card.v-2 .card-body hr {
-    border-top: 1px solid #f7aa00;
-}
+} */
 </style>

@@ -49,23 +49,29 @@ export default {
 
 <template>
   <Searchbar></Searchbar>
-  <div class="d-flex justify-content-center mt-5 pt-3">
+  <div class="d-flex justify-content-center mt-5 pt-3 ">
     <div>
       <div>
         <h1 class="mx-5 text-center text-uppercase text-primary">Appartamenti in evidenza</h1>
-        <div class="d-flex flex-wrap justify-content-between mx-5 ">
+        <div class="container">
+          <div class="row row-cols-4 flex-nowrap overflow-x-scroll ">
+            <ApartmentCard v-for="apartment in sponsors" :data="apartment" />
+          </div>
+        </div>
+
+        <!--  <div class="flex-wrap justify-content-between mx-5 ">
           <router-link class="sponsorcard" v-for="apartment in sponsors"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <ApartmentCard :data="apartment" />
           </router-link>
-
-        </div>
-      </div>
-      <div class="d-flex flex-wrap justify-content-between mx-5 ">
+        </div> 
+      </div> 
+       <div class="d-flex flex-wrap justify-content-between mx-5 ">
         <router-link class="boh2" v-for="apartment in apartments"
           :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
           <ApartmentCard :data="apartment" />
         </router-link>
+      </div> -->
       </div>
     </div>
   </div>
@@ -76,12 +82,12 @@ export default {
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
 
-.sponsorcard {
+/* .sponsorcard {
   width: calc(100%/5 - 20px);
   height: auto;
 }
 
 .boh2 {
   width: calc(100%/6 - 20px);
-}
+} */
 </style>
