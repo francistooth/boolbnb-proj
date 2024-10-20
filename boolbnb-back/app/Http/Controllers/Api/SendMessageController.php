@@ -50,15 +50,12 @@ class SendMessageController extends Controller
 
         $related_apartment = Apartment::where('slug', $request['slug'])->firstOrFail();
 
-        $message = new Message();
+        $data['apartment_id'] = $related_apartment['id'];
 
-        //name da eliminare?
-        $message->name = $request['email'];
-        $message->email = $request['email'];
-        $message->message = $request['message'];
-        $message->apartment_id = $related_apartment->id;
+        // nome da eliminare?
+        $data['name'] = $request['email'];
 
-        $message->save();
+        Message::create($data);
 
         return response()->json(compact('success', 'data'));
     }
