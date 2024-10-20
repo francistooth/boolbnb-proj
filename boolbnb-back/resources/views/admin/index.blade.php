@@ -45,13 +45,13 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.apartments.index') }}" class="nav-link align-middle px-0">
                                 <i class="p-1 fs-5 fa-solid fa-table-list"></i> <span
-                                    class="ms-1 d-none d-sm-inline">{{ __('Home') }}</span>
+                                    class="ms-1 d-none d-sm-inline">{{ __('Apartamenti') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.message.index', Auth::id()) }}" class="nav-link align-middle px-0">
                                 <i class="p-1 fs-5 fa-regular fa-envelope"></i> <span
-                                    class="ms-1 d-none d-sm-inline">{{ __('Home') }}</span>
+                                    class="ms-1 d-none d-sm-inline">{{ __('Messaggi') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -65,8 +65,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col py-3">
-                <h3>Left Sidebar with Submenus</h3>
+            <div class="col py-3 background">
                 @yield('user')
             </div>
         </div>

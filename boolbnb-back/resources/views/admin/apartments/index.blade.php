@@ -2,7 +2,7 @@
 
 @section('user')
     <div class="container d-flex justify-content-between align-items-center mt-4">
-        <h2> Dashboard di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
+        <h2 class="text-primary"> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
         <div>
             <a class="btn btn-success" href="{{ route('admin.apartments.create') }}"> Aggiungi un appartamento <i
                     class="fa-solid fa-plus"> </i></a>
@@ -16,7 +16,7 @@
         @endif
 
         <div class="table-responsive mt-5">
-            <table class="table rounded">
+            <table class="table rounded backtable">
                 <thead>
                     <tr>
                         <th scope="col"> Immagine </th>
@@ -40,11 +40,12 @@
                             <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                             <td class="w-10">
                                 <div class="d-flex align-items-center gap-3 flex-wrap">
-                                    <a class="btn btn-primary" href="{{ route('admin.apartments.edit', $apartment) }}">
+                                    <a class="btn btn-warning text-light"
+                                        href="{{ route('admin.apartments.edit', $apartment) }}">
                                         <i class="fa-solid fa-pen">
                                         </i>
                                     </a>
-                                    <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
+                                    <button class="btn btn-secondary"><a href="{{ route('admin.sponsor.index') }}"><i
                                                 class="fa-solid fa-sack-dollar"></i></a></button>
                                     <form class="d-flex align-items-center border-0 m-2 w-25"
                                         action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"

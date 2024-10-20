@@ -5,3 +5,30 @@ a {
     text-decoration: none;
     color: currentColor;
 }
+.background {
+    background-image: url("../../public/img/roma2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.backcard {
+    padding: 3px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(2px) !important;
+}
+.backtable {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(2px) !important;
+}
+#apartmentForm {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 5px;
+    border-radius: 10px;
+    label {
+        text-transform: uppercase;
+        font-weight: bolder;
+    }
+}

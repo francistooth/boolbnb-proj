@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('user')
-    @foreach ($sponsors as $sponsor)
+    {{--  @foreach ($sponsors as $sponsor)
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ $sponsor->title }}</h5>
@@ -10,5 +10,5 @@
                 <a class="btn btn-secondary text-white" href="#" class="card-link">Acquista</a>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 @endsection
