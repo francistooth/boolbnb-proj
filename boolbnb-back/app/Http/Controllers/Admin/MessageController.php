@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class MessageController extends Controller
 {
@@ -17,10 +17,18 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-
         $apartment_id = $request->get('apartment');
-        $messages = Message::where('apartment_id', $apartment_id)->get();
-
+        if ($apartment_id) {
+            $messages = Message::where('apartment_id', $apartment_id)->get();
+        } else {
+            $apartments = Apartment::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
+            $messages = [];
+            foreach ($apartments as $apartment) {
+                $messages_apartmet = Message::where('apartment_id', $apartment->id)->orderBy('apartment_id')->get();
+                $messages = array_merge($messages, $messages_apartmet->toArray());
+            }
+        }
+        dump($messages);
         return view('admin.message.index', compact('messages'));
     }
 
@@ -118,9 +126,9 @@ class MessageController extends Controller
     public function destroy(Message $message)
     {
 
-        $apartment_id = $message->apartment_id;
+        $user_id = $message->apartment->user_id;
 
         $message->delete();
-        return redirect()->route('admin.message.index', ['apartment' => $apartment_id])->with('delete', 'Il messaggio da ' . $message['email'] . ' è stato cancellato correttamente');
+        return redirect()->route('admin.message.index',  ['user' => $user_id])->with('delete', 'Il messaggio da ' . $message['email'] . ' è stato cancellato correttamente');
     }
 }

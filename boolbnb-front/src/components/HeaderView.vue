@@ -41,8 +41,8 @@ export default {
                             accedi
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="http://127.0.0.1:8001/login">login</a></li>
-                            <li><a class="dropdown-item" href="http://127.0.0.1:8001/register">register</a></li>
+                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">login</a></li>
+                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">register</a></li>
                         </ul>
                     </li>
                 </ul>

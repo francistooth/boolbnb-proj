@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.index')
 
-@section('content')
+@section('user')
     @foreach ($sponsors as $sponsor)
         <div class="card" style="width: 18rem;">
             <div class="card-body">

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.index')
 
-@section('content')
+@section('user')
     <div class="container">
 
         <h2> Inserisci appartamento</h2>

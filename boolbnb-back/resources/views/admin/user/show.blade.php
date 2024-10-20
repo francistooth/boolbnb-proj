@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.index')
 
-@section('content')
+@section('user')
     <div class="card ms-5 w-25">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ $user->email }}</li>

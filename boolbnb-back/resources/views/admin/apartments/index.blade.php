@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.index')
 
-@section('content')
+@section('user')
     <div class="container d-flex justify-content-between align-items-center mt-4">
         <h2> Dashboard di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
         <div>

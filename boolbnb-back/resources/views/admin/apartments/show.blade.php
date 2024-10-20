@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.index')
 
-@section('content')
+@section('user')
     <div class="container">
         @if (session('delete'))
             <div class="alert alert-danger mx-auto">
@@ -20,7 +20,7 @@
             <div class="row no-gutters">
                 <div class="col-sm-5">
                     <img src="{{ asset('storage/' . $apartment->img_path) }}" class="img-thumbnail"
-                    onerror="this.src='/img/default-image.jpg'">
+                        onerror="this.src='/img/default-image.jpg'">
                 </div>
                 <div class="col-sm-7">
                     <div class="card-body">
@@ -28,17 +28,17 @@
                         <h3 class="card-title">
                             {{ $apartment->title }}
                         </h3>
-                        
-                        
+
+
                         {{-- Descrizione appartamento --}}
-                        
-                        
+
+
                         <p class="card-text"> {{ $apartment->description }} </p>
-                        
-                        
+
+
                         {{-- Caratteristiche dell'appartamento --}}
-                        
-                        
+
+
                         <h5> Caratteristiche: </h5>
                         <div class="card-text d-flex flex-column">
                             <span> Numero Stanze : {{ $apartment->room }} </span>
@@ -46,11 +46,11 @@
                             <span>Numero Bagni: {{ $apartment->bathroom }}</span>
                             <span>Grandezza: {{ $apartment->sqm }} m²</span>
                         </div>
-                    
-                        
+
+
                         {{-- Servizi Appartamento --}}
-                        
-                        
+
+
                         <h5 class="mt-2">Servizi: </h5>
                         <div class="card-text d-flex flex-column">
                             @foreach ($apartment->services as $service)
@@ -59,11 +59,11 @@
                                 </span>
                             @endforeach
                         </div>
-                        
-                        
+
+
                         {{-- Indirizzo appartamento --}}
-                        
-                        
+
+
                         <h5 class="mt-2"> Indirizzo: </h5>
                         <span class="card-text">
                             {{ $apartment->address }}
@@ -71,7 +71,7 @@
 
 
                         {{-- Visibilità --}}
-                        
+
                         <h5 class="mt-2">Visibilità</h5>
                         <button class="btn btn-success">
                             @if ($apartment->is_visible)
