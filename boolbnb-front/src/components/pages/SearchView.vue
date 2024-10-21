@@ -19,7 +19,27 @@ export default {
     }
   },
   methods: {
-    getAllapartments() {
+    searchApartment(lat, lon){
+            const radius = 20;
+            console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
+
+
+            axios.post('http://localhost:8001/api/appartamenti-nel-raggio', {
+                lat: lat,
+                lon: lon,
+                radius: radius
+            })
+            .then(response => {
+                // Salva i risultati nel data
+                console.log(response.data);
+                this.apartments = response.data;
+                console.log(response.data);  
+            })
+            .catch(error => {
+                console.error("Errore durante la ricerca degli appartamenti:", error);
+            });
+        }
+    /* getAllapartments() {
       axios.get(store.apiUrl + 'appartamenti')
         .then(res => {
           if (res.data.success) {
@@ -37,13 +57,21 @@ export default {
           }
         })
         .catch(err => { console.log(err.messages) })
-
-    },
+    }, */
 
   },
   mounted() {
-    console.log(store);
-    this.getAllapartments()
+    const lat = this.$route.params.lat;
+    const lon = this.$route.params.lon;
+
+    if (lat && lon) {
+      console.log('Lat:', lat, 'Lon:', lon);
+      // Puoi fare ulteriori operazioni qui con lat e lon
+      this.searchApartment(lat, lon);
+    } else {
+      // Gestisci il caso in cui lat e lon non sono presenti
+      console.log('Nessuna coordinata fornita.');
+    }
   }
 }
 </script>
@@ -92,6 +120,7 @@ export default {
       <div class="col-7 myborder ">
         <div class="my-3">
           Campo con filtri
+
         </div>
         <div class="d-flex flex-wrap justify-content-between mx-5  ">
           <router-link class="sponsorcard" v-for="apartment in sponsors"

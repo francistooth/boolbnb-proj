@@ -7,26 +7,35 @@ export default {
         return {
             macroSearch: '',
             apartments: [],
+            lat: null,
+            lon: null
         }
     },
     methods: {
         searchCoordinate(city){
             const cityName = this.macroSearch
             
-            axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ')
+            axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
                 .then(res =>{
-                    const lat = res.data.results[0].position.lat;
-                    const lon = res.data.results[0].position.lon;
-                    this.searchApartment(lat, lon);
-                    
-                    
-                    /* console.log(lat, lon); */
+                    this.lat = res.data.results[0].position.lat;
+                    this.lon = res.data.results[0].position.lon;
+                    /* this.coordinateInput = lon + ', ' + lat; */
+                    /* return this.searchApartment(lat, lon); */
+                })
+                .then(() => {
+                    this.$router.push({
+                        name: 'search',
+                        params: {
+                            lat: String(this.lat),
+                            lon: String(this.lon)
+                        }
+                    });
                 })
                 .catch(er => {
                     console.log(er.message);
                 })
         },
-        searchApartment(lat, lon){
+        /* searchApartment(lat, lon){
             const radius = 20;
             console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
 
@@ -35,20 +44,16 @@ export default {
                 lat: lat,
                 lon: lon,
                 radius: radius
-                
             })
             .then(response => {
                 // Salva i risultati nel data
                 this.apartments = response.data;
-                console.log(response.data);
-                
-                
-                
+                console.log(response.data);  
             })
             .catch(error => {
                 console.error("Errore durante la ricerca degli appartamenti:", error);
             });
-        }
+        } */
     }
 };
 
@@ -59,7 +64,7 @@ export default {
             <div class="col-md-8 d">
                 <div class="search">
                     <input type="text" class="form-control" placeholder="cerca alloggi..." v-model="macroSearch" >
-                    <button class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)" v-if="macroSearch != ''">
+                    <button  class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)" v-if="macroSearch != ''">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>

@@ -83,6 +83,15 @@ class PageController extends Controller
             ->orderBy('distance')
             ->get();
 
+            foreach ($apartments as $apartment) {
+                if ($apartment->img_path) {
+                    $apartment->img_path = Storage::url($apartment->img_path);
+                } else {
+                    $apartment->img_path = Storage::url('default-image.jpg');
+                    $apartment->img_name = 'No-img';
+                }
+            }
+
         return response()->json($apartments);
     }
     /* public function getApartmentsInRange(Request $request)
