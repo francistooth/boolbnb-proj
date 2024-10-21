@@ -33,6 +33,7 @@
         const errorMessage = document.getElementById('address-error'); // Elemento per l'errore
         const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
         let suggestionsArray = []; // Array per memorizzare i risultati dell'API
+        const initialAddressValue = addressInput.value; // Memorizza il valore iniziale
 
         // Funzione per fare la chiamata all'API TomTom
         function apiCall(query) {
@@ -43,7 +44,7 @@
                 .then(response => response.json())
                 .then(data => {
                     suggestionsArray = data.results.map(result => result.address
-                        .freeformAddress); // Salva i risultati nell'array
+                    .freeformAddress); // Salva i risultati nell'array
                     showSuggestions(data.results);
                 })
                 .catch(error => {
@@ -64,9 +65,9 @@
                     suggestionItem.addEventListener('click', function() {
                         addressInput.value = result.address.freeformAddress;
                         suggestionsBox.innerHTML =
-                            ''; // Nascondi i suggerimenti dopo aver selezionato
+                        ''; // Nascondi i suggerimenti dopo aver selezionato
                         errorMessage.textContent =
-                            ''; // Rimuovi l'errore se selezionato un indirizzo valido
+                        ''; // Rimuovi l'errore se selezionato un indirizzo valido
                     });
 
                     suggestionsBox.appendChild(suggestionItem);
@@ -79,18 +80,12 @@
             }
         }
 
-        // Funzione per verificare l'input iniziale (se c'è un valore da old())
-        function checkInitialInput() {
-            const initialValue = addressInput.value.trim();
-            if (initialValue.length > 2) {
-                apiCall(initialValue); // Esegui la chiamata API per ripopolare suggestionsArray
-            }
-        }
-
         // Ascolta l'input dell'utente e attiva la ricerca
         addressInput.addEventListener('input', function() {
             const query = addressInput.value.trim();
-            if (query.length > 2) { // Inizia a cercare dopo che l'utente ha digitato almeno 3 caratteri
+
+            // Mostra i suggerimenti solo se il valore è stato cambiato dall'utente
+            if (query.length > 2 && query !== initialAddressValue) {
                 apiCall(query);
             } else {
                 suggestionsBox.innerHTML = ''; // Nascondi la tendina se l'input è troppo breve
@@ -109,11 +104,8 @@
             if (!suggestionsArray.includes(addressInput.value)) {
                 event.preventDefault(); // Blocca l'invio del form
                 errorMessage.textContent =
-                    'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
+                'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
             }
         });
-
-        // Esegui il controllo iniziale dell'input quando la pagina è caricata
-        checkInitialInput();
     });
 </script>
