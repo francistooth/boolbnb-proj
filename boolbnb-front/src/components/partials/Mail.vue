@@ -14,10 +14,13 @@ export default {
     data() {
         return {
             store,
-            name: 'Pino',
-            email: 'pino@gmail.it',
-            message: 'Ciao sono Pino',
+            name: '',
+            email: '',
+            message: '',
             sending: false,
+            sent: false,
+            apiError:false,
+            errorMessage: '',
 
             errors:{
                 email: [],
@@ -47,6 +50,7 @@ export default {
                     if(!response.data.success){
                         this.errors = response.data.errors;
                     } else {
+                        this.sent = true;
                         this.errors = {
                             name: [],
                             email: [],
@@ -54,12 +58,29 @@ export default {
                         }
                     }
 
+                    this.name = '',
+                    this.email = '',
+                    this.message = '',
+
                     this.sending = false;
+
+                    setTimeout(() => {
+                        this.sent = false;
+                    }, 2500);
                 })
                 .catch(error => {
+                    this.sending = false;
                     console.log(error.message);
+                    this.errorMessage = error.message;
+                    this.apiError = true;
                 });
+        },
+
+        resetError(){
+            this.errorMessage = '';
+            this.apiError = false;
         }
+
     },
 }
 </script>
@@ -67,7 +88,7 @@ export default {
 <template>
 
     <section>
-        <form v-if="!sending" action="#" @submit.prevent="sendForm">
+        <form v-if="!sending && !apiError" action="#" @submit.prevent="sendForm">
 
             <div>
                 <label for="name" class="form-label">Nome:</label>
@@ -87,14 +108,21 @@ export default {
                 <textarea v-model="message" rows="8" id="message" class="form-control"></textarea>
             </div>
 
-            <div>
-                <button type="submit" class="btn btn-success">Invia</button>
+            <div v-if="!sent">
+                <button type="submit" class="btn btn-success my-2">Invia</button>
+            </div>
+            <div v-else>
+                <h3 class="text-success my-2">Messaggio inviato correttamente</h3>
             </div>
 
         </form>
 
-        <Loader v-else/>
+        <Loader v-else-if="!apiError"/>
 
+        <div v-if="apiError" class="text-center">
+            <h2 class="text-danger">{{ errorMessage }}</h2>
+            <button class="btn btn-warning" @click="resetError">Riprova</button>
+        </div>
     </section>
 
 
@@ -103,7 +131,7 @@ export default {
 <style lang="scss" scoped>
 
 section{
-    height: 450px;
+    height: 580px;
 }
 
 form {
