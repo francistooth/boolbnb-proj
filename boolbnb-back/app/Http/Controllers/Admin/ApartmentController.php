@@ -11,6 +11,9 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class ApartmentController extends Controller
 {
@@ -155,4 +158,27 @@ class ApartmentController extends Controller
         $apartment->forceDelete();
         return redirect()->route('admin.apartments.index')->with('delete', 'L\' appartamento ' . $apartment->title . 'é stato eliminato definitivamente');
     }
+
+    public function getApartmentsInRange(Request $request)
+    {
+        // Puoi eventualmente prendere lat, lon e radius da $request se necessario
+        $lat = $request->input('lat');
+        $lon = $request->input('lon');
+        $radius = $request->input('radius');
+
+        $apartments = DB::table('apartments')
+            ->selectRaw('*, (6371 * ACOS(
+                COS(RADIANS(?)) *
+                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
+                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
+                SIN(RADIANS(?)) *
+                SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
+            )) AS distance', [$lat, $lon, $lat])
+            ->having('distance', '<=', $radius)
+            ->get();
+
+        return response()->json($apartments);
+    }
+
+
 }

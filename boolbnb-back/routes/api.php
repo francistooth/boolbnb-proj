@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ApartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PageController;
@@ -25,3 +26,4 @@ Route::get('/dettaglio/{slug}', [PageController::class, 'apartment']);
 Route::get('/filtro-servizi/{slug}', [PageController::class, 'servicesApt']);
 Route::get('/servizi', [PageController::class, 'service']);
 Route::post('/messaggi', [SendMessageController::class, 'store']);
+Route::post('/appartamenti-nel-raggio', [PageController::class, 'getApartmentsInRange']);
