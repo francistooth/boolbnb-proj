@@ -51,12 +51,13 @@ class SendMessageController extends Controller
             return response()->json(compact('success', 'errors'));
         }
 
-        $related_apartment = Apartment::where('slug', $request['slug'])->firstOrFail();
+        $related_apartment = Apartment::where('slug', $request['slug'])->first();
 
         $data['apartment_id'] = $related_apartment['id'];
 
         Message::create($data);
 
+        //data è per debug
         return response()->json(compact('success', 'data'));
     }
 }
