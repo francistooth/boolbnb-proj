@@ -1,8 +1,9 @@
 <script>
-import ApartmentCard from '../general/ApartmentCard.vue';
+
 import axios from 'axios';
 import { store } from '../../store';
 import Searchbar from '../partials/Searchbar.vue';
+import ApartmentCard from '../general/ApartmentCard.vue';
 export default {
   name: "HomeView",
   components: {
@@ -22,7 +23,7 @@ export default {
       axios.get(store.apiUrl + 'appartamenti')
         .then(res => {
           if (res.data.success) {
-            console.log(res.data.apartments);
+            /* console.log(res.data.apartments); */
             let all = res.data.apartments;
             all.forEach(element => {
               if (element.sponsors.length > 0) {
@@ -41,7 +42,7 @@ export default {
 
   },
   mounted() {
-    console.log(store);
+    /* console.log(store); */
     this.getAllapartments()
   }
 }
