@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div> --}}
-    <div class="container-fluid">
+    <div class="container-fluid aside">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -57,12 +57,15 @@
                     </ul>
 
 
-                    <a href="{{ route('logout') }}" class="nav-link align-middle px-0"
+                    <a href="http://localhost:5174" class="nav-link align-middle px-0"
                         onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();">
                         <i class="fs-5 p-1 fa-solid fa-arrow-right-from-bracket"></i><span
                             class="ms-1 d-none d-sm-inline">{{ __('Logout') }}</span>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
             <div class="col py-3 background">
