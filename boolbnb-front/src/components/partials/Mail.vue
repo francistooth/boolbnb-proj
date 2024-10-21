@@ -132,21 +132,21 @@ export default {
 
 section{
     height: 580px;
-}
 
-form {
-    margin: 50px auto;
-    width: 50%;
+    form {
+        margin: 50px auto;
+        width: 50%;
 
-    div {
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        div {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
 
-        label {
-            width: 100%;
-            text-align: center;
+            label {
+                width: 100%;
+                text-align: center;
+            }
         }
     }
 }
