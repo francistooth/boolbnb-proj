@@ -37,7 +37,7 @@
                     <div class="logo_laravel">
                         <div class="logo_laravel">
                             <img style="width: 50px"
-                                src="img/favicon.png"
+                                src="../img/favicon.png"
                                 alt="logo-boolbnb">
                         </div>
                     </div>

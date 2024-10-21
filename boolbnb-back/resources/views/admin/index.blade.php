@@ -45,7 +45,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.apartments.index') }}" class="nav-link align-middle px-0">
                                 <i class="p-1 fs-5 fa-solid fa-table-list"></i> <span
-                                    class="ms-1 d-none d-sm-inline">{{ __('Apartamenti') }}</span>
+                                    class="ms-1 d-none d-sm-inline">{{ __('Appartamenti') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">

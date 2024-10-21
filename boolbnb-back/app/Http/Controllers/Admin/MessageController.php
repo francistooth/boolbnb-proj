@@ -28,7 +28,6 @@ class MessageController extends Controller
                 $messages = array_merge($messages, $messages_apartmet->toArray());
             }
         }
-        dump($messages);
         return view('admin.message.index', compact('messages'));
     }
 

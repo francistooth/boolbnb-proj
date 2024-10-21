@@ -24,23 +24,23 @@
                     </div>
                 </div>
                 <div class="col  flex-grow text-center small">
-                    <i>Made whit &hearts;</i>
+                    <i>Made with &hearts;</i>
 
                 </div>
                 <div class="col d-flex justify-content-around ">
-                    <div class="icon-circle">
+                    <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-facebook"></i>
                     </div>
-                    <div class="icon-circle">
+                    <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-linkedin-in"></i>
                     </div>
-                    <div class="icon-circle">
+                    <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-twitter"></i>
                     </div>
-                    <div class="icon-circle">
+                    <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-instagram"></i>
                     </div>
-                    <div class="icon-circle">
+                    <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-pinterest"></i>
                     </div>
                 </div>
@@ -63,6 +63,10 @@ export default {
 
 <style scoped lang="scss">
 @use '../styles/partials/_variables.scss' as *;
+
+.cursor-pointer {
+    cursor: pointer;
+}
 
 footer {
     margin-top: 290px;
