@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             store,
+            name: 'Pino',
             email: 'pino@gmail.it',
             message: 'Ciao sono Pino',
         }
@@ -20,8 +21,7 @@ export default {
         sendForm() {
 
             const data = {
-                //name da eliminare?
-                name: this.email,
+                name: this.name,
                 email: this.email,
                 message: this.message,
                 slug: this.slug
@@ -30,7 +30,6 @@ export default {
             axios.post(store.apiUrl + 'messaggi', data)
                 .then(response => {
                     console.log(response.data);
-
                 })
                 .catch(error => {
                     console.log(error.message);
@@ -44,9 +43,16 @@ export default {
 
     <form action="#" @submit.prevent="sendForm">
 
-        <div>
-            <label for="email" class="form-label">Email:</label>
-            <input v-model="email" type="email" id="email" class="form-control">
+        <div class="row">
+            <div class="col">
+                <label for="name" class="form-label">Nome:</label>
+                <input v-model="name" type="text" id="name" class="form-control">
+            </div>
+
+            <div class="col">
+                <label for="email" class="form-label">Email:</label>
+                <input v-model="email" type="email" id="email" class="form-control">
+            </div>
         </div>
 
         <div>
@@ -68,7 +74,7 @@ form {
     width: 50%;
 
     div {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;

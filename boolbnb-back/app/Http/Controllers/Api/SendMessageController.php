@@ -12,20 +12,23 @@ class SendMessageController extends Controller
 {
     public function store(Request $request)
     {
-        //
         $success = true;
         $data = $request->all();
 
         $validator = Validator::make(
             $data,
             [
-                //name da eliminare?
-                'name' => 'required|string|max:100',
+                'name' => 'required|string|max:100|min:3',
                 'email' => 'required|email|max:100',
                 'message' => 'required|string|min:10|max:2000',
                 'slug' => 'required|string|exists:apartments,slug',
             ],
             [
+                'name.required' => 'Il campo nome è obbligatorio',
+                'name.string' => 'Il campo nome deve essere una stringa',
+                'name.max' => 'Il campo nome può contenere al massimo :max caratteri',
+                'name.min' => 'Il campo nome deve contenere almeno :min caratteri',
+
                 'email.required' => 'Il campo email è obbligatorio',
                 'email.email' => 'Il campo email deve essere un indirizzo email valido',
                 'email.max' => 'Il campo email può contenere al massimo :max caratteri',
@@ -51,9 +54,6 @@ class SendMessageController extends Controller
         $related_apartment = Apartment::where('slug', $request['slug'])->firstOrFail();
 
         $data['apartment_id'] = $related_apartment['id'];
-
-        // nome da eliminare?
-        $data['name'] = $request['email'];
 
         Message::create($data);
 

@@ -18,7 +18,6 @@ class Message extends Model
         'apartment_id',
         'email',
         'message',
-        //name da eliminare?
         'name'
     ];
 }
