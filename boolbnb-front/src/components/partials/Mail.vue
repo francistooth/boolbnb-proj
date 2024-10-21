@@ -56,11 +56,11 @@ export default {
                             email: [],
                             message: [],
                         }
-                    }
 
-                    this.name = '',
-                    this.email = '',
-                    this.message = '',
+                        this.name = '';
+                        this.email = '';
+                        this.message = '';
+                    }
 
                     this.sending = false;
 
