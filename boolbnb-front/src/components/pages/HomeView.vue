@@ -1,8 +1,9 @@
 <script>
-import ApartmentCard from '../general/ApartmentCard.vue';
+
 import axios from 'axios';
 import { store } from '../../store';
 import Searchbar from '../partials/Searchbar.vue';
+import ApartmentCard from '../general/ApartmentCard.vue';
 export default {
   name: "HomeView",
   components: {

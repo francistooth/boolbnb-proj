@@ -47,26 +47,26 @@ export default {
     },
   },
   methods: {
-    searchApartment(lat, lon){
-            const radius = 20;
-            console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
+    searchApartment(lat, lon) {
+      const radius = 20;
+      console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
 
 
-            axios.post('http://localhost:8001/api/appartamenti-nel-raggio', {
-                lat: lat,
-                lon: lon,
-                radius: radius
-            })
-            .then(response => {
-                // Salva i risultati nel data
-                console.log(response.data);
-                this.apartments = response.data;
-                console.log(response.data);  
-            })
-            .catch(error => {
-                console.error("Errore durante la ricerca degli appartamenti:", error);
-            });
-        },
+      axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
+        lat: lat,
+        lon: lon,
+        radius: radius
+      })
+        .then(response => {
+          // Salva i risultati nel data
+          console.log(response.data);
+          this.apartments = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("Errore durante la ricerca degli appartamenti:", error);
+        });
+    },
     /* addFilter(){
             axios.get('https://api.tomtom.com/search/2/geocode/' + this.addressFilter + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
                 .then(res =>{
@@ -108,8 +108,8 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="formGroupExampleInput" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="formGroupExampleInput"
-                placeholder="Example input placeholder" v-model="addressFilter">
+              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"
+                v-model="addressFilter">
             </div>
             <div class="col-3 mb-3">
               <label for="formGroupExampleInput2" class="form-label">Numero di Stanze</label>
@@ -123,7 +123,8 @@ export default {
             </div>
             <div class="col-3 mb-3">
               <label for="formGroupExampleInput2" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="20" v-model="radiusFilter">
+              <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="20"
+                v-model="radiusFilter">
             </div>
             <div class="col-12 d-flex mt-0a">
               <div class="mb-3">
@@ -139,23 +140,16 @@ export default {
           <button class="btn btn-danger" type="submit" @click.prevent="addFilter()">😈👿💀☠️</button>
         </form>
       </div>
-      <div class="col-7 myborder ">
-        <div class="my-3">
-          Campo con filtri
+      <div class="col-8 myborder ">
 
-        </div>
         <div class="d-flex flex-wrap justify-content-between mx-5  ">
-          <router-link class="sponsorcard" v-for="apartment in filteredSponsors"
-            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <ApartmentCard :data="apartment" />
-          </router-link>
-          <router-link class="boh2" v-for="apartment in filteredApartments"
+          <router-link class="sponsorcard" v-for="apartment in filteredApartments"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <ApartmentCard :data="apartment" />
           </router-link>
         </div>
       </div>
-      <div class="col-5">
+      <div class="col-4">
         <Map class="mapborder"></Map>
       </div>
     </div>
