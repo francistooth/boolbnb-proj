@@ -1,13 +1,65 @@
 <script>
-export default { name: "searchbar" };
+import axios from 'axios';
+
+export default { 
+    name: "searchbar",
+    data(){
+        return {
+            macroSearch: '',
+            apartments: [],
+        }
+    },
+    methods: {
+        searchCoordinate(city){
+            const cityName = this.macroSearch
+            
+            axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ')
+                .then(res =>{
+                    const lat = res.data.results[0].position.lat;
+                    const lon = res.data.results[0].position.lon;
+                    this.searchApartment(lat, lon);
+                    
+                    
+                    /* console.log(lat, lon); */
+                })
+                .catch(er => {
+                    console.log(er.message);
+                })
+        },
+        searchApartment(lat, lon){
+            const radius = 20;
+            console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
+
+
+            axios.post('http://localhost:8001/api/appartamenti-nel-raggio', {
+                lat: lat,
+                lon: lon,
+                radius: radius
+                
+            })
+            .then(response => {
+                // Salva i risultati nel data
+                this.apartments = response.data;
+                console.log(response.data);
+                
+                
+                
+            })
+            .catch(error => {
+                console.error("Errore durante la ricerca degli appartamenti:", error);
+            });
+        }
+    }
+};
+
 </script>
 <template>
     <div class="back-img">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-8 d">
                 <div class="search">
-                    <input type="text" class="form-control" placeholder="cerca alloggi...">
-                    <button class="btn btn-primary text-white">
+                    <input type="text" class="form-control" placeholder="cerca alloggi..." v-model="macroSearch" >
+                    <button class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)" v-if="macroSearch != ''">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
