@@ -43,7 +43,7 @@ export default {
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">login</a></li>
-                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">register</a></li>
+                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a></li>
                         </ul>
                     </li>
 
