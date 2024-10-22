@@ -97,8 +97,8 @@
 
 
                                 <div class="col-md-6">
-                                    <input type="date" id="date_birth" name="date_birth" value="2018-07-22"
-                                        min="1935-01-01" max="2006-12-31" class="form-control" />
+                                    <input type="date" id="date_birth" name="date_birth" value="" min="1935-01-01"
+                                        max="2006-12-31" class="form-control" />
                                 </div>
 
                             </div>
