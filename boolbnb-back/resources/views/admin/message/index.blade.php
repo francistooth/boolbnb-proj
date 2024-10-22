@@ -26,7 +26,7 @@
                         <td>{{ $message['name'] }}</td>
                         <td>{{ $message['apartment_id'] }}</td>
                         <td>{{ $message['message'] }}</td>
-                        <td>{{ $message['created_at'] }}</td>
+                        <td>{{ date('d-m-Y' , strtotime($message['created_at'])) }}</td>
 
 
                         <td>
