@@ -40,58 +40,59 @@
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
                 </div>
+                <div class="d-flex justify-content-between ">
+                    <div class="form-group mb-3">
+                        <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
+                        <input value="{{ old('room') }}" type="number" id="room" name="room"
+                            class="form-control @error('room') is-invalid @enderror" required min="1" max="250"
+                            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
-                <div class="form-group mb-3">
-                    <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
-                    <input value="{{ old('room') }}" type="number" id="room" name="room"
-                        class="form-control @error('room') is-invalid @enderror" required
-                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+                        @error('room')
+                            <small class="text-danger">*{{ $message }}</small>
+                        @enderror
+                    </div>
 
-                    @error('room')
-                        <small class="text-danger">*{{ $message }}</small>
-                    @enderror
+                    <div class="form-group mb-3">
+                        <label for="bathroom">Numero di bagni: <strong class="text-danger">*</strong></label>
+                        <input value="{{ old('bathroom') }}" type="number" id="bathroom" name="bathroom"
+                            class="form-control @error('bathroom') is-invalid @enderror" required min="1"
+                            max="250"
+                            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+
+                        @error('bathroom')
+                            <small class="text-danger">*{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="bed">Numero di letti: <strong class="text-danger">*</strong></label>
+                        <input value="{{ old('bed') }}" type="number" id="bed" name="bed"
+                            class="form-control @error('bed') is-invalid @enderror" required min="1" max="250"
+                            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+
+                        @error('bed')
+                            <small class="text-danger">*{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
+                        <input value="{{ old('sqm') }}" type="number" id="sqm" name="sqm"
+                            class="form-control @error('sqm') is-invalid @enderror" required min="1" max="50000"
+                            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+
+                        @error('sqm')
+                            <small class="text-danger">*{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-
-                <div class="form-group mb-3">
-                    <label for="bathroom">Numero di bagni: <strong class="text-danger">*</strong></label>
-                    <input value="{{ old('bathroom') }}" type="number" id="bathroom" name="bathroom"
-                        class="form-control @error('bathroom') is-invalid @enderror" required
-                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
-
-                    @error('bathroom')
-                        <small class="text-danger">*{{ $message }}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="bed">Numero di letti: <strong class="text-danger">*</strong></label>
-                    <input value="{{ old('bed') }}" type="number" id="bed" name="bed"
-                        class="form-control @error('bed') is-invalid @enderror" required
-                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
-
-                    @error('bed')
-                        <small class="text-danger">*{{ $message }}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
-                    <input value="{{ old('sqm') }}" type="number" id="sqm" name="sqm"
-                        class="form-control @error('sqm') is-invalid @enderror" required min="0"
-                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
-
-                    @error('sqm')
-                        <small class="text-danger">*{{ $message }}</small>
-                    @enderror
-                </div>
-
                 {{-- input address con logica JS --}}
                 @include('admin._partials.apiAddress', ['old' => old('address')])
 
                 <div class="mb-3">
                     <label for="services" class="form-label d-block">Servizi disponibili: <strong
                             class="text-danger">*</strong></label>
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
                         @foreach ($services as $service)
                             <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
                                 id="service-{{ $service->id }}" autocomplete="off"

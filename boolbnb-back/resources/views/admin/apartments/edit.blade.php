@@ -42,7 +42,7 @@
                 <div class="form-group mb-3 ">
                     <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('room', $apartment->room) }}" type="number" id="room" name="room"
-                        class="form-control @error('room') is-invalid @enderror" required
+                        class="form-control @error('room') is-invalid @enderror" required min="1" max="250"
                         onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                     @error('room')
@@ -53,7 +53,7 @@
                 <div class="form-group mb-3 ">
                     <label for="bathroom">Numero di bagni: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bathroom', $apartment->bathroom) }}" type="number" id="bathroom" name="bathroom"
-                        class="form-control @error('bathroom') is-invalid @enderror" required
+                        class="form-control @error('bathroom') is-invalid @enderror" required min="1" max="250"
                         onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                     @error('bathroom')
@@ -64,7 +64,7 @@
                 <div class="form-group mb-3 ">
                     <label for="bed">Numero di letti: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('bed', $apartment->bed) }}" type="number" id="bed" name="bed"
-                        class="form-control @error('bed') is-invalid @enderror" required
+                        class="form-control @error('bed') is-invalid @enderror" required min="1" max="250"
                         onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                     @error('bed')
@@ -75,7 +75,7 @@
                 <div class="form-group mb-3 ">
                     <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('sqm', $apartment->sqm) }}" type="number" id="sqm" name="sqm"
-                        class="form-control @error('sqm') is-invalid @enderror" required
+                        class="form-control @error('sqm') is-invalid @enderror" required min="1" max="50000"
                         onkeypress="return (event.charCode !=8 && event.charCode ==0) || (event.charCode >= 48 && event.charCode <= 57)">
 
                     @error('sqm')

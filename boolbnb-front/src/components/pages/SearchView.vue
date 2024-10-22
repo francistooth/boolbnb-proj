@@ -16,6 +16,8 @@ export default {
       store,
       apartments: [],
       sponsors: [],
+      services: [],
+      servicesfilter: [],
       addressFilter: '',
       roomFilter: '',
       bedFilter: '',
@@ -67,6 +69,17 @@ export default {
           console.error("Errore durante la ricerca degli appartamenti:", error);
         });
     },
+    getservice() {
+      axios.get(store.apiUrl + 'servizi')
+        .then(res => {
+          this.services = res.data.result,
+            console.log(res.data.result)
+        }
+
+        ).catch(error => {
+          console.error("Errore durante la ricerca dei servizi", error);
+        });
+    }
     /* addFilter(){
             axios.get('https://api.tomtom.com/search/2/geocode/' + this.addressFilter + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
                 .then(res =>{
@@ -82,6 +95,7 @@ export default {
     } */
   },
   mounted() {
+    this.getservice();
     const lat = this.$route.params.lat;
     const lon = this.$route.params.lon;
 
@@ -104,40 +118,35 @@ export default {
   <div class="container-fluid mt-5">
     <div class="row">
       <div class="col-12">
-        <form class="container" action="">
+        <form class="container mb-2" action="">
           <div class="row">
             <div class="col-3 mb-3">
-              <label for="formGroupExampleInput" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"
+              <label for="adressfilter" class="form-label">Indirizzo</label>
+              <input type="text" class="form-control" id="adressfilter" placeholder="Example input placeholder"
                 v-model="addressFilter">
             </div>
             <div class="col-3 mb-3">
-              <label for="formGroupExampleInput2" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control" id="formGroupExampleInput2"
-                placeholder="Another input placeholder" v-model="roomFilter">
+              <label for="room-number" class="form-label">Numero di Stanze</label>
+              <input type="number" class="form-control" id="room-number" placeholder="Es.2" v-model="roomFilter">
             </div>
             <div class=" col-3 mb-3">
-              <label for="formGroupExampleInput2" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control" id="formGroupExampleInput2"
-                placeholder="Another input placeholder" v-model="bedFilter">
+              <label for="bed-number" class="form-label">Numero di Letti</label>
+              <input type="number" class="form-control" id="bed-number" placeholder="Es.3" v-model="bedFilter">
             </div>
             <div class="col-3 mb-3">
-              <label for="formGroupExampleInput2" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="20"
-                v-model="radiusFilter">
+              <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
+              <input type="number" class="form-control" id="radiusfilter" placeholder="20" v-model="radiusFilter">
             </div>
-            <div class="col-12 d-flex mt-0a">
-              <div class="mb-3">
-                <input type="checkbox" name="wifi" id="" v-model="wifiFilter">
-                <label for="formGroupExampleInput2" class="form-label">Wifi</label>
+            <div class="col-12 row row-cols-6 d-flex mt-0a">
+              <div v-for='service in services' class=" col d-line  mb-3">
+                <input type="checkbox" name="service[]" class="d-block text-center" :id="service.name"
+                  :value="service.id" v-model="servicesfilter">
+                <label :for="service.name" class="form-label ">{{ service.name }}</label>
               </div>
-              <div class="mb-3">
-                <input type="checkbox" name="piscina" id="" v-model="poolFilter">
-                <label for="formGroupExampleInput2" class="form-label">Piscina</label>
-              </div>
+
             </div>
           </div>
-          <button class="btn btn-danger" type="submit" @click.prevent="addFilter()">😈👿💀☠️</button>
+          <button class="btn btn-danger" type="submit" @click.prevent="addFilter()">Ricerca</button>
         </form>
       </div>
       <div class="col-8 myborder ">
