@@ -7,12 +7,20 @@
                 {{ session('delete') }}
             </div>
         @endif
+
         @if (session('update'))
             <div class="alert alert-success mx-auto">
                 {{ session('update') }}
             </div>
         @endif
-        <h2 class="mt-5 text-primary"> Dettagli dell'appartamento </h2>
+
+        @if (session('sponsor_success'))
+            <div class="alert alert-success">
+                {{ session('sponsor_success') }}
+            </div>
+        @endif
+
+        <h2 class="mt-3 text-primary"> Dettaglio appartamento </h2>
         <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
         <div class="mt-5 card">
@@ -90,14 +98,14 @@
                 </div>
 
                 <div>
-                    <h3 class="ms-5">Sponsorizza l'appartamento</h3>
-                    <div class="row justify-content-center">
+                    <h3 class="text-center">Sponsorizza l'appartamento</h3>
+                    <div class="row justify-content-around">
                         @foreach ($sponsors as $sponsor)
-                            <div class="card m-5 text-center" style="width: 18rem;">
+                            <div class="card my-3 text-center" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $sponsor->title }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }}</h6>
-                                    <p class="card-text">{{ $sponsor->duration }}</p>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
+                                    <p class="card-text">{{ $sponsor->duration }} ore</p>
 
                                     <form action="{{ route('admin.payment.store', $apartment->id) }}" method="POST">
                                         @csrf
