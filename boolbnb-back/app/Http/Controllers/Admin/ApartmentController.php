@@ -8,6 +8,7 @@ use App\Http\Requests\ApartmentRequest;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\Sponsor;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -76,7 +77,9 @@ class ApartmentController extends Controller
             abort(404);
         }
 
-        return view('admin.apartments.show', compact('apartment'));
+        $sponsors = Sponsor::all();
+
+        return view('admin.apartments.show', compact('apartment', 'sponsors'));
     }
 
     /**
@@ -179,6 +182,4 @@ class ApartmentController extends Controller
 
         return response()->json($apartments);
     }
-
-
 }

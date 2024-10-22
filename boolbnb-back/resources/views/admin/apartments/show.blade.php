@@ -88,6 +88,32 @@
                                     class="fa-solid fa-sack-dollar"></i></a></button>
                     </div>
                 </div>
+
+                <div>
+                    <h3 class="ms-5">Sponsorizza l'appartamento</h3>
+                    <div class="row justify-content-center">
+                        @foreach ($sponsors as $sponsor)
+                            <div class="card m-5 text-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $sponsor->title }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }}</h6>
+                                    <p class="card-text">{{ $sponsor->duration }}</p>
+
+                                    <form action="{{ route('admin.payment.store', $apartment->id) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <!-- campi nascosti per passare id dello sponsor -->
+                                        <input type="hidden" name="sponsor_id" value="{{ $sponsor->id }}">
+                                        <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
+                                        <button type="submit" class="btn btn-secondary text-white">Acquista</button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\UserResourceController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Admin\VisitController;
 
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'verified'])
         Route::get('apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
         Route::patch('apartments/{id}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
         Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
+        Route::post('payment/store/{id}', [PaymentController::class, 'store'])->name('payment.store');
+
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);
         Route::resource('sponsor', SponsorController::class)->except(['edit', 'update', 'destroy']);
