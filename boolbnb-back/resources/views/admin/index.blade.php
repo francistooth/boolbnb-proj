@@ -35,12 +35,13 @@
                                     class="ms-1 d-none d-sm-inline">{{ __('Home') }}</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.user.show', Auth::id()) }}" class="nav-link align-middle px-0">
                                 <i class="p-1 fs-5 fa-regular fa-user"></i><span
                                     class="ms-1 d-none d-sm-inline">{{ __('User') }}</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ route('admin.apartments.index') }}" class="nav-link align-middle px-0">
