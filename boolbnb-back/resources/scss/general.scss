@@ -1,37 +1,48 @@
 ul {
     list-style: none;
 }
+
 a {
     text-decoration: none;
     color: currentColor;
 }
+
 .aside {
     height: 100vh;
 }
+
 .background {
     background-image: url("../../public/img/backgroun-image.avif");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+
+
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .backcard {
     padding: 3px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5) !important;
+
     strong {
         color: white;
     }
 }
+
 .backtable {
     background-color: rgba(0, 0, 0, 0.15) !important;
     backdrop-filter: blur(2px) !important;
 }
+
 #apartmentForm {
     background-color: rgba(0, 0, 0, 0.5);
 
     padding: 5px;
     border-radius: 10px;
+
     label {
         text-transform: uppercase;
         font-weight: bolder;
