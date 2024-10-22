@@ -78,7 +78,7 @@
                     <div class="form-group mb-3">
                         <label for="sqm">Metri quadrati: <strong class="text-danger">*</strong></label>
                         <input value="{{ old('sqm') }}" type="number" id="sqm" name="sqm"
-                            class="form-control @error('sqm') is-invalid @enderror" required min="0" max="50000"
+                            class="form-control @error('sqm') is-invalid @enderror" required min="1" max="50000"
                             onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                         @error('sqm')
