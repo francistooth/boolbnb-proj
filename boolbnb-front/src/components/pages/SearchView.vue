@@ -21,7 +21,7 @@ export default {
       addressFilter: '',
       roomFilter: '',
       bedFilter: '',
-      radiusFilter: '5',
+      radiusFilter: '',
       wifiFilter: false,
       poolFilter: false,
     }
@@ -51,6 +51,10 @@ export default {
   methods: {
     searchApartment(lat, lon) {
       const radius = 20;
+      if (this.radiusFilter != '') {
+        radius = this.radiusFilter;
+      }
+
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
 
 
@@ -98,6 +102,7 @@ export default {
     this.getservice();
     const lat = this.$route.params.lat;
     const lon = this.$route.params.lon;
+    this.addressFilter = this.$route.params.address;
 
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
@@ -122,8 +127,7 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" placeholder="Example input placeholder"
-                v-model="addressFilter">
+              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter">
             </div>
             <div class="col-3 mb-3">
               <label for="room-number" class="form-label">Numero di Stanze</label>

@@ -18,6 +18,7 @@ export default {
 
             axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
                 .then(res => {
+                    /*  console.log(res.data.results[0]) */
                     this.lat = res.data.results[0].position.lat;
                     this.lon = res.data.results[0].position.lon;
                     /* this.coordinateInput = lon + ', ' + lat; */
@@ -27,6 +28,7 @@ export default {
                     this.$router.push({
                         name: 'search',
                         params: {
+                            address: String(this.macroSearch),
                             lat: String(this.lat),
                             lon: String(this.lon)
                         }
