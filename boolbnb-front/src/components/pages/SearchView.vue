@@ -22,38 +22,32 @@ export default {
       roomFilter: '',
       bedFilter: '',
       radiusFilter: '',
-      wifiFilter: false,
-      poolFilter: false,
+
     }
   },
   computed: {
     filteredSponsors() {
       return this.sponsors.filter(apartment => {
-        const matchesAddress = this.addressFilter === '' || apartment.address.toLowerCase().includes(this.addressFilter);
-        const matchesRooms = this.roomFilter === '' || apartment.room === this.roomFilter;
-        const matchesBeds = this.bedFilter === '' || apartment.bed === this.bedFilter;
-        const matchesRadius = this.radiusFilter === '' || apartment.distance <= this.radiusFilter;
 
+        const matchesRooms = this.roomFilter === '' || apartment.room >= this.roomFilter;
+        const matchesBeds = this.bedFilter === '' || apartment.bed >= this.bedFilter;
         return matchesAddress && matchesRooms && matchesBeds && matchesRadius;
       });
     },
     filteredApartments() {
       return this.apartments.filter(apartment => {
-        const matchesAddress = this.addressFilter === '' || apartment.address.toLowerCase().includes(this.addressFilter);
-        const matchesRooms = this.roomFilter === '' || apartment.room === this.roomFilter;
-        const matchesBeds = this.bedFilter === '' || apartment.bed === this.bedFilter;
-        const matchesRadius = this.radiusFilter === '' || apartment.distance <= this.radiusFilter;
-
-        return matchesAddress && matchesRooms && matchesBeds && matchesRadius;
+        const matchesRooms = this.roomFilter === '' || apartment.room >= this.roomFilter;
+        const matchesBeds = this.bedFilter === '' || apartment.bed >= this.bedFilter;
+        return matchesRooms && matchesBeds;
       });
     },
   },
   methods: {
     searchApartment(lat, lon) {
       const radius = 20;
-      if (this.radiusFilter != '') {
-        radius = this.radiusFilter;
-      }
+      /*    if (this.radiusFilter != '') {
+           radius = this.radiusFilter;
+         } */
 
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
 
@@ -65,43 +59,91 @@ export default {
       })
         .then(response => {
           // Salva i risultati nel data
-          console.log(response.data);
           this.apartments = response.data;
-          console.log(response.data);
+          console.log(this.apartments);
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
         });
     },
+
     getservice() {
       axios.get(store.apiUrl + 'servizi')
         .then(res => {
-          this.services = res.data.result,
-            console.log(res.data.result)
+          this.services = res.data.result
+
         }
 
         ).catch(error => {
           console.error("Errore durante la ricerca dei servizi", error);
         });
-    }
-    /* addFilter(){
-            axios.get('https://api.tomtom.com/search/2/geocode/' + this.addressFilter + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
-                .then(res =>{
-                    this.lat = res.data.results[0].position.lat;
-                    this.lon = res.data.results[0].position.lon;
-                    this.coordinateInput = lon + ', ' + lat;
-                    
-                })
-                .catch(er => {
-                    console.log(er.message);
-                })
-      
-    } */
+    },
+    addFilter() {
+      const cityName = this.addressFilter
+
+      axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
+        .then(res => {
+
+          this.lat = res.data.results[0].position.lat;
+          this.lon = res.data.results[0].position.lon;
+
+
+        })
+        .then(() => {
+          this.$router.push({
+            name: 'search',
+            params: {
+              address: String(this.addressFilter),
+              rooms: String(this.roomFilter),
+              beds: String(this.bedFilter),
+              radius: String(this.radiusFilter),
+              lat: String(this.lat),
+              lon: String(this.lon)
+            }
+
+          })
+
+          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter);
+        })
+        .catch(er => {
+          console.log(er.message);
+        })
+    }, searchApartmentfilter(lat, lon, rooms, beds, radius, address) {
+
+      if (radius) {
+        radius = this.radiusFilter;
+      } else {
+        radius = 20;
+      }
+      console.log(this.$route.params);
+      console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address);
+
+
+      axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
+        lat: lat,
+        lon: lon,
+        radius: radius
+      })
+        .then(response => {
+          // Salva i risultati nel data
+          this.apartments = response.data;
+
+          console.log(this.apartments);
+        })
+        .catch(error => {
+          console.error("Errore durante la ricerca degli appartamenti:", error);
+        });
+    },
   },
   mounted() {
     this.getservice();
     const lat = this.$route.params.lat;
     const lon = this.$route.params.lon;
+    const beds = this.$route.params.beds;
+
+    this.bedFilter = this.$route.params.beds;
+    this.roomFilter = this.$route.params.rooms;
+    this.radiusFilter = this.$route.params.radius;
     this.addressFilter = this.$route.params.address;
 
     if (lat && lon) {
@@ -127,19 +169,19 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter">
+              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @change="addFilter">
             </div>
             <div class="col-3 mb-3">
               <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control" id="room-number" placeholder="Es.2" v-model="roomFilter">
+              <input type="number" class="form-control" id="room-number" v-model="roomFilter">
             </div>
             <div class=" col-3 mb-3">
               <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control" id="bed-number" placeholder="Es.3" v-model="bedFilter">
+              <input type="number" class="form-control" id="bed-number" v-model="bedFilter">
             </div>
             <div class="col-3 mb-3">
               <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="radiusfilter" placeholder="20" v-model="radiusFilter">
+              <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @change="addFilter">
             </div>
             <div class="col-12 row row-cols-6 d-flex mt-0a">
               <div v-for='service in services' class=" col d-line  mb-3">
@@ -147,10 +189,8 @@ export default {
                   :value="service.id" v-model="servicesfilter">
                 <label :for="service.name" class="form-label ">{{ service.name }}</label>
               </div>
-
             </div>
           </div>
-          <button class="btn btn-danger" type="submit" @click.prevent="addFilter()">Ricerca</button>
         </form>
       </div>
       <div class="col-8 myborder ">
