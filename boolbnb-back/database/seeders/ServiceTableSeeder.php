@@ -28,10 +28,25 @@ class ServiceTableSeeder extends Seeder
             "Cucina",
             "Animali ammessi"
         ];
+        $icon = [
+            'fa-solid fa-coffee',
+            'fa-solid fa-wifi',
+            'fa-solid fa-water',
+            'fa-solid fa-broom',
+            'fa-solid fa-concierge-bell',
+            'fa-solid fa-info-circle',
+            'fa-solid fa-parking',
+            'fa-brands fa-wirsindhandwerk',
+            'fa-solid fa-tree',
+            'fa-solid fa-bus',
+            'fa-solid fa-utensils',
+            'fa-solid fa-paw'
+        ];
 
-        foreach ($services as $service) {
+        foreach ($services as $index => $service) {
             $new_service = new Service;
             $new_service->name = $service;
+            $new_service->icon = $icon[$index];
             $new_service->save();
         }
     }
