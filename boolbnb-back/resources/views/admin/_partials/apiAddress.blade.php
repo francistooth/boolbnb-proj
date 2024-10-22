@@ -40,11 +40,20 @@
                 `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(query)}.json?key=${apiKey}&limit=5&countrySet=IT`;
 
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     suggestionsArray = data.results.map(result => result.address
-                        .freeformAddress); // Salva i risultati nell'array
+                    .freeformAddress); // Salva i risultati nell'array
                     showSuggestions(data.results);
+                    // Controlla se il valore iniziale è valido
+                    if (initialAddressValue && suggestionsArray.includes(initialAddressValue)) {
+                        errorMessage.textContent = ''; // Rimuovi eventuali messaggi di errore
+                    }
                 })
                 .catch(error => {
                     console.error('Errore nella chiamata API TomTom:', error);
@@ -64,9 +73,9 @@
                     suggestionItem.addEventListener('click', function() {
                         addressInput.value = result.address.freeformAddress;
                         suggestionsBox.innerHTML =
-                            ''; // Nascondi i suggerimenti dopo aver selezionato
+                        ''; // Nascondi i suggerimenti dopo aver selezionato
                         errorMessage.textContent =
-                            ''; // Rimuovi l'errore se selezionato un indirizzo valido
+                        ''; // Rimuovi l'errore se selezionato un indirizzo valido
                     });
 
                     suggestionsBox.appendChild(suggestionItem);
@@ -100,11 +109,19 @@
 
         // Verifica se l'indirizzo inserito è valido prima di inviare il form
         apartmentForm.addEventListener('submit', function(event) {
-            if (!suggestionsArray.includes(addressInput.value)) {
+            const addressValue = addressInput.value;
+
+            // Se l'input è precompilato, verifica se corrisponde ai risultati API
+            if (suggestionsArray.length === 0 || !suggestionsArray.includes(addressValue)) {
                 event.preventDefault(); // Blocca l'invio del form
                 errorMessage.textContent =
-                    'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
+                'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
             }
         });
+
+        // Fai la chiamata API iniziale con il valore precompilato
+        if (initialAddressValue) {
+            apiCall(initialAddressValue); // Controlla se il valore iniziale è valido
+        }
     });
 </script>
