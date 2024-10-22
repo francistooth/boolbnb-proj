@@ -37,16 +37,10 @@
                             {{ $apartment->title }}
                         </h3>
 
-
                         {{-- Descrizione appartamento --}}
-
-
                         <p class="card-text"> {{ $apartment->description }} </p>
 
-
                         {{-- Caratteristiche dell'appartamento --}}
-
-
                         <h5> Caratteristiche: </h5>
                         <div class="card-text d-flex flex-column">
                             <span> Numero Stanze : {{ $apartment->room }} </span>
@@ -55,10 +49,7 @@
                             <span>Grandezza: {{ $apartment->sqm }} m²</span>
                         </div>
 
-
                         {{-- Servizi Appartamento --}}
-
-
                         <h5 class="mt-2">Servizi: </h5>
                         <div class="card-text d-flex flex-column">
                             @foreach ($apartment->services as $service)
@@ -68,37 +59,41 @@
                             @endforeach
                         </div>
 
-
                         {{-- Indirizzo appartamento --}}
-
-
                         <h5 class="mt-2"> Indirizzo: </h5>
                         <span class="card-text">
                             {{ $apartment->address }}
                         </span>
-
-
-                        {{-- Visibilità --}}
-
-                        <h5 class="mt-2">Visibilità</h5>
-                        <button class="btn btn-success">
-                            @if ($apartment->is_visible)
-                                <i class="fa-solid fa-eye"></i>
-                            @else
-                                <i class="fa-solid fa-eye-slash"></i>
-                            @endif
-                        </button>
-                        <button class="btn btn-warning text-white"><a
-                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                    class="fa-regular fa-envelope"></i></a>
-                        </button>
-                        <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
-                                    class="fa-solid fa-sack-dollar"></i></a></button>
                     </div>
+
+                    <div class="d-flex">
+                        {{-- visibilità --}}
+                        <div class="text-center ms-3 me-4">
+                            @if ($apartment->is_visible)
+                                <button class="btn btn-success">
+                                    Visibile al pubblico
+                                </button>
+                            @else
+                                <button class="btn btn-warning">
+                                    Non visibile al pubblico
+                                </button>
+                            @endif
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            {{-- messaggi ricevuti --}}
+                            <button class="btn btn-primary"><a
+                                    href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                        class="fa-regular fa-envelope"></i></a>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div>
-                    <h3 class="text-center">Sponsorizza l'appartamento</h3>
+                    <h3 class="mt-4 text-center">Sponsorizza l'appartamento</h3>
                     <div class="row justify-content-around">
                         @foreach ($sponsors as $sponsor)
                             <div class="card my-3 text-center" style="width: 18rem;">
