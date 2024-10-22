@@ -23,7 +23,7 @@ export default {
       axios.get(store.apiUrl + 'appartamenti')
         .then(res => {
           if (res.data.success) {
-            /* console.log(res.data.apartments); */
+            console.log(res.data.apartments);
             let all = res.data.apartments;
             all.forEach(element => {
               if (element.sponsors.length > 0) {

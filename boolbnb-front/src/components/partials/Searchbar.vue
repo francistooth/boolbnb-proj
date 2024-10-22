@@ -1,22 +1,24 @@
 <script>
 import axios from 'axios';
 
-export default { 
+export default {
     name: "searchbar",
-    data(){
+    data() {
         return {
             macroSearch: '',
             apartments: [],
             lat: null,
-            lon: null
+            lon: null,
+            suggests: [],
         }
     },
     methods: {
-        searchCoordinate(city){
+        searchCoordinate(city) {
             const cityName = this.macroSearch
-            
+
             axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
-                .then(res =>{
+                .then(res => {
+                    /*  console.log(res.data.results[0]) */
                     this.lat = res.data.results[0].position.lat;
                     this.lon = res.data.results[0].position.lon;
                     /* this.coordinateInput = lon + ', ' + lat; */
@@ -26,6 +28,7 @@ export default {
                     this.$router.push({
                         name: 'search',
                         params: {
+                            address: String(this.macroSearch),
                             lat: String(this.lat),
                             lon: String(this.lon)
                         }
@@ -35,6 +38,19 @@ export default {
                     console.log(er.message);
                 })
         },
+        getSuggest() {
+            if (this.macroSearch != '') {
+                axios.get('https://api.tomtom.com/search/2/geocode/' + this.macroSearch + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&storeResult=false&limit=5&countrySet=IT&view=Unified&json&minFuzzyLevel=1')
+                    .then(result => {
+                        console.log(result.data)
+                        this.suggests = result.data.results;
+                    })
+            }
+        },
+        useSuggest(index) {
+            this.macroSearch = this.suggests[index].address.freeformAddress;
+            this.suggests = [];
+        }
         /* searchApartment(lat, lon){
             const radius = 20;
             console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
@@ -63,10 +79,17 @@ export default {
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-8 d">
                 <div class="search">
-                    <input type="text" class="form-control" placeholder="cerca alloggi..." v-model="macroSearch" >
-                    <button  class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)" v-if="macroSearch != ''">
+                    <input type="text" class="form-control" placeholder="cerca alloggi..." @keyup="getSuggest"
+                        v-model="macroSearch">
+                    <button class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)"
+                        v-if="macroSearch != ''">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
+                    <ul class="list-group" v-if="this.suggests.length > 0">
+                        <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
+                            <a href="#" @click="useSuggest(index)">{{ suggest.address.freeformAddress }}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
