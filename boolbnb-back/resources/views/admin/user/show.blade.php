@@ -3,8 +3,7 @@
 @section('user')
 
     {{-- il contenuto della card non è responsive va sistemato --}}
-    <div class="containeer-fluid ">
-
+    <div class="container">
         <div class="card" style="width:30rem;">
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted ">Email:  <span class="text-secondary">{{ $user->email }}</span> </h6>
