@@ -20,4 +20,5 @@ class Message extends Model
         'message',
         'name'
     ];
+
 }
