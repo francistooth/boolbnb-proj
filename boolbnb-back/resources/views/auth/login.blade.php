@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Accedi') }}</div>
+                    <div class="card-header text-center">{{ __('Accedi') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
@@ -13,7 +13,7 @@
 
                             <div class="mb-4 row">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail') }}</label>
+                                    class="col-md-4 col-form-label text-md-right text-center">{{ __('Indirizzo E-Mail') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -30,7 +30,7 @@
 
                             <div class="mb-4 row">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-right text-center">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -69,6 +69,14 @@
                                             {{ __('Hai dimenticato la password?') }}
                                         </a>
                                     @endif
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4 row mb-0">
+                                <div class="col-md-8 offset-md-3">
+                                    <a class="btn btn-link" href="{{ route('register') }}">
+                                        {{ __('Non hai un account? Registrati') }}
+                                    </a>
                                 </div>
                             </div>
                         </form>
