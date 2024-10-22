@@ -45,16 +45,49 @@
                                         <i class="fa-solid fa-pen">
                                         </i>
                                     </a>
-                                    <button class="btn btn-secondary"><a href="{{ route('admin.sponsor.index') }}"><i
-                                                class="fa-solid fa-sack-dollar"></i></a></button>
-                                    <form class="d-flex align-items-center border-0 m-2 w-25"
-                                        action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
-                                        onsubmit="return confirm('sei sicuro di voler cancellare {{ $apartment['title'] }}')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger rounded z-3"> <i
-                                                class="text-light fa-solid fa-trash"> </i></button>
-                                    </form>
+                                    <button class="btn btn-secondary">
+                                        <a href="{{ route('admin.sponsor.index') }}">
+                                            <i class="fa-solid fa-sack-dollar"></i>
+                                        </a>
+                                    </button>
+
+                                    <!-- bottone trigger modale -->
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal">
+                                        <i class="fa-solid fa-trash text-light"></i>
+                                    </button>
+
+                                    <!-- modale -->
+                                    <div class="modal fade" id="deleteModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma
+                                                        Eliminazione</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Sei sicuro di voler eliminare l'appartamento "{{ $apartment->title }}"?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Annulla</button>
+
+                                                    <!-- form eliminazione -->
+                                                    <form action="{{ route('admin.apartments.destroy', $apartment) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Conferma</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fine modale -->
+
                                 </div>
                             </td>
                         </tr>
@@ -68,4 +101,9 @@
         </div>
 
     </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Wg4A6lB1J6LOuYxgAs5f0bb5RmXsO1Huxy5Dke++dJzD5y" crossorigin="anonymous">
+    </script>
 @endsection
