@@ -15,7 +15,7 @@
 
     <div class="container mt-4">
 
-        <h2>Modifica appartamento: {{ $apartment->title }}</h2>
+        <h2 class="text-primary">Modifica appartamento: {{ $apartment->title }}</h2>
 
         <form id="apartmentForm" action="{{ route('admin.apartments.update', $apartment) }}" method="post"
             enctype="multipart/form-data">

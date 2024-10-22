@@ -12,8 +12,8 @@
                 {{ session('update') }}
             </div>
         @endif
-        <h2 class="mt-5"> Dettagli dell'appartamento </h2>
-        <h6 class=""> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+        <h2 class="mt-5 text-primary"> Dettagli dell'appartamento </h2>
+        <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
         <div class="mt-5 card">
 

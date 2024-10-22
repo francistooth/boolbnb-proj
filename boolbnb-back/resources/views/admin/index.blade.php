@@ -32,7 +32,7 @@
                         <li class="nav-item">
                             <a href="http://localhost:5174" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <span
-                                    class="ms-1 d-none d-sm-inline">{{ __('Home') }}</span>
+                                    class="ms-1 d-none d-sm-inline">{{ __('Vai al sito') }}</span>
                             </a>
                         </li>
                         
