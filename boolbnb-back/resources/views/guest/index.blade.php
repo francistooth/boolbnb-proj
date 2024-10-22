@@ -1,5 +1,6 @@
 @extends('layouts.guest')
 @section('content')
+    <nav-bar :is-guest="{{ json_encode(auth()->guest()) }}"></nav-bar>
 
     <body class="font-sans text-gray-900 antialiased">
         <div class="jumbotron p-5 mb-4 rounded-3">

@@ -35,6 +35,7 @@ export default {
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contatti</a>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,6 +46,22 @@ export default {
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">register</a></li>
                         </ul>
                     </li>
+
+                    <!-- <div
+                        v-if="isGuest"
+                        class="navbar-guest"
+                    >
+                    
+                    </div>
+
+                    <div
+                        v-else
+                        class="navbar-auth"
+                    >
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://127.0.0.1:8000/admin/">Il mio account</a>
+                        </li>
+                    </div> -->
                 </ul>
             </div>
         </div>

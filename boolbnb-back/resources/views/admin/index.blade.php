@@ -1,24 +1,7 @@
 @extends('layouts.app')
 {{-- da spedire al front  --}}
 @section('content')
-    {{--    <h2 class="fs-4 text-secondary my-4 ">
-            {{ 'Dashboard' }} <button class="btn btn-primary">pippo</button>
-        </h2> --}}
-    {{--  <div class="row justify-content-center">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">{{ 'User Dashboard' }}</div>
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        {{ __('You are logged in!') }}
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+<nav-bar :is-guest="{{ json_encode(auth()->guest()) }}"></nav-bar>
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
