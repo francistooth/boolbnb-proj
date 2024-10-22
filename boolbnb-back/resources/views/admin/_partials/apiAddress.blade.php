@@ -1,3 +1,29 @@
+<div class="form-group mb-3">
+    <!-- LABEL -->
+    <label for="address">
+        Indirizzo: <strong class="text-danger">*</strong>
+    </label>
+
+    <!-- USER INPUT -->
+    <input type="text" id="address" value="{{ $old }}" name="address"
+        class="form-control @error('address') is-invalid @enderror" placeholder="Es: Via del Corso 73, 00186 Roma"
+        required autocomplete="off">
+
+    <!-- RISULTATI API -->
+    <div id="address-suggestions" class="list-group"></div>
+
+    <!-- MESSAGGIO DI ERRORE -->
+    <small id="address-error" class="text-danger"></small>
+
+    @error('address')
+        <small class="text-danger">
+            *{{ $message }}
+            <br>
+            Consigliamo di selezionare un risultato dalla lista dei suggerimenti
+        </small>
+    @enderror
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addressInput = document.getElementById('address');
@@ -7,9 +33,6 @@
         const apiKey = 'PmDZl7vx3YsaUvAjiu8WRKIDvd4SGoNG';
         let suggestionsArray = []; // Array per memorizzare i risultati dell'API
         const initialAddressValue = addressInput.value; // Memorizza il valore iniziale
-
-        // Pulisce il contenuto del campo address al caricamento della pagina
-        addressInput.value = '';
 
         // Funzione per fare la chiamata all'API TomTom
         function apiCall(query) {
