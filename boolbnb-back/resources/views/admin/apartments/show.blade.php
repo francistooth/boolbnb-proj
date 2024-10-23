@@ -26,11 +26,26 @@
             </div>
         @endif
 
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="text-primary"> Dettaglio appartamento </h2>
+                <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+            </div>
+            <div class="alert alert-secondary text-center">
+                @if ($sponsor)
+                    <p>Sponsorizzato</p>
+                    <button class="btn btn-success">
+                        Fino al {{ \Carbon\Carbon::parse($sponsor)->format('d/m/Y') }}
+                    </button>
+                @else
+                    <button class="btn btn-light">
+                        Nessuna sponsorizzazione
+                    </button>
+                @endif
+            </div>
+        </div>
 
-        <h2 class="mt-3 text-primary"> Dettaglio appartamento </h2>
-        <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
-
-        <div class="mt-5 card">
+        <div class="mt-1 card">
 
             <div class="row no-gutters">
                 <div class="col-sm-5">

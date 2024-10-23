@@ -71,9 +71,11 @@
                                     </a>
                                 </td>
                                 <td class=""> {{ $apartment->title }} </td>
-                                <td>
 
+                                <td>
+                                    {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y') : 'Nessuna sponsorizzazione' }}
                                 </td>
+
                                 <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                                 <td class="w-10">
                                     <div class="d-flex align-items-center gap-3 flex-wrap">
