@@ -88,13 +88,23 @@
                             </button>
                         </div>
 
-                        <div class="text-center">
+                        <div class="text-center me-4">
                             {{-- messaggi ricevuti --}}
-                            <button class="btn btn-primary"><a
+                            <button class="btn btn-primary text-light"><a
                                     href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
                                         class="fa-regular fa-envelope"></i></a>
                             </button>
                         </div>
+
+                        <div class="text-center">
+                            {{-- modifica appartamento --}}
+                            <button class="btn btn-warning text-light"
+                                href="{{ route('admin.apartments.edit', $apartment) }}">
+                                <i class="fa-solid fa-pen">
+                                </i>
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
