@@ -22,6 +22,7 @@ export default {
       roomFilter: 1,
       bedFilter: 1,
       radiusFilter: 20,
+      loading: true
     }
   },
   methods: {
@@ -42,7 +43,8 @@ export default {
     },
     addFilter() {
       const cityName = this.addressFilter
-
+      console.log(this.servicesfilter.join(','));
+      const speranza = this.servicesfilter.join(',');
       axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
         .then(res => {
           this.lat = res.data.results[0].position.lat;
@@ -58,18 +60,21 @@ export default {
               radius: String(this.radiusFilter),
               lat: String(this.lat),
               lon: String(this.lon),
-              services: this.servicesfilter.join(','),
+              /* services: String(this.servicesfilter.join(',')), */
+              services: String(speranza),
             }
           })
-          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter, this.servicesfilter);
+          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter, speranza);
         })
         .catch(er => {
           console.log(er.message);
         })
     },
     searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
-      /* console.log(this.$route.params); */
+      console.log(this.$route.params);
+
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
+      this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
         lat: lat,
         lon: lon,
@@ -81,11 +86,17 @@ export default {
         .then(response => {
           // Salva i risultati nel data
           this.apartments = response.data;
-
+          this.loading = false;
           /* console.log(this.apartments); */
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
+          this.loading = false;
+          if (error.response) {
+            console.error('Dati:', error.response.data);
+            console.error('Status:', error.response.status);
+            console.error('Headers:', error.response.headers);
+          }
         });
     },
   },
@@ -105,7 +116,7 @@ export default {
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
       // Puoi fare ulteriori operazioni qui con lat e lon
-      this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, this.servicesfilter);
+      this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, services);
 
     } else {
       // Gestisci il caso in cui lat e lon non sono presenti
@@ -146,7 +157,7 @@ export default {
             <div class="col-12 row row-cols-6 d-flex mt-0a">
               <div v-for='service in services' class=" col d-line  mb-3">
                 <input type="checkbox" class="d-block text-center" :id="service.name" :value="service.name"
-                  v-model="servicesfilter">
+                  v-model="servicesfilter" @change="addFilter">
                 <label :for="service.name" class="form-label ">{{ service.name }}</label>
               </div>
             </div>
@@ -163,7 +174,8 @@ export default {
         </div>
       </div>
       <div class="col-4">
-        <Map class="mapborder"></Map>
+        <Map v-if="!loading" :array="this.apartments" :cordinate="{ lat: this.lat, lon: this.lon }"
+          class="mapborder"></Map>
       </div>
     </div>
   </div>

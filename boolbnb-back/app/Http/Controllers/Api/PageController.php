@@ -72,7 +72,7 @@ class PageController extends Controller
         $radius = $request->input('radius');
         $rooms = $request->input('rooms');
         $beds = $request->input('beds');
-        $service = $request->input('service');
+        $services = $request->input('services');
 
         $apartments = DB::table('apartments')
             ->selectRaw('*, (6371 * ACOS(
@@ -91,10 +91,20 @@ class PageController extends Controller
             $apartments->where('bed', '>=', $beds);
         }
 
-        if ($service) {
-        }
-        $apartments = $apartments->orderBy('distance')
-            ->get();
+        /*  if ($services) {
+
+            $servicesArray = is_array($services) ? $services : explode(',', $services);
+
+
+            $servicesId = Service::whereIn('name', $servicesArray)->pluck('id')->toArray();
+
+
+            $apartments->whereHas('services', function ($query) use ($servicesId) {
+                $query->whereIn('service_id', $servicesId);
+            });
+        } */
+
+        $apartments = $apartments->orderBy('distance')->get();
 
         foreach ($apartments as $apartment) {
             if ($apartment->img_path) {
@@ -107,46 +117,4 @@ class PageController extends Controller
 
         return response()->json($apartments);
     }
-    /* public function getApartmentsInRange(Request $request)
-    {
-        $lat = $request->input('lat');
-        $lon = $request->input('lon');
-        $radius = $request->input('radius') * 1000; // Converti i km in metri
-
-        $apartments = DB::table('apartments')
-            ->select('*', DB::raw(
-                "(6371 * ACOS(
-                    COS(RADIANS($lat)) *
-                    COS(RADIANS(SUBSTRING_INDEX(coordinate, ',', -1))) *
-                    COS(RADIANS(SUBSTRING_INDEX(coordinate, ',', 1)) - RADIANS($lon)) +
-                    SIN(RADIANS($lat)) *
-                    SIN(RADIANS(SUBSTRING_INDEX(coordinate, ',', -1)))
-                )) AS distance"
-            ))
-            ->having('distance', '<=', $radius)
-            ->get();
-
-        return response()->json($apartments);
-
-    } */
-    /* public function getApartmentsInRange(Request $request)
-    {
-        $lat = $request->input('lat');
-        $lon = $request->input('lon');
-        $radius = $request->input('radius') * 1000; // Converti i km in metri
-
-        $apartments = DB::table('apartments')
-            ->select('*', DB::raw(
-                "(6371 * acos(cos(radians($lat))
-                * cos(radians(latitude))
-                * cos(radians(longitude) - radians($lon))
-                + sin(radians($lat))
-                * sin(radians(latitude)))) AS distance"
-            ))
-            ->having('distance', '<=', $radius)
-            ->get();
-
-        return response()->json($apartments);
-
-    } */
 }
