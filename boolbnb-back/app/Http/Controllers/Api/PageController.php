@@ -70,6 +70,9 @@ class PageController extends Controller
         $lat = $request->input('lat');
         $lon = $request->input('lon');
         $radius = $request->input('radius');
+        $rooms = $request->input('rooms');
+        $beds = $request->input('beds');
+        $service = $request->input('service');
 
         $apartments = DB::table('apartments')
             ->selectRaw('*, (6371 * ACOS(
@@ -79,18 +82,28 @@ class PageController extends Controller
                 SIN(RADIANS(?)) *
                 SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
             )) AS distance', [$lat, $lon, $lat])
-            ->having('distance', '<=', $radius)
-            ->orderBy('distance')
+            ->having('distance', '<=', $radius);
+
+        if ($rooms) {
+            $apartments->where('room', '>=', $rooms);
+        }
+        if ($beds) {
+            $apartments->where('bed', '>=', $beds);
+        }
+
+        if ($service) {
+        }
+        $apartments = $apartments->orderBy('distance')
             ->get();
 
-            foreach ($apartments as $apartment) {
-                if ($apartment->img_path) {
-                    $apartment->img_path = Storage::url($apartment->img_path);
-                } else {
-                    $apartment->img_path = Storage::url('default-image.jpg');
-                    $apartment->img_name = 'No-img';
-                }
+        foreach ($apartments as $apartment) {
+            if ($apartment->img_path) {
+                $apartment->img_path = Storage::url($apartment->img_path);
+            } else {
+                $apartment->img_path = Storage::url('default-image.jpg');
+                $apartment->img_name = 'No-img';
             }
+        }
 
         return response()->json($apartments);
     }
