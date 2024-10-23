@@ -56,31 +56,23 @@ class PaymentController extends Controller
             $sponsor = Sponsor::find($request->sponsor_id);
             $apartment = Apartment::find($request->apartment_id);
 
-            //lista di sponsorizzazioni per appartamneto in ordine dal più recente
-            $is_sponsored = ApartmentSponsor::where('apartment_id', $apartment->id)->orderBy('created_at', 'desc')->get();
+            //prendo l'ultima sponsorizzaione disponibile dell'appartamento selezionato
+            $last_sponsor = ApartmentSponsor::where('apartment_id', $apartment->id)
+                ->orderBy('ending_date', 'desc')
+                ->first();
 
-            //se l'appartamento ha delle sponsor precedenti
-            if (count($is_sponsored)) {
-                //recupero l'ultimo ending_date disponibile
-                $last_sponsor = $is_sponsored[0]->ending_date;
-
-                //se l'ultima sponsor è maggiore della data di oggi (la sponsor è ancora in corso)
-                if ($last_sponsor >= now()) {
-                    //prendo last_sponsor
-                    $date = new DateTime($last_sponsor);
-                    //aggiungo la durata della sponsor selezionata
-                    $date->add(new DateInterval('PT' . $sponsor->duration . 'H'));
-                    // dd($last_sponsor . ' + ' . $sponsor->duration .  ' = ' . $date->format('Y-m-d H:i:s'));
-                } else {
-                    //se la sponsor è scaduta prendo la data di oggi e aggiungo la durata della sponsor selezionata
-                    $date = now()->addHours($sponsor->duration);
-                }
+            // se esiste una sponsorizzazione && l'ending date dell'ultima sponsorizzazione è maggiore uguale ad adesso
+            if ($last_sponsor && $last_sponsor->ending_date >= now()) {
+                // aggiungi la durata della sponsor selezionata alla sponsorizzazione in corso
+                $date = new DateTime($last_sponsor->ending_date);
+                $date->add(new DateInterval('PT' . $sponsor->duration . 'H'));
             } else {
-                //se non ho delle sponsor precedenti
+                // se la sponsorizzazione è scaduta, oppure non è mai esistita: inizia la nuova sponsorizzazione da ora
                 $date = now()->addHours($sponsor->duration);
             }
 
-            $apartment->sponsors()->attach($sponsor, ["ending_date" => $date]);
+            // crea la relazione sponsor apartment con la nuova data di fine
+            $apartment->sponsors()->attach($sponsor->id, ['ending_date' => $date]);
 
             return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y \o\r\e H:i'));
         } else {
