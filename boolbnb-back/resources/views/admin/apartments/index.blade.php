@@ -2,9 +2,9 @@
 
 @section('user')
     <div class="container d-flex justify-content-between align-items-center mt-4">
-        <h2 class="text-primary"> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
+        <h2 class="text-secondary"> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
         <div>
-            <a class="btn btn-success" href="{{ route('admin.apartments.create') }}"> Aggiungi un appartamento <i
+            <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}"> Aggiungi un appartamento <i
                     class="fa-solid fa-plus"> </i></a>
         </div>
     </div>
@@ -64,18 +64,18 @@
                             </div>
 
                             <tr class="">
-                                <td class="w-25">
+                                <td class="w-10">
                                     <a href="{{ route('admin.apartments.show', $apartment) }}">
-                                        <img class="w-50 rounded" src="{{ asset('storage/' . $apartment->img_path) }}"
+                                        <img class="max-h-100 rounded img-apartment" src="{{ asset('storage/' . $apartment->img_path) }}"
                                             alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                     </a>
                                 </td>
-                                <td class=""> {{ $apartment->title }} </td>
+                                <td class="w-25"> {{ $apartment->title }} </td>
                                 <td> {{ $apartment->sponsors->count() }} </td>
                                 <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
-                                <td class="w-10">
-                                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                                        <a class="btn btn-warning text-light"
+                                <td class="w-25">
+                                    <div class="d-flex align-items-ctener gap-3 flex-wrap">
+                                        <a class="btn btn-primary text-light"
                                             href="{{ route('admin.apartments.edit', $apartment) }}">
                                             <i class="fa-solid fa-pen">
                                             </i>

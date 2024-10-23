@@ -66,28 +66,22 @@
                         </span>
                     </div>
 
-                    <div class="d-flex">
-                        {{-- visibilità --}}
-                        <div class="text-center ms-3 me-4">
-                            @if ($apartment->is_visible)
-                                <button class="btn btn-success">
-                                    Visibile al pubblico
-                                </button>
-                            @else
-                                <button class="btn btn-warning">
-                                    Non visibile al pubblico
-                                </button>
-                            @endif
-                            </button>
-                        </div>
+                        {{-- Visibilità --}}
 
-                        <div class="text-center">
-                            {{-- messaggi ricevuti --}}
-                            <button class="btn btn-primary"><a
-                                    href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                        class="fa-regular fa-envelope"></i></a>
-                            </button>
-                        </div>
+                        <h5 class="mt-2">Visibilità</h5>
+                        <button class="btn btn-success">
+                            @if ($apartment->is_visible)
+                                <i class="fa-solid fa-eye"></i>
+                            @else
+                                <i class="fa-solid fa-eye-slash"></i>
+                            @endif
+                        </button>
+                        <button class="btn btn-warning text-white"><a
+                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                    class="fa-regular fa-envelope"></i></a>
+                        </button>
+                        <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
+                                    class="fa-solid fa-sack-dollar"></i></a></button>
                     </div>
 
                 </div>
