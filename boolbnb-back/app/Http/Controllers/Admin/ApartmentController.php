@@ -71,15 +71,30 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
+
+    private $gateway;
+
+    public function __construct()
+    {
+        $this->gateway = new \Braintree\Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey'),
+        ]);
+    }
+
     public function show(Apartment $apartment)
     {
         if ($apartment->user_id !== Auth::id()) {
             abort(404);
         }
 
+        $clientToken = $this->gateway->clientToken()->generate();
+
         $sponsors = Sponsor::all();
 
-        return view('admin.apartments.show', compact('apartment', 'sponsors'));
+        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken'));
     }
 
     /**

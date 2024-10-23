@@ -20,6 +20,13 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
         <h2 class="mt-3 text-primary"> Dettaglio appartamento </h2>
         <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
@@ -92,6 +99,7 @@
 
                 </div>
 
+
                 <div>
                     <h3 class="mt-4 text-center">Sponsorizza l'appartamento</h3>
                     <div class="row justify-content-around">
@@ -102,12 +110,14 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
                                     <p class="card-text">{{ $sponsor->duration }} ore</p>
 
-                                    <form action="{{ route('admin.payment.store', $apartment->id) }}" method="POST">
+                                    <form id="payment-form" action="{{ route('admin.payment.store', $apartment->id) }}"
+                                        method="POST">
                                         @csrf
-                                        @method('POST')
+                                        <div id="dropin-container"></div>
                                         <!-- campi nascosti per passare id dello sponsor -->
                                         <input type="hidden" name="sponsor_id" value="{{ $sponsor->id }}">
                                         <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
+                                        <input type="hidden" name="amount" value="{{ $sponsor->price }}">
                                         <button type="submit" class="btn btn-secondary text-white">Acquista</button>
                                     </form>
                                 </div>
@@ -121,4 +131,36 @@
         </div>
     </div>
     </div>
+
+    <script src="https://js.braintreegateway.com/web/dropin/1.33.7/js/dropin.min.js"></script>
+    <script>
+        var form = document.querySelector('#payment-form');
+        var client_token = "{{ $clientToken }}";
+
+        braintree.dropin.create({
+            authorization: client_token,
+            selector: '#dropin-container'
+        }, function(err, instance) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                instance.requestPaymentMethod(function(err, payload) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    // Aggiungi il nonce al form e invia
+                    var nonceInput = document.createElement('input');
+                    nonceInput.setAttribute('type', 'hidden');
+                    nonceInput.setAttribute('name', 'payment_method_nonce');
+                    nonceInput.setAttribute('value', payload.nonce);
+                    form.appendChild(nonceInput);
+                    form.submit();
+                });
+            });
+        });
+    </script>
 @endsection
