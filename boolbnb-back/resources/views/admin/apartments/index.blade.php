@@ -71,7 +71,11 @@
                                     </a>
                                 </td>
                                 <td class=""> {{ $apartment->title }} </td>
-                                <td> {{ $apartment->sponsors->count() }} </td>
+                                <td>
+                                    data fine sponsor
+                                    <br>
+                                    {{ $apartment->sponsors->count() }}
+                                </td>
                                 <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                                 <td class="w-10">
                                     <div class="d-flex align-items-center gap-3 flex-wrap">
@@ -80,10 +84,9 @@
                                             <i class="fa-solid fa-pen">
                                             </i>
                                         </a>
-                                        <button class="btn btn-secondary">
-                                            <a href="{{ route('admin.sponsor.index') }}">
-                                                <i class="fa-solid fa-sack-dollar"></i>
-                                            </a>
+                                        <button class="btn btn-secondary text-light"><a
+                                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                                    class="fa-regular fa-envelope"></i></a>
                                         </button>
 
                                         <!-- bottone trigger modale -->

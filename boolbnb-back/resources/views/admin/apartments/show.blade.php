@@ -90,7 +90,7 @@
 
                         <div class="text-center me-4">
                             {{-- messaggi ricevuti --}}
-                            <button class="btn btn-primary text-light"><a
+                            <button class="btn btn-secondary text-light"><a
                                     href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
                                         class="fa-regular fa-envelope"></i></a>
                             </button>
