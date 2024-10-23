@@ -17,7 +17,7 @@
 
         @if ($apartments->isEmpty())
             <div class="alert alert-info text-center mt-5">
-                Non hai aggiunto alcun appartamento.
+                Nessun appartamento aggiunto.
             </div>
         @else
             <div class="table-responsive mt-5">
@@ -72,9 +72,7 @@
                                 </td>
                                 <td class=""> {{ $apartment->title }} </td>
                                 <td>
-                                    data fine sponsor
-                                    <br>
-                                    {{ $apartment->sponsors->count() }}
+
                                 </td>
                                 <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                                 <td class="w-10">
