@@ -9,7 +9,5 @@ class ApartmentSponsor extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-
     protected $table = "apartment_sponsor";
 }
