@@ -18,7 +18,7 @@ class PaymentController extends Controller
 {
     private $gateway;
 
-    public function __construct()
+    public function store(Request $request)
     {
         $this->gateway = new \Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
@@ -26,22 +26,7 @@ class PaymentController extends Controller
             'publicKey' => config('services.braintree.publicKey'),
             'privateKey' => config('services.braintree.privateKey'),
         ]);
-    }
 
-    public function create(Request $request)
-    {
-        $clientToken = $this->gateway->clientToken()->generate();
-
-        // Passa il token alla view per il form di pagamento
-        return view('admin.apartments.show', [
-            'clientToken' => $clientToken,
-            'apartment' => Apartment::find($request->apartment_id),
-            'sponsor' => Sponsor::find($request->sponsor_id),
-        ]);
-    }
-
-    public function store(Request $request)
-    {
         // Effettua la transazione
         $result = $this->gateway->transaction()->sale([
             'amount' => $request->amount,
@@ -70,6 +55,9 @@ class PaymentController extends Controller
                 // se la sponsorizzazione è scaduta, oppure non è mai esistita: inizia la nuova sponsorizzazione da ora
                 $date = now()->addHours($sponsor->duration);
             }
+
+            // elimina le sponsorizzazioni precedenti per quell'appartamento
+            // $apartment->sponsors()->detach();
 
             // crea la relazione sponsor apartment con la nuova data di fine
             $apartment->sponsors()->attach($sponsor->id, ['ending_date' => $date]);

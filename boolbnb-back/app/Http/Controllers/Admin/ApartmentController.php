@@ -74,18 +74,16 @@ class ApartmentController extends Controller
 
     private $gateway;
 
-    public function __construct()
+    public function show(Apartment $apartment)
     {
+
         $this->gateway = new \Braintree\Gateway([
             'environment' => config('services.braintree.environment'),
             'merchantId' => config('services.braintree.merchantId'),
             'publicKey' => config('services.braintree.publicKey'),
             'privateKey' => config('services.braintree.privateKey'),
         ]);
-    }
 
-    public function show(Apartment $apartment)
-    {
         if ($apartment->user_id !== Auth::id()) {
             abort(404);
         }
