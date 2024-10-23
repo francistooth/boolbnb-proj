@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\ApartmentSponsor;
@@ -16,19 +17,13 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    private $gateway;
 
     public function store(Request $request)
     {
-        $this->gateway = new \Braintree\Gateway([
-            'environment' => config('services.braintree.environment'),
-            'merchantId' => config('services.braintree.merchantId'),
-            'publicKey' => config('services.braintree.publicKey'),
-            'privateKey' => config('services.braintree.privateKey'),
-        ]);
+        $gateway = Helper::getGateway();
 
         // Effettua la transazione
-        $result = $this->gateway->transaction()->sale([
+        $result = $gateway->transaction()->sale([
             'amount' => $request->amount,
             'paymentMethodNonce' => $request->payment_method_nonce,
             'options' => [
@@ -62,9 +57,9 @@ class PaymentController extends Controller
             // crea la relazione sponsor apartment con la nuova data di fine
             $apartment->sponsors()->attach($sponsor->id, ['ending_date' => $date]);
 
-            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y \o\r\e H:i'));
+            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y'));
         } else {
-            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('error', 'Pagamento fallito!');
+            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('error', 'Il pagamento è stato rifiutato, riprova!');
         }
     }
 }
