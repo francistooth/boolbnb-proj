@@ -12,8 +12,8 @@
                 {{ session('update') }}
             </div>
         @endif
-        <h2 class="mt-5 text-primary"> Dettagli dell'appartamento </h2>
-        <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+        <h2 class="mt-5 text-secondary"> Dettagli dell'appartamento </h2>
+        <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
         <div class="mt-5 card">
 
@@ -73,13 +73,17 @@
                         {{-- Visibilità --}}
 
                         <h5 class="mt-2">Visibilità</h5>
-                        <button class="btn btn-success">
-                            @if ($apartment->is_visible)
+
+                        @if ($apartment->is_visible)
+                            <div class="btn btn-success">
                                 <i class="fa-solid fa-eye"></i>
-                            @else
+                            </div>
+                        @else
+                            <div class="btn btn-danger">
                                 <i class="fa-solid fa-eye-slash"></i>
-                            @endif
-                        </button>
+                            </div>
+                        @endif
+
                         <button class="btn btn-warning text-white"><a
                                 href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
                                     class="fa-regular fa-envelope"></i></a>

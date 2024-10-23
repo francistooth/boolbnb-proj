@@ -5,13 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Registrati') }}</div>
+                    <div class="card-header text-center">{{ __('Registrazione') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}
                                     <strong class="text-danger">*</strong></label>
 
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}
                                     <strong class="text-danger">*</strong>
                                 </label>
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label for="password-confirm"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }} <strong
                                         class="text-danger">*</strong></label>
@@ -58,7 +58,7 @@
                             </div>
 
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}
                                 </label>
 
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label for="surname"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Cognome') }}</label>
 
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row">
+                            <div class="mb-4 row text-center">
                                 <label class="col-md-4 col-form-label text-md-right">{{ __('Data di Nascita') }}</label>
 
 
