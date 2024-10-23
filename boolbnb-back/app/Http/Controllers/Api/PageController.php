@@ -66,7 +66,7 @@ class PageController extends Controller
     }
     public function getApartmentsInRange(Request $request)
     {
-        // Puoi eventualmente prendere lat, lon e radius da $request se necessario
+        // Recupera lat, lon e radius dal request
         $lat = $request->input('lat');
         $lon = $request->input('lon');
         $radius = $request->input('radius');
@@ -76,12 +76,12 @@ class PageController extends Controller
 
         $apartments = DB::table('apartments')
             ->selectRaw('*, (6371 * ACOS(
-                COS(RADIANS(?)) *
-                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
-                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
-                SIN(RADIANS(?)) *
-                SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
-            )) AS distance', [$lat, $lon, $lat])
+            COS(RADIANS(?)) *
+            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
+            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
+            SIN(RADIANS(?)) *
+            SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
+        )) AS distance', [$lat, $lon, $lat])
             ->having('distance', '<=', $radius);
 
         if ($rooms) {
@@ -91,21 +91,18 @@ class PageController extends Controller
             $apartments->where('bed', '>=', $beds);
         }
 
-        /*  if ($services) {
-
+        if ($services) {
             $servicesArray = is_array($services) ? $services : explode(',', $services);
-
-
             $servicesId = Service::whereIn('name', $servicesArray)->pluck('id')->toArray();
 
-
-            $apartments->whereHas('services', function ($query) use ($servicesId) {
-                $query->whereIn('service_id', $servicesId);
-            });
-        } */
+            // Usa join per filtrare per servizi
+            $apartments->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
+                ->whereIn('apartment_service.service_id', $servicesId);
+        }
 
         $apartments = $apartments->orderBy('distance')->get();
 
+        // Aggiungi le immagini
         foreach ($apartments as $apartment) {
             if ($apartment->img_path) {
                 $apartment->img_path = Storage::url($apartment->img_path);

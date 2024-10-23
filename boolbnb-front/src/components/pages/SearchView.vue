@@ -22,7 +22,11 @@ export default {
       roomFilter: 1,
       bedFilter: 1,
       radiusFilter: 20,
-      loading: true
+      coordinates: {
+        lat: null,
+        lon: null,
+        name: null
+      }
     }
   },
   methods: {
@@ -87,7 +91,8 @@ export default {
           // Salva i risultati nel data
           this.apartments = response.data;
           this.loading = false;
-          /* console.log(this.apartments); */
+
+          console.log(this.apartments);
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
@@ -107,11 +112,17 @@ export default {
     const beds = this.$route.params.beds;
     const rooms = this.$route.params.rooms;
     const services = this.$route.params.services;
-
+    this.coordinates.lat = this.$route.params.lat;
+    this.coordinates.lon = this.$route.params.lon;
+    this.coordinates.name = this.$route.params.address
     this.bedFilter = beds ? beds : this.bedFilter;
     this.roomFilter = this.$route.params.rooms ? this.$route.params.rooms : this.roomFilter;
     this.radiusFilter = this.$route.params.radius ? this.$route.params.radius : this.radiusFilter;
     this.addressFilter = this.$route.params.address;
+    if (services) {
+      const arrayServices = this.$route.params.services.split(',');
+      this.servicesfilter = arrayServices;
+    }
     /* this.servicesfilter = this.$route.params.services ? this.$route.params.services.split(',') : 'Nessun-servizio-selezionato'; */
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
@@ -174,8 +185,8 @@ export default {
         </div>
       </div>
       <div class="col-4">
-        <Map v-if="!loading" :array="this.apartments" :cordinate="{ lat: this.lat, lon: this.lon }"
-          class="mapborder"></Map>
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
+          :coordinates="coordinates" class="mapborder"></Map>
       </div>
     </div>
   </div>
