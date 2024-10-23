@@ -44,7 +44,7 @@ class PaymentController extends Controller
     {
         // Effettua la transazione
         $result = $this->gateway->transaction()->sale([
-            'amount' => $request->amount, // Dovrai impostare l'importo corretto dinamicamente
+            'amount' => $request->amount,
             'paymentMethodNonce' => $request->payment_method_nonce,
             'options' => [
                 'submitForSettlement' => True
