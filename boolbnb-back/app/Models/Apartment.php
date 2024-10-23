@@ -24,7 +24,7 @@ class Apartment extends Model
 
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot("ending_date")->withTimestamps();
     }
 
     public function messages()
