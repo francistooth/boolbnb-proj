@@ -1,15 +1,18 @@
 <div class="modal fade" id="sponsorModal-{{ $sponsor->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" style="z-index: 1000">
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 139px">Conferma
                     Pagamento</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 Acquisto sponsor "{{ $sponsor->title }}" per un totale di €
-                {{ $sponsor->price }}
+                {{ $sponsor->price }}.
+                <br>
+                All'appartamento "{{ $apartment->title }}" verranno aggiunte {{ $sponsor->duration }} ore di
+                sponsorizzazione.
 
             </div>
             <div class="modal-footer justify-content-center">
