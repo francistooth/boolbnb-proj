@@ -20,8 +20,8 @@
             </div>
         @endif
 
-        <h2 class="mt-3 text-primary"> Dettaglio appartamento </h2>
-        <h6 class="text-primary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+        <h2 class="mt-3 text-secondary"> Dettaglio appartamento </h2>
+        <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
 
         <div class="mt-5 card">
 
