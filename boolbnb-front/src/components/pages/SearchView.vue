@@ -32,8 +32,8 @@ export default {
   },
   methods: {
     getSuggest() {
-      if (this.macroSearch != '') {
-        axios.get('https://api.tomtom.com/search/2/geocode/' + this.macroSearch + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&storeResult=false&limit=5&countrySet=IT&view=Unified&json&minFuzzyLevel=1')
+      if (this.addressFilter != '') {
+        axios.get('https://api.tomtom.com/search/2/geocode/' + this.addressFilter + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&storeResult=false&limit=5&countrySet=IT&view=Unified&json&minFuzzyLevel=1')
           .then(result => {
             console.log(result.data)
             this.suggests = result.data.results;
@@ -41,7 +41,7 @@ export default {
       }
     },
     useSuggest(index) {
-      this.macroSearch = this.suggests[index].address.freeformAddress;
+      this.addressFilter = this.suggests[index].address.freeformAddress;
       this.suggests = [];
     },
     servicelog() {
