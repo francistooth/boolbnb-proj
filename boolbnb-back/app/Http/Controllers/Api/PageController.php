@@ -75,7 +75,7 @@ class PageController extends Controller
         $services = $request->input('services');
 
         $apartments = DB::table('apartments')
-            ->selectRaw('*, (6371 * ACOS(
+            ->selectRaw('apartments.*, (6371 * ACOS(
             COS(RADIANS(?)) *
             COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
             COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
@@ -97,7 +97,9 @@ class PageController extends Controller
 
             // Usa join per filtrare per servizi
             $apartments->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
-                ->whereIn('apartment_service.service_id', $servicesId);
+                ->whereIn('apartment_service.service_id', $servicesId)
+                ->groupBy('apartments.id')
+                ->havingRaw('COUNT(apartment_service.service_id) = ?', [count($servicesId)]); // Assicura che ci siano tutti i servizi
         }
 
         $apartments = $apartments->orderBy('distance')->get();
