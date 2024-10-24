@@ -111,13 +111,17 @@ export default {
           // Salva i risultati nel data
           this.apartments = response.data;
           this.loading = false;
+          console.log(this.apartments);
+
           this.apartments.forEach(element => {
-            if (element.sponsors.length > 0) {
-              this.apartmentSponsor.push(element)
-            } else {
-              this.apartmentNoSponsor.push(element)
+            if (element.is_visible) {
+              if (element.sponsors.length > 0) {
+                this.apartmentSponsor.push(element)
+              } else {
+                this.apartmentNoSponsor.push(element)
+              }
+              console.log(this.apartments);
             }
-            console.log(this.apartments);
           })
         })
         .catch(error => {
@@ -172,7 +176,6 @@ export default {
       <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
-
       </div>
       <div class="col-3">
         <form class="container mb-2" action="">
@@ -220,7 +223,7 @@ export default {
         </form>
       </div>
       <div class=" col-9 myborder ">
-        <div class="ms-5">
+        <div v-if="apartments.length > 0" class="ms-5">
           <router-link v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <CardSearch :data="apartment" />
@@ -230,6 +233,9 @@ export default {
             <CardSearch :data="apartment" />
           </router-link>
 
+        </div>
+        <div v-else class="ms-5">
+          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
         </div>
       </div>
     </div>
@@ -241,8 +247,9 @@ export default {
 
 
 .myborder {
-  height: 98vh;
-  overflow-y: scroll;
+  display: flex;
+  justify-content: flex-start;
+
 }
 
 .mapborder {

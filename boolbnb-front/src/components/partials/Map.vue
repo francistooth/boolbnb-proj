@@ -31,13 +31,10 @@ export default {
     }
 
     function removeMarkers() {
-      console.log('Removing markers...');
-
       markers.forEach(marker => marker.remove());
       markers.length = 0;
 
       if (centralMarker) {
-        console.log('Removing central marker...');
         centralMarker.remove();
         centralMarker = null;
       }
@@ -45,13 +42,11 @@ export default {
 
     function updateMap() {
       if (map) {
-        console.log('Updating map...');
         removeMarkers();
-
         const centralLocation = [coordinates.value.lon, coordinates.value.lat];
         const bounds = new tt.LngLatBounds();
         bounds.extend(centralLocation);
-        console.log('Adding central marker at:', centralLocation);
+
         // Aggiungi il nuovo marker centrale
         centralMarker = addMarker(centralLocation, 'Punto centrale: ' + coordinates.value.name);
 
@@ -62,11 +57,9 @@ export default {
           addMarker(apartmentLocation, apartment.title);
           bounds.extend(apartmentLocation);
         });
-
         map.fitBounds(bounds, { padding: 50 });
       }
     }
-
     onMounted(() => {
       const tt = window.tt;
       map = tt.map({
