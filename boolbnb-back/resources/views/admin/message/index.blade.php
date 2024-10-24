@@ -7,6 +7,7 @@
         </div>
     @endif
     <div class="container-fluid overflow-auto">
+        <h2 class="mt-3 text-secondary"> Tutti i messaggi di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
         <table class="table">
             <thead>
                 <tr>
