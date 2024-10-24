@@ -164,11 +164,11 @@ export default {
               <label for="adressfilter" class="form-label">Indirizzo</label>
               <div class="position-relative">
                 <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter" @keyup="getSuggest">
-              <ul class="list-group position-absolute bottom-0 start-0 z-2" v-if="this.suggests.length > 0">
-                <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
-                  <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
-                </li>
-              </ul>
+                <ul class="list-group position-absolute bottom-50 start-0 z-2" v-if="this.suggests.length > 0">
+                  <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
+                    <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="col-3 mb-3">
