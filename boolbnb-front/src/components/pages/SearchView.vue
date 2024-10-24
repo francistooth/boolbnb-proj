@@ -15,6 +15,8 @@ export default {
     return {
       store,
       apartments: [],
+      apartmentSponsor: [],
+      apartmentNoSponsor: [],
       sponsors: [],
       services: [],
       servicesfilter: [],
@@ -90,7 +92,8 @@ export default {
     },
     searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
       console.log(this.$route.params);
-
+      this.apartmentSponsor = [];
+      this.apartmentNoSponsor = [];
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
       this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
@@ -105,8 +108,14 @@ export default {
           // Salva i risultati nel data
           this.apartments = response.data;
           this.loading = false;
-
-          console.log(this.apartments);
+          this.apartments.forEach(element => {
+            if (element.sponsors.length > 0) {
+              this.apartmentSponsor.push(element)
+            } else {
+              this.apartmentNoSponsor.push(element)
+            }
+            console.log(this.apartments);
+          })
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
@@ -163,7 +172,8 @@ export default {
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
               <div class="position-relative">
-                <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter" @keyup="getSuggest">
+                <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter"
+                  @keyup="getSuggest">
                 <ul class="list-group position-absolute top-100 start-0 z-2" v-if="this.suggests.length > 0">
                   <li class="list-group-item" v-for="suggest, index in suggests" :key="index" @click="addFilter">
                     <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
@@ -199,10 +209,15 @@ export default {
       <div class="col-8 myborder ">
 
         <div class="d-flex flex-wrap justify-content-between mx-5  ">
-          <router-link class="sponsorcard" v-for="apartment in apartments"
+          <router-link class="sponsorcard sponsor" v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <ApartmentCard :data="apartment" />
           </router-link>
+          <router-link class="sponsorcard " v-for="apartment in apartmentNoSponsor"
+            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+            <ApartmentCard :data="apartment" />
+          </router-link>
+
         </div>
       </div>
       <div class="col-4">
@@ -235,6 +250,10 @@ export default {
 .sponsorcard {
   width: calc(100%/5 - 20px);
   height: auto;
+}
+
+.sponsor {
+  border: 2px solid gold;
 }
 
 
