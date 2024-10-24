@@ -16,7 +16,7 @@
         @endif
 
         @if ($apartments->isEmpty())
-            <div class="alert alert-info text-center mt-5">
+            <div class="alert alert-dark text-center mt-5">
                 Nessun appartamento aggiunto.
             </div>
         @else
