@@ -138,6 +138,7 @@
                 </div>
             </div>
 
+            {{-- @include('admin._partials.statistic') --}}
 
         </div>
     </div>
