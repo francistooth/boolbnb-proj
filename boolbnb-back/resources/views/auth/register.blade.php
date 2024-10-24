@@ -55,6 +55,13 @@
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
                                 </div>
+
+
+                            <div class="mt-2 row">
+                                <div class="col-md-6 offset-md-4">
+                                    <div class="password-error-messages text-danger"></div>
+                                </div>
+                            </div>
                             </div>
 
 
@@ -103,11 +110,6 @@
 
                             </div>
 
-                            <div class="mb-4 row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="password-error-messages text-danger"></div>
-                                </div>
-                            </div>
 
                             <div class="mb-4 row mb-0 justify-content-center">
                                 <div class="col-md-6 offset-md-4">

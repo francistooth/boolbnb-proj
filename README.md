@@ -19,12 +19,13 @@ php artisan storage:link
 3 - composer i
 4 - composer update
 5 - npm i
-6 - accendere MAPM !important
-7 - php artisan key:generate
-8 - php artisan migrate
-9 - php artisan db:seed
-10 - php artisan serve
-11 - npm run dev
+6 - npm install chart.js
+7 - accendere MAPM !important
+8 - php artisan key:generate
+9 - php artisan migrate
+10 - php artisan db:seed
+11 - php artisan serve
+12 - npm run dev
 
 1 - aprire nuovo terminale
 2 - cd boolbnb-front

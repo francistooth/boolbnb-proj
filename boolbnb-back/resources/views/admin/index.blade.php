@@ -20,7 +20,7 @@
                         {{-- home button --}}
 
                         <li class="nav-item">
-                            <a href="http://localhost:5174" class="nav-link align-middle px-0">
+                            <a href="http://localhost:5173" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house">
                                 </i>
                                 <span class="ms-1 d-none d-sm-inline">
@@ -49,7 +49,7 @@
                     </ul>
 
 
-                    <a href="http://localhost:5174" class="nav-link align-middle px-0 py-3"
+                    <a href="http://localhost:5173" class="nav-link align-middle px-0 py-3"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fs-5 p-1 fa-solid fa-arrow-right-from-bracket">
 
