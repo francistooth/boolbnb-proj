@@ -87,7 +87,7 @@ export default {
                     </button>
                     <ul class="list-group" v-if="this.suggests.length > 0">
                         <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
-                            <a href="#" @click="searchCoordinate(index)">{{ suggest.address.freeformAddress }}</a>
+                            <a href="#" @click="searchCoordinate(suggest)">{{ suggest.address.freeformAddress }}</a>
                         </li>
                     </ul>
                 </div>
