@@ -51,25 +51,6 @@ export default {
             this.macroSearch = this.suggests[index].address.freeformAddress;
             this.suggests = [];
         }
-        /* searchApartment(lat, lon){
-            const radius = 20;
-            console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
-
-
-            axios.post('http://localhost:8001/api/appartamenti-nel-raggio', {
-                lat: lat,
-                lon: lon,
-                radius: radius
-            })
-            .then(response => {
-                // Salva i risultati nel data
-                this.apartments = response.data;
-                console.log(response.data);  
-            })
-            .catch(error => {
-                console.error("Errore durante la ricerca degli appartamenti:", error);
-            });
-        } */
     }
 };
 

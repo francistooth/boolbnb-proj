@@ -26,10 +26,24 @@ export default {
         lat: null,
         lon: null,
         name: null
-      }
+      },
+      suggests: []
     }
   },
   methods: {
+    getSuggest() {
+      if (this.macroSearch != '') {
+        axios.get('https://api.tomtom.com/search/2/geocode/' + this.macroSearch + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&storeResult=false&limit=5&countrySet=IT&view=Unified&json&minFuzzyLevel=1')
+          .then(result => {
+            console.log(result.data)
+            this.suggests = result.data.results;
+          })
+      }
+    },
+    useSuggest(index) {
+      this.macroSearch = this.suggests[index].address.freeformAddress;
+      this.suggests = [];
+    },
     servicelog() {
       console.log(this.servicesfilter);
 
@@ -148,7 +162,12 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter">
+              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter" @keyup="getSuggest">
+              <ul class="list-group" v-if="this.suggests.length > 0">
+                <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
+                  <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
+                </li>
+              </ul>
             </div>
             <div class="col-3 mb-3">
               <label for="room-number" class="form-label">Numero di Stanze</label>
