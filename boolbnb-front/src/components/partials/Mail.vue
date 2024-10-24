@@ -117,7 +117,7 @@ export default {
                 <button type="submit" class="btn btn-success my-2">Invia</button>
             </div>
             <div v-else>
-                <h4 class="text-success my-2">Messaggio inviato correttamente</h4>
+                <h4 class="text-success text-center my-2">Messaggio inviato correttamente</h4>
             </div>
 
         </form>
