@@ -162,8 +162,8 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter" @keyup="getSuggest">
-              <ul class="list-group" v-if="this.suggests.length > 0">
+              <input type="text" class="form-control position-relative" id="adressfilter" v-model="addressFilter" @input="addFilter" @keyup="getSuggest">
+              <ul class="list-group position-absolute bottom-0 start-0 z-2" v-if="this.suggests.length > 0">
                 <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
                   <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
                 </li>
