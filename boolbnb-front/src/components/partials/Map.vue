@@ -1,5 +1,5 @@
 <script>
-import { onMounted, ref, toRefs } from 'vue';
+import { onMounted, ref, toRefs, watch } from 'vue';
 
 export default {
   name: 'Map',
@@ -14,53 +14,69 @@ export default {
     }
   },
   setup(props) {
+    /* Converte le props in dati dinamici */
     const { apartments, coordinates } = toRefs(props);
     const mapRef = ref(null);
+    let map = null;
+    const markers = [];
 
-    function addMarker(map, location, popupText) {
+    /* permette di aggiungere marcatori sulla mappa  */
+    function addMarker(location, popupText) {
       const tt = window.tt;
       const popupOffset = 25;
-
       const marker = new tt.Marker().setLngLat(location).addTo(map);
       const popup = new tt.Popup({ offset: popupOffset }).setHTML(popupText);
       marker.setPopup(popup).togglePopup();
+      markers.push(marker);
+    }
+
+    function removeMarkers() {
+      /*  Rimuovi i marker esistenti */
+      markers.forEach(marker => marker.remove());
+      markers.length = 0;
+    }
+
+    /* controlla l'aggiornarsi della mappa */
+    function updateMap() {
+      if (map) {
+        removeMarkers();
+        const centralLocation = [coordinates.value.lon, coordinates.value.lat];
+        const bounds = new tt.LngLatBounds();
+        bounds.extend(centralLocation);
+
+        addMarker(centralLocation, 'Punto centrale: ' + coordinates.value.name);
+
+        /* creazione dei marcatori per ogni appartamento fornito */
+        apartments.value.forEach(apartment => {
+          const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
+          const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]];
+          addMarker(apartmentLocation, apartment.title);
+          bounds.extend(apartmentLocation);
+        });
+
+        /* centra la mappa con tutti i marcatori */
+        map.fitBounds(bounds, { padding: 50 });
+      }
     }
 
     onMounted(() => {
       const tt = window.tt;
-      const map = tt.map({
-        key: 'gBSPk0bCa3RCfPcr4yCwWYQfk59mSmXo', // Sostituisci con la tua chiave API
+      map = tt.map({
+        key: 'gBSPk0bCa3RCfPcr4yCwWYQfk59mSmXo',
         container: mapRef.value,
         style: 'tomtom://vector/1/basic-main',
       });
 
-      map.addControl(new tt.FullscreenControl());
-      map.addControl(new tt.NavigationControl());
 
-      map.on('load', () => {
-        // Aggiungi il marker per la posizione centrale
-        const centralLocation = [coordinates.value.lon, coordinates.value.lat];
-        addMarker(map, centralLocation, 'Punto centrale: ' + coordinates.value.name);
+      map.addControl(new tt.FullscreenControl()); /*  fullscreen */
+      map.addControl(new tt.NavigationControl()); /*  Controllo per la navigazione */
 
-        // Crea un bounds per centrare la mappa sui marker
-        const bounds = new tt.LngLatBounds();
-        bounds.extend(centralLocation);
-
-        // Aggiungi i marker per gli appartamenti
-        apartments.value.forEach(apartment => {
-          // Separiamo le coordinate e le convertiamo in numeri
-          const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
-          const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]]; // [lon, lat]
-
-          addMarker(map, apartmentLocation, apartment.title); // Usa apartment.title come popup
-          bounds.extend(apartmentLocation);
-        });
-
-
-        // Centra la mappa sui marker
-        map.fitBounds(bounds, { padding: 50 });
-      });
+      /* aggiorna la mappa */
+      map.on('load', updateMap);
     });
+
+    /*  osserva le modifiche alle props apartments e coordinates tenendo la mappa aggiornata */
+    watch([apartments, coordinates], updateMap);
 
     return {
       mapRef
@@ -73,8 +89,4 @@ export default {
   <div id='map' ref="mapRef"></div>
 </template>
 
-<style>
-/* #map {
-  height: 100vh;
-} */
-</style>
+<style></style>
