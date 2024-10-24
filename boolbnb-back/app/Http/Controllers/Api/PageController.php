@@ -64,9 +64,9 @@ class PageController extends Controller
         ];
         return response()->json($data);
     }
+
     public function getApartmentsInRange(Request $request)
     {
-        // Recupera lat, lon e radius dal request
         $lat = $request->input('lat');
         $lon = $request->input('lon');
         $radius = $request->input('radius');
@@ -74,14 +74,13 @@ class PageController extends Controller
         $beds = $request->input('beds');
         $services = $request->input('services');
 
-        $apartments = DB::table('apartments')
-            ->selectRaw('apartments.*, (6371 * ACOS(
-            COS(RADIANS(?)) *
-            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
-            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
-            SIN(RADIANS(?)) *
-            SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
-        )) AS distance', [$lat, $lon, $lat])
+        $apartments = Apartment::selectRaw('apartments.*, (6371 * ACOS(
+        COS(RADIANS(?)) *
+        COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
+        COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
+        SIN(RADIANS(?)) *
+        SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
+    )) AS distance', [$lat, $lon, $lat])
             ->having('distance', '<=', $radius);
 
         if ($rooms) {
@@ -90,21 +89,18 @@ class PageController extends Controller
         if ($beds) {
             $apartments->where('bed', '>=', $beds);
         }
-
         if ($services) {
             $servicesArray = is_array($services) ? $services : explode(',', $services);
             $servicesId = Service::whereIn('name', $servicesArray)->pluck('id')->toArray();
 
-            // Usa join per filtrare per servizi
             $apartments->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
                 ->whereIn('apartment_service.service_id', $servicesId)
                 ->groupBy('apartments.id')
-                ->havingRaw('COUNT(apartment_service.service_id) = ?', [count($servicesId)]); // Assicura che ci siano tutti i servizi
+                ->havingRaw('COUNT(apartment_service.service_id) = ?', [count($servicesId)]);
         }
 
-        $apartments = $apartments->orderBy('distance')->get();
+        $apartments = $apartments->with('sponsors')->orderBy('distance')->get();
 
-        // Aggiungi le immagini
         foreach ($apartments as $apartment) {
             if ($apartment->img_path) {
                 $apartment->img_path = Storage::url($apartment->img_path);
