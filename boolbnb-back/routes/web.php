@@ -31,7 +31,10 @@ Route::middleware(['auth', 'verified'])
         Route::get('apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
         Route::patch('apartments/{id}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
         Route::delete('apartments/{id}/delete', [ApartmentController::class, 'delete'])->name('apartments.delete');
-        Route::post('payment/store/{id}', [PaymentController::class, 'store'])->name('payment.store');
+        // Route::post('payment/store/{id}', [PaymentController::class, 'store'])->name('payment.store');
+        Route::get('payment/form', [PaymentController::class, 'create'])->name('payment.form');
+        Route::post('payment/store', [PaymentController::class, 'store'])->name('payment.store');
+
 
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);

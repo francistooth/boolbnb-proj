@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
+use App\Models\ApartmentSponsor;
 use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -24,9 +26,21 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
-        return view('admin.apartments.index', ['apartments' => $apartments]);
-    }
 
+        $sponsored_apartments = [];
+
+        foreach ($apartments as $apartment) {
+            $last_sponsor = $apartment->sponsors->sortByDesc('pivot.ending_date')->first();
+
+            if ($last_sponsor && $last_sponsor->pivot->ending_date >= now()) {
+                $sponsored_apartments[$apartment->id] = $last_sponsor->pivot->ending_date;
+            } else {
+                $sponsored_apartments[$apartment->id] = null;
+            }
+        }
+
+        return view('admin.apartments.index', compact('apartments', 'sponsored_apartments'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -71,15 +85,30 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
+
+
     public function show(Apartment $apartment)
     {
         if ($apartment->user_id !== Auth::id()) {
             abort(404);
         }
 
+        $gateway = Helper::getGateway();
+
+        $clientToken = $gateway->clientToken()->generate();
+
         $sponsors = Sponsor::all();
 
-        return view('admin.apartments.show', compact('apartment', 'sponsors'));
+        $sponsor = ApartmentSponsor::orderBy('ending_date', 'desc')->where('apartment_id', $apartment->id)->first();
+
+        if ($sponsor && $sponsor->ending_date >= now()) {
+            $sponsor = $sponsor->ending_date;
+        } else {
+            $sponsor = null;
+        }
+
+
+        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken', 'sponsor'));
     }
 
     /**

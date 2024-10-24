@@ -20,10 +20,32 @@
             </div>
         @endif
 
-        <h2 class="mt-3 text-secondary"> Dettaglio appartamento </h2>
-        <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
-        <div class="mt-5 card">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="text-secondary"> Dettaglio appartamento </h2>
+                <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+            </div>
+            <div class="alert alert-secondary text-center">
+                @if ($sponsor)
+                    <p>Sponsorizzato</p>
+                    <button class="btn btn-success">
+                        Fino al {{ \Carbon\Carbon::parse($sponsor)->format('d/m/Y') }}
+                    </button>
+                @else
+                    <button class="btn btn-light">
+                        Nessuna sponsorizzazione
+                    </button>
+                @endif
+            </div>
+        </div>
+
+        <div class="mt-1 card">
 
             <div class="row no-gutters">
                 <div class="col-sm-5">
@@ -66,53 +88,59 @@
                         </span>
                     </div>
 
-                        {{-- Visibilità --}}
+                    {{-- Visibilità --}}
 
-                        <h5 class="mt-2">Visibilità</h5>
-                        <button class="btn btn-success">
-                            @if ($apartment->is_visible)
-                                <i class="fa-solid fa-eye"></i>
-                            @else
-                                <i class="fa-solid fa-eye-slash"></i>
-                            @endif
-                        </button>
-                        <button class="btn btn-warning text-white"><a
-                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                    class="fa-regular fa-envelope"></i></a>
-                        </button>
-                        <button class="btn btn-primary"><a href="{{ route('admin.sponsor.index') }}"><i
-                                    class="fa-solid fa-sack-dollar"></i></a></button>
-                    </div>
-
+                    <h5 class="mt-2">Visibilità</h5>
+                    <button class="btn btn-success">
+                        @if ($apartment->is_visible)
+                            <i class="fa-solid fa-eye"></i>
+                        @else
+                            <i class="fa-solid fa-eye-slash"></i>
+                        @endif
+                    </button>
+                    {{-- messaggi ricevuti --}}
+                    <button class="btn btn-warning text-white"><a
+                            href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                class="fa-regular fa-envelope"></i></a>
+                    </button>
+                    {{-- modifica appartamento --}}
+                    <button class="btn btn-secondary text-light" href="{{ route('admin.apartments.edit', $apartment) }}">
+                        <i class="fa-solid fa-pen">
+                        </i>
+                    </button>
                 </div>
-
-                <div>
-                    <h3 class="mt-4 text-center">Sponsorizza l'appartamento</h3>
-                    <div class="row justify-content-around">
-                        @foreach ($sponsors as $sponsor)
-                            <div class="card my-3 text-center" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $sponsor->title }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
-                                    <p class="card-text">{{ $sponsor->duration }} ore</p>
-
-                                    <form action="{{ route('admin.payment.store', $apartment->id) }}" method="POST">
-                                        @csrf
-                                        @method('POST')
-                                        <!-- campi nascosti per passare id dello sponsor -->
-                                        <input type="hidden" name="sponsor_id" value="{{ $sponsor->id }}">
-                                        <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
-                                        <button type="submit" class="btn btn-secondary text-white">Acquista</button>
-                                    </form>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
 
             </div>
+
+            <div>
+
+                <h3 class="mt-4 text-center">Sponsorizza l'appartamento</h3>
+                <div class="row justify-content-around">
+                    @foreach ($sponsors as $sponsor)
+                        {{-- modale per pagamento, dropin Braintree, form per pagamento --}}
+                        @include('admin._partials.paymentForm')
+
+                        <div class="card my-3 text-center" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $sponsor->title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
+                                <p class="card-text">{{ $sponsor->duration }} ore</p>
+
+                                {{-- button trigger modale --}}
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#sponsorModal-{{ $sponsor->id }}">
+                                    Procedi al pagamento
+                                </button>
+
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+
         </div>
+    </div>
     </div>
     </div>
 @endsection

@@ -2,37 +2,64 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\ApartmentSponsor;
 use App\Models\Sponsor;
+use Braintree\Gateway;
 use Carbon\Carbon;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 
 
 
 class PaymentController extends Controller
 {
+
     public function store(Request $request)
     {
-        $request->validate([
-            'sponsor_id' => 'required|exists:sponsors,id',
-            'apartment_id' => 'required|exists:apartments,id',
+        $gateway = Helper::getGateway();
+
+        // Effettua la transazione
+        $result = $gateway->transaction()->sale([
+            'amount' => $request->amount,
+            'paymentMethodNonce' => $request->payment_method_nonce,
+            'options' => [
+                'submitForSettlement' => True
+            ]
         ]);
 
-        $sponsor = Sponsor::find($request->sponsor_id);
+        if ($result->success) {
 
-        $ending_date = now()->addHours($sponsor->duration);
+            $sponsor = Sponsor::find($request->sponsor_id);
+            $apartment = Apartment::find($request->apartment_id);
 
-        Apartment::find($request->apartment_id)->sponsors()->attach($sponsor->id, [
-            'ending_date' => $ending_date,
-            'created_at' => now(),
-        ]);
+            //prendo l'ultima sponsorizzaione disponibile dell'appartamento selezionato
+            $last_sponsor = ApartmentSponsor::where('apartment_id', $apartment->id)
+                ->orderBy('ending_date', 'desc')
+                ->first();
 
-        $apartment = $request->apartment_id;
+            // se esiste una sponsorizzazione && l'ending date dell'ultima sponsorizzazione è maggiore uguale ad adesso
+            if ($last_sponsor && $last_sponsor->ending_date >= now()) {
+                // aggiungi la durata della sponsor selezionata alla sponsorizzazione in corso
+                $date = new DateTime($last_sponsor->ending_date);
+                $date->add(new DateInterval('PT' . $sponsor->duration . 'H'));
+            } else {
+                // se la sponsorizzazione è scaduta, oppure non è mai esistita: inizia la nuova sponsorizzazione da ora
+                $date = now()->addHours($sponsor->duration);
+            }
 
-        $date = Carbon::parse($ending_date);
-        $formattedDate = $date->format('d/m/Y \o\r\e H:i');
+            // elimina le sponsorizzazioni precedenti per quell'appartamento
+            // $apartment->sponsors()->detach();
 
-        return redirect()->route('admin.apartments.show', $apartment)->with('sponsor_success', 'L\'appartamento sarà in evidenza fino al ' . $formattedDate);
+            // crea la relazione sponsor apartment con la nuova data di fine
+            $apartment->sponsors()->attach($sponsor->id, ['ending_date' => $date]);
+
+            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y'));
+        } else {
+            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('error', 'Il pagamento è stato rifiutato, riprova!');
+        }
     }
 }

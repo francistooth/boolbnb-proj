@@ -17,7 +17,7 @@
 
         @if ($apartments->isEmpty())
             <div class="alert alert-info text-center mt-5">
-                Non hai aggiunto alcun appartamento.
+                Nessun appartamento aggiunto.
             </div>
         @else
             <div class="table-responsive mt-5">
@@ -66,12 +66,17 @@
                             <tr class="">
                                 <td class="w-10">
                                     <a href="{{ route('admin.apartments.show', $apartment) }}">
-                                        <img class="max-h-100 rounded img-apartment" src="{{ asset('storage/' . $apartment->img_path) }}"
+                                        <img class="max-h-100 rounded img-apartment"
+                                            src="{{ asset('storage/' . $apartment->img_path) }}"
                                             alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                     </a>
                                 </td>
                                 <td class="w-25"> {{ $apartment->title }} </td>
-                                <td> {{ $apartment->sponsors->count() }} </td>
+
+                                <td>
+                                    {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y') : 'Nessuna sponsorizzazione' }}
+                                </td>
+
                                 <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                                 <td class="w-25">
                                     <div class="d-flex align-items-ctener gap-3 flex-wrap">
@@ -80,10 +85,9 @@
                                             <i class="fa-solid fa-pen">
                                             </i>
                                         </a>
-                                        <button class="btn btn-secondary">
-                                            <a href="{{ route('admin.sponsor.index') }}">
-                                                <i class="fa-solid fa-sack-dollar"></i>
-                                            </a>
+                                        <button class="btn btn-secondary text-light"><a
+                                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
+                                                    class="fa-regular fa-envelope"></i></a>
                                         </button>
 
                                         <!-- bottone trigger modale -->

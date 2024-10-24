@@ -3,7 +3,7 @@
 namespace App\Functions;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+use Braintree\Gateway;
 
 class Helper
 {
@@ -39,5 +39,15 @@ class Helper
 
             return $coordinate = $lon . ', ' . $lat;
         }
+    }
+
+    public static function getGateway()
+    {
+        return new Gateway([
+            'environment' => config('services.braintree.environment'),
+            'merchantId' => config('services.braintree.merchantId'),
+            'publicKey' => config('services.braintree.publicKey'),
+            'privateKey' => config('services.braintree.privateKey'),
+        ]);
     }
 }
