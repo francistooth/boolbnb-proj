@@ -75,15 +75,16 @@ export default {
 
 </script>
 <template>
-    <div class="back-img">
+    <div class="back-img bg-secondary">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-8 d">
                 <div class="search">
                     <input type="text" class="form-control" placeholder="cerca alloggi..." @keyup="getSuggest"
                         v-model="macroSearch">
-                    <button class="btn btn-primary text-white" @click="searchCoordinate(macroSearch)"
-                        v-if="macroSearch != ''">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                    <button class="btn btn-secondary text-white rounded" @click="searchCoordinate(macroSearch)">
+                        <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+
+                        Search
                     </button>
                     <ul class="list-group" v-if="this.suggests.length > 0">
                         <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
@@ -98,14 +99,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../../styles/partials/variables.scss" as *;
 @use "../../styles/general.scss" as *;
 
 
 .back-img {
-    background-image: url('../../assets/jumbo.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 60vh;
+    height: 30vh;
     width: 100%;
     position: relative;
     margin-top: -280px;
@@ -113,20 +112,19 @@ export default {
 
     .search {
         position: relative;
-        box-shadow: 0 0 40px rgba(51, 51, 51, .1);
         margin-top: 250px;
+        z-index: 1000;
 
         input {
             height: 60px;
             text-indent: 25px;
-            border: 2px solid #353a5085;
-            background-color: rgba(255, 255, 255, 0.4);
+            border: 3px solid $primary_color;
             backdrop-filter: blur(4px);
 
             &:focus {
 
                 box-shadow: none;
-                border: 2px solid;
+                border: 3px solid $secondary_color;
             }
         }
 
@@ -145,6 +143,10 @@ export default {
             height: 50px;
             width: 110px;
 
+        }
+
+        button:hover {
+            background-color: #0047a0;
         }
     }
 }

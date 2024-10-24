@@ -1,6 +1,8 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 // Impotrazione di FontAwsome
+
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { createApp } from "vue";
 import App from "./App.vue";

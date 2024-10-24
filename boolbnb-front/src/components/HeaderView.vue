@@ -23,17 +23,17 @@ export default {
             <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto ">
                     <li class="nav-item">
-                        <RouterLink to="/">home</RouterLink>
+                        <router-link to="/">home</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link :to="{ name: 'search' }">Ricerca Avanzata</router-link>
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Chi siamo</a>
+                        <router-link><a class="nav-link" href="#">Chi siamo</a></router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contatti</a>
+                        <router-link><a class="nav-link" href="#">Contatti</a></router-link>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -110,10 +110,6 @@ a.dropdown-item:hover {
     width: 100%;
     z-index: 123;
     padding-bottom: 120px;
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a6000000', endColorstr='#00000000', GradientType=0);
 }
 
 #navbarNavDropdown.collapsing .navbar-nav,
