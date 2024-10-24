@@ -4,11 +4,14 @@ import ApartmentCard from '../general/ApartmentCard.vue';
 import Map from '../partials/Map.vue';
 import { store } from '../../store';
 import axios from 'axios';
+import CardSearch from '../general/CardSearch.vue';
+
 
 export default {
   name: "SearchView",
   components: {
     ApartmentCard,
+    CardSearch,
     Map
   },
   data() {
@@ -196,7 +199,7 @@ export default {
               <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-12 row row-cols-6 d-flex mt-0a">
+            <div class="col-12 row row-cols-6 mt-a">
               <div v-for='service in services' class=" col d-line  mb-3">
                 <input type="checkbox" class="d-block text-center" :id="service.name" :value="service.name"
                   v-model="servicesfilter" @change="addFilter">
@@ -206,16 +209,16 @@ export default {
           </div>
         </form>
       </div>
-      <div class="col-8 myborder ">
+      <div class=" col-8 myborder ">
 
-        <div class="d-flex flex-wrap justify-content-between mx-5  ">
+        <div class="ms-5">
           <router-link class="sponsorcard sponsor" v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <ApartmentCard :data="apartment" />
+            <CardSearch :data="apartment" />
           </router-link>
           <router-link class="sponsorcard " v-for="apartment in apartmentNoSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <ApartmentCard :data="apartment" />
+            <CardSearch :data="apartment" />
           </router-link>
 
         </div>
