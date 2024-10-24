@@ -88,22 +88,27 @@ export default {
 <template>
 
     <section>
+        <div class="text-center">
+            <h4>Sei interessato?</h4>
+            <h5>Invia un messaggio all'host!</h5>
+        </div>
+
         <form v-if="!sending && !apiError" action="#" @submit.prevent="sendForm">
 
             <div>
-                <label for="name" class="form-label">Nome:</label>
+                <label for="name" class="form-label">Nome: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.name?.toString() }}</p>
                 <input v-model="name" type="text" id="name" class="form-control">
             </div>
 
             <div>
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.email?.toString() }}</p>
                 <input v-model="email" type="email" id="email" class="form-control">
             </div>
 
             <div>
-                <label for="message" class="form-label">Messaggio:</label>
+                <label for="message" class="form-label">Messaggio: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.message?.toString() }}</p>
                 <textarea v-model="message" rows="8" id="message" class="form-control"></textarea>
             </div>
@@ -112,7 +117,7 @@ export default {
                 <button type="submit" class="btn btn-success my-2">Invia</button>
             </div>
             <div v-else>
-                <h3 class="text-success my-2">Messaggio inviato correttamente</h3>
+                <h4 class="text-success my-2">Messaggio inviato correttamente</h4>
             </div>
 
         </form>
@@ -134,7 +139,7 @@ section{
     height: 580px;
 
     form {
-        margin: 50px auto;
+        margin: 20px auto;
         width: 50%;
 
         div {
@@ -146,6 +151,10 @@ section{
             label {
                 width: 100%;
                 text-align: center;
+            }
+
+            p.text-danger{
+                font-size: 12px;
             }
         }
     }

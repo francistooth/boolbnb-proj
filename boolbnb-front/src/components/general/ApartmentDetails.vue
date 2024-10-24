@@ -121,7 +121,7 @@ export default {
 
       </div>
 
-      <div class="message-card col pt-5">
+      <div class="message-card col pt-2">
         <Mail :slug="apartment.slug">
         </Mail>
       </div>
