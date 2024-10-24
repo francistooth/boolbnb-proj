@@ -66,74 +66,52 @@ class PageController extends Controller
     }
     public function getApartmentsInRange(Request $request)
     {
-        // Puoi eventualmente prendere lat, lon e radius da $request se necessario
+        // Recupera lat, lon e radius dal request
         $lat = $request->input('lat');
         $lon = $request->input('lon');
         $radius = $request->input('radius');
+        $rooms = $request->input('rooms');
+        $beds = $request->input('beds');
+        $services = $request->input('services');
 
         $apartments = DB::table('apartments')
             ->selectRaw('*, (6371 * ACOS(
-                COS(RADIANS(?)) *
-                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
-                COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
-                SIN(RADIANS(?)) *
-                SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
-            )) AS distance', [$lat, $lon, $lat])
-            ->having('distance', '<=', $radius)
-            ->orderBy('distance')
-            ->get();
+            COS(RADIANS(?)) *
+            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1))) *
+            COS(RADIANS(SUBSTRING_INDEX(coordinate, \',\', 1)) - RADIANS(?)) +
+            SIN(RADIANS(?)) *
+            SIN(RADIANS(SUBSTRING_INDEX(coordinate, \',\', -1)))
+        )) AS distance', [$lat, $lon, $lat])
+            ->having('distance', '<=', $radius);
 
-            foreach ($apartments as $apartment) {
-                if ($apartment->img_path) {
-                    $apartment->img_path = Storage::url($apartment->img_path);
-                } else {
-                    $apartment->img_path = Storage::url('default-image.jpg');
-                    $apartment->img_name = 'No-img';
-                }
+        if ($rooms) {
+            $apartments->where('room', '>=', $rooms);
+        }
+        if ($beds) {
+            $apartments->where('bed', '>=', $beds);
+        }
+
+        if ($services) {
+            $servicesArray = is_array($services) ? $services : explode(',', $services);
+            $servicesId = Service::whereIn('name', $servicesArray)->pluck('id')->toArray();
+
+            // Usa join per filtrare per servizi
+            $apartments->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
+                ->whereIn('apartment_service.service_id', $servicesId);
+        }
+
+        $apartments = $apartments->orderBy('distance')->get();
+
+        // Aggiungi le immagini
+        foreach ($apartments as $apartment) {
+            if ($apartment->img_path) {
+                $apartment->img_path = Storage::url($apartment->img_path);
+            } else {
+                $apartment->img_path = Storage::url('default-image.jpg');
+                $apartment->img_name = 'No-img';
             }
+        }
 
         return response()->json($apartments);
     }
-    /* public function getApartmentsInRange(Request $request)
-    {
-        $lat = $request->input('lat');
-        $lon = $request->input('lon');
-        $radius = $request->input('radius') * 1000; // Converti i km in metri
-
-        $apartments = DB::table('apartments')
-            ->select('*', DB::raw(
-                "(6371 * ACOS(
-                    COS(RADIANS($lat)) *
-                    COS(RADIANS(SUBSTRING_INDEX(coordinate, ',', -1))) *
-                    COS(RADIANS(SUBSTRING_INDEX(coordinate, ',', 1)) - RADIANS($lon)) +
-                    SIN(RADIANS($lat)) *
-                    SIN(RADIANS(SUBSTRING_INDEX(coordinate, ',', -1)))
-                )) AS distance"
-            ))
-            ->having('distance', '<=', $radius)
-            ->get();
-
-        return response()->json($apartments);
-
-    } */
-    /* public function getApartmentsInRange(Request $request)
-    {
-        $lat = $request->input('lat');
-        $lon = $request->input('lon');
-        $radius = $request->input('radius') * 1000; // Converti i km in metri
-
-        $apartments = DB::table('apartments')
-            ->select('*', DB::raw(
-                "(6371 * acos(cos(radians($lat))
-                * cos(radians(latitude))
-                * cos(radians(longitude) - radians($lon))
-                + sin(radians($lat))
-                * sin(radians(latitude)))) AS distance"
-            ))
-            ->having('distance', '<=', $radius)
-            ->get();
-
-        return response()->json($apartments);
-
-    } */
 }

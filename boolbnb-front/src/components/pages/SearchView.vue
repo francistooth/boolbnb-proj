@@ -19,54 +19,21 @@ export default {
       services: [],
       servicesfilter: [],
       addressFilter: '',
-      roomFilter: '',
-      bedFilter: '',
-      radiusFilter: '',
-
+      roomFilter: 1,
+      bedFilter: 1,
+      radiusFilter: 20,
+      coordinates: {
+        lat: null,
+        lon: null,
+        name: null
+      }
     }
   },
-  computed: {
-    filteredSponsors() {
-      return this.sponsors.filter(apartment => {
-
-        const matchesRooms = this.roomFilter === '' || apartment.room >= this.roomFilter;
-        const matchesBeds = this.bedFilter === '' || apartment.bed >= this.bedFilter;
-        return matchesAddress && matchesRooms && matchesBeds && matchesRadius;
-      });
-    },
-    filteredApartments() {
-      return this.apartments.filter(apartment => {
-        const matchesRooms = this.roomFilter === '' || apartment.room >= this.roomFilter;
-        const matchesBeds = this.bedFilter === '' || apartment.bed >= this.bedFilter;
-        return matchesRooms && matchesBeds;
-      });
-    },
-  },
   methods: {
-    searchApartment(lat, lon) {
-      const radius = 20;
-      /*    if (this.radiusFilter != '') {
-           radius = this.radiusFilter;
-         } */
+    servicelog() {
+      console.log(this.servicesfilter);
 
-      console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius);
-
-
-      axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
-        lat: lat,
-        lon: lon,
-        radius: radius
-      })
-        .then(response => {
-          // Salva i risultati nel data
-          this.apartments = response.data;
-          console.log(this.apartments);
-        })
-        .catch(error => {
-          console.error("Errore durante la ricerca degli appartamenti:", error);
-        });
     },
-
     getservice() {
       axios.get(store.apiUrl + 'servizi')
         .then(res => {
@@ -80,14 +47,12 @@ export default {
     },
     addFilter() {
       const cityName = this.addressFilter
-
+      console.log(this.servicesfilter.join(','));
+      const speranza = this.servicesfilter.join(',');
       axios.get('https://api.tomtom.com/search/2/geocode/' + cityName + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&countrySet=IT')
         .then(res => {
-
           this.lat = res.data.results[0].position.lat;
           this.lon = res.data.results[0].position.lon;
-
-
         })
         .then(() => {
           this.$router.push({
@@ -98,40 +63,45 @@ export default {
               beds: String(this.bedFilter),
               radius: String(this.radiusFilter),
               lat: String(this.lat),
-              lon: String(this.lon)
+              lon: String(this.lon),
+              /* services: String(this.servicesfilter.join(',')), */
+              services: String(speranza),
             }
-
           })
-
-          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter);
+          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter, speranza);
         })
         .catch(er => {
           console.log(er.message);
         })
-    }, searchApartmentfilter(lat, lon, rooms, beds, radius, address) {
-
-      if (radius) {
-        radius = this.radiusFilter;
-      } else {
-        radius = 20;
-      }
+    },
+    searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
       console.log(this.$route.params);
-      console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address);
 
-
+      console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
+      this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
         lat: lat,
         lon: lon,
-        radius: radius
+        radius: radius,
+        rooms: rooms,
+        beds: beds,
+        services: services
       })
         .then(response => {
           // Salva i risultati nel data
           this.apartments = response.data;
+          this.loading = false;
 
           console.log(this.apartments);
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
+          this.loading = false;
+          if (error.response) {
+            console.error('Dati:', error.response.data);
+            console.error('Status:', error.response.status);
+            console.error('Headers:', error.response.headers);
+          }
         });
     },
   },
@@ -140,16 +110,25 @@ export default {
     const lat = this.$route.params.lat;
     const lon = this.$route.params.lon;
     const beds = this.$route.params.beds;
-
-    this.bedFilter = this.$route.params.beds;
-    this.roomFilter = this.$route.params.rooms;
-    this.radiusFilter = this.$route.params.radius;
+    const rooms = this.$route.params.rooms;
+    const services = this.$route.params.services;
+    this.coordinates.lat = this.$route.params.lat;
+    this.coordinates.lon = this.$route.params.lon;
+    this.coordinates.name = this.$route.params.address
+    this.bedFilter = beds ? beds : this.bedFilter;
+    this.roomFilter = this.$route.params.rooms ? this.$route.params.rooms : this.roomFilter;
+    this.radiusFilter = this.$route.params.radius ? this.$route.params.radius : this.radiusFilter;
     this.addressFilter = this.$route.params.address;
-
+    if (services) {
+      const arrayServices = this.$route.params.services.split(',');
+      this.servicesfilter = arrayServices;
+    }
+    /* this.servicesfilter = this.$route.params.services ? this.$route.params.services.split(',') : 'Nessun-servizio-selezionato'; */
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
       // Puoi fare ulteriori operazioni qui con lat e lon
-      this.searchApartment(lat, lon);
+      this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, services);
+
     } else {
       // Gestisci il caso in cui lat e lon non sono presenti
       console.log('Nessuna coordinata fornita.');
@@ -169,24 +148,27 @@ export default {
           <div class="row">
             <div class="col-3 mb-3">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @change="addFilter">
+              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter">
             </div>
             <div class="col-3 mb-3">
               <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control" id="room-number" v-model="roomFilter">
+              <input type="number" class="form-control" id="room-number" v-model="roomFilter" min="1" @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class=" col-3 mb-3">
               <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control" id="bed-number" v-model="bedFilter">
+              <input type="number" class="form-control" id="bed-number" v-model="bedFilter" min="1" @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col-3 mb-3">
               <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @change="addFilter">
+              <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col-12 row row-cols-6 d-flex mt-0a">
               <div v-for='service in services' class=" col d-line  mb-3">
-                <input type="checkbox" name="service[]" class="d-block text-center" :id="service.name"
-                  :value="service.id" v-model="servicesfilter">
+                <input type="checkbox" class="d-block text-center" :id="service.name" :value="service.name"
+                  v-model="servicesfilter" @change="addFilter">
                 <label :for="service.name" class="form-label ">{{ service.name }}</label>
               </div>
             </div>
@@ -196,14 +178,15 @@ export default {
       <div class="col-8 myborder ">
 
         <div class="d-flex flex-wrap justify-content-between mx-5  ">
-          <router-link class="sponsorcard" v-for="apartment in filteredApartments"
+          <router-link class="sponsorcard" v-for="apartment in apartments"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <ApartmentCard :data="apartment" />
           </router-link>
         </div>
       </div>
       <div class="col-4">
-        <Map class="mapborder"></Map>
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
+          :coordinates="coordinates" class="mapborder"></Map>
       </div>
     </div>
   </div>

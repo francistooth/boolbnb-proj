@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Roboto+Slab:wght@100..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Roboto+Slab:wght@100..900&display=swap");
 
 * {
     font-family: "Roboto Slab", serif;
@@ -26,7 +25,6 @@ a {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
 
     height: 100vh;
     overflow-y: auto;
@@ -56,7 +54,7 @@ a {
 
 // apartements theme
 
-$site_theme: #003B95;
+$site_theme: #003b95;
 
 .bg-theme {
     background-color: $site_theme;
@@ -67,12 +65,12 @@ $site_theme: #003B95;
 .sidenav {
     height: 100%;
     width: 15%;
-    position: fixed; 
-    z-index: 1; 
-    top: 0; 
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
-    background-color: $site_theme; 
-    overflow-x: hidden; 
+    background-color: $site_theme;
+    overflow-x: hidden;
     padding-top: 20px;
 }
 
