@@ -26,11 +26,11 @@ export default {
                         <small> Indirizzo:{{ data.address }} <br>
                             Distanza :{{ Math.round(data.distance * 100) / 100
                             }}Km</small>
-                        <p class="card-text"> N.stanze:{{ data.room }}</p>
-                        <p class="card-text">N.letti:{{ data.bed }} </p>
-                        <p class="card-text">N.bagni:{{ data.bathroom }} </p>
+                        <p class="card-text d-inline">Stanze:{{ data.room }}</p>
+                        <p class="card-text d-inline">Letti:{{ data.bed }} </p>
+                        <p class="card-text d-inline">Bagni:{{ data.bathroom }} </p>
                         <ul class="row row-cols-2">
-                            <li div="col" v-for="service in data.services"><i :class="service.icon"></i>{{ service.name
+                            <li div="col" v-for="service in data.services"><i :class="service.icon"></i> {{ service.name
                                 }}</li>
                         </ul>
                     </div>
