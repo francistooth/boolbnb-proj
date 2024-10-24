@@ -7,19 +7,19 @@
                     <div class="row row-cols-1 row-cols-md-3 g-5 py-5 flex-nowrap
                     ">
                         <ul class="list-unstyled col text-nowrap ">
-                            <li><a style="color: white;" href="#">Supporto clienti</a></li>
-                            <li><a style="color: white;" href="#">Help center</a></li>
-                            <li><a style="color: white;" href="#">Boolbnb center</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Supporto clienti</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Help center</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Boolbnb center</a></li>
                         </ul>
                         <ul class="list-unstyled col text-nowrap mx-2">
-                            <li><a style="color: white;" href="#">Newsroom</a></li>
-                            <li><a style="color: white;" href="#">Careers</a></li>
-                            <li><a style="color: white;" href="#">Lavora con noi</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Newsroom</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Careers</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Lavora con noi</a></li>
                         </ul>
                         <ul class="list-unstyled col ">
-                            <li><a style="color: white;" href="#">Partners</a></li>
-                            <li><a style="color: white;" href="#">Clienti</a></li>
-                            <li><a style="color: white;" href="#">Investitori</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Partners</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Clienti</a></li>
+                            <li><a class="text-secondary hover-primary" href="#">Investitori</a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,21 +68,15 @@ export default {
     cursor: pointer;
 }
 
+.hover-primary:hover {
+    color: $primary_color;
+}
+
 footer {
     margin-top: 290px;
     min-height: 70px;
-    background-color: $background_footer;
-
-    .footer-bg-top-img {
-        position: absolute;
-        top: -210px;
-        background-image: url('../assets/footer01.png');
-        background-position: center;
-        background-size: cover;
-        background-repeat: repeat-x;
-        width: 100%;
-        height: 210px;
-    }
+    background-color: black;
+    color: black;
 
     .icon-circle {
         width: 30px;
@@ -98,7 +92,7 @@ footer {
         }
 
         i {
-            color: $background_footer;
+            color: $secondary_color;
             font-size: 16px;
 
             &:hover {
