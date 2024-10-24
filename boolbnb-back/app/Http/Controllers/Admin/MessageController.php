@@ -15,22 +15,23 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $apartment_id = $request->get('apartment');
-        if ($apartment_id) {
-            $messages = Message::where('apartment_id', $apartment_id)->get();
-        } else {
-            $apartments = Apartment::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
-            $messages = [];
-            foreach ($apartments as $apartment) {
-                $messages_apartmet = Message::where('apartment_id', $apartment->id)->orderBy('apartment_id')->get();
-                $messages = array_merge($messages, $messages_apartmet->toArray());
-            }
-        }
+        $messages = Message::with('apartment')
+            ->whereHas('apartment', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($message) {
+                return [
+                    'received' => $message,
+                    'apartment_name' => $message->apartment->title,
+                ];
+            });
+
         return view('admin.message.index', compact('messages'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
