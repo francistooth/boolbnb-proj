@@ -31,3 +31,8 @@ php artisan storage:link
 3 - npm i
 
 Se non funziona le chiamate api controllare che la porta sia 8000 e non 8001
+Ricordarsi di aggiornare il file .env, inserendo le credenziali di Braintree (creare un account su https://www.braintreepayments.com/it/sandbox):
+BRAINTREE_ENV=sandbox
+BRAINTREE_MERCHANT_ID=
+BRAINTREE_PUBLIC_KEY=
+BRAINTREE_PRIVATE_KEY=
