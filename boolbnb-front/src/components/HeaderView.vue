@@ -1,7 +1,31 @@
 <script>
+import axios from 'axios';
+import { store } from '../store';
 export default {
     name: "HeaderView",
-}
+    data() {
+        return {
+            userName: '',
+        };
+    },
+    mounted() {
+        this.fetchUser();
+    },
+    methods: {
+        async fetchUser() {
+            try {
+                axios.defaults.withCredentials = true;
+                await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
+                const response = await axios.get(store.apiUrl + 'user');
+                console.log(response);
+
+                this.userName = response.data.name; // Assicurati che il campo 'name' esista
+            } catch (error) {
+                console.error('Errore nel recuperare l\'utente: ', error);
+            }
+        },
+    },
+};
 </script>
 
 <template>

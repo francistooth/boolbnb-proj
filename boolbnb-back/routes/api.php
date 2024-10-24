@@ -17,9 +17,9 @@ use App\Http\Controllers\Api\SendMessageController;
 |
 */
 
-/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}); */
+});
 
 Route::get('/appartamenti', [PageController::class, 'allApartments']);
 Route::get('/dettaglio/{slug}', [PageController::class, 'apartment']);
