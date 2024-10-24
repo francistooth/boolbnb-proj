@@ -169,10 +169,15 @@ export default {
 
   <div class="container-fluid mt-5">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 mb-3">
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
+          :coordinates="coordinates" class="mapborder"></Map>
+
+      </div>
+      <div class="col-3">
         <form class="container mb-2" action="">
-          <div class="row">
-            <div class="col-3 mb-3">
+          <div class="row row-cols-1">
+            <div class="col mb-1">
               <label for="adressfilter" class="form-label">Indirizzo</label>
               <div class="position-relative">
                 <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter"
@@ -184,48 +189,48 @@ export default {
                 </ul>
               </div>
             </div>
-            <div class="col-3 mb-3">
+            <div class="col mb-1">
               <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control" id="room-number" v-model="roomFilter" min="1" @input="addFilter"
+              <input type="number" class="form-control w-25" id="room-number" v-model="roomFilter" min="1"
+                @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class=" col-3 mb-3">
+            <div class=" col mb-1">
               <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control" id="bed-number" v-model="bedFilter" min="1" @input="addFilter"
+              <input type="number" class="form-control w-25" id="bed-number" v-model="bedFilter" min="1"
+                @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-3 mb-3">
+            <div class="col mb-1">
               <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+              <input type="number" class="form-control w-25" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-12 row row-cols-6 mt-a">
-              <div v-for='service in services' class=" col d-line  mb-3">
-                <input type="checkbox" class="d-block text-center" :id="service.name" :value="service.name"
-                  v-model="servicesfilter" @change="addFilter">
-                <label :for="service.name" class="form-label ">{{ service.name }}</label>
-              </div>
+            <div class="col ">
+              <p class="m-0">Servizi:</p>
+              <ul class="row row-cols-1 p-1">
+                <li v-for='service in services' class=" col d-line text-nowrap ">
+                  <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
+                    @change="addFilter">
+                  <label :for="service.name" class="form-label ">{{ service.name }}</label>
+                </li>
+              </ul>
             </div>
           </div>
         </form>
       </div>
-      <div class=" col-8 myborder ">
-
+      <div class=" col-9 myborder ">
         <div class="ms-5">
-          <router-link class="sponsorcard sponsor" v-for="apartment in apartmentSponsor"
+          <router-link v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <CardSearch :data="apartment" />
           </router-link>
-          <router-link class="sponsorcard " v-for="apartment in apartmentNoSponsor"
+          <router-link v-for="apartment in apartmentNoSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <CardSearch :data="apartment" />
           </router-link>
 
         </div>
-      </div>
-      <div class="col-4">
-        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
-          :coordinates="coordinates" class="mapborder"></Map>
       </div>
     </div>
   </div>
@@ -236,31 +241,18 @@ export default {
 
 
 .myborder {
-  height: 80vh;
+  height: 98vh;
   overflow-y: scroll;
 }
 
 .mapborder {
-  height: 80vh;
-  width: 100%;
-  border: 2px black solid;
+  height: 400px;
+  width: 80%;
+  margin: auto;
+  border: 2px grey solid;
 }
 
-.boh {
-  width: calc(100%/4 - 20px);
-}
-
-.sponsorcard {
-  width: calc(100%/5 - 20px);
-  height: auto;
-}
-
-.sponsor {
-  border: 2px solid gold;
-}
-
-
-.boh2 {
-  width: calc(100%/6 - 20px);
+ul {
+  list-style: none;
 }
 </style>
