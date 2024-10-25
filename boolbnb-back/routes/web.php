@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])
         // Route::post('payment/store/{id}', [PaymentController::class, 'store'])->name('payment.store');
         Route::get('payment/form', [PaymentController::class, 'create'])->name('payment.form');
         Route::post('payment/store', [PaymentController::class, 'store'])->name('payment.store');
-
+        Route::get('message/{apa_id}', [MessageController::class, 'messagesForApartment'])->name('message.messagesForApartment');
 
         Route::resource('apartments', ApartmentController::class);
         Route::resource('user', UserResourceController::class)->except(['edit', 'update', 'destroy']);

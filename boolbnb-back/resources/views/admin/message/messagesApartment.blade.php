@@ -8,8 +8,9 @@
     @endif
 
     <div class="container-fluid d-flex justify-content-between align-items-center mt-4 mb-4">
-        <h3 class="text-secondary"> Messaggi inviati a <span class="fs-2 text-primary">{{ Auth::user()->name }}</span></h3>
-        <h6 class="text-muted">totale: {{ count($messages) }} messaggi</h6>
+        <h3 class="text-secondary"> Messaggi per appartamento: <span class="fs-2 text-primary">{{ $apartment->title }}</span>
+            </h2>
+            <h6 class="text-muted">totale: {{ count($messages) }} messaggi</h6>
     </div>
 
     @if (!$messages || count($messages) === 0)
@@ -17,7 +18,7 @@
             nessun messaggio ricevuto.
         </div>
     @else
-        <div class="container overflow-auto">
+        <div class="container-fluid overflow-auto">
             @foreach ($messages as $message)
                 <!-- modale -->
                 <div class="modal fade" id="deleteModal-{{ $message['received']->id }}" tabindex="-1"
