@@ -85,10 +85,12 @@
                                             <i class="fa-solid fa-pen">
                                             </i>
                                         </a>
-                                        <button class="btn btn-secondary text-light"><a
-                                                href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                                    class="fa-regular fa-envelope"></i></a>
-                                        </button>
+                                        <a
+                                            href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
+                                            <button class="btn btn-secondary text-light"><i
+                                                    class="fa-regular fa-envelope"></i>
+                                            </button>
+                                        </a>
 
                                         <!-- bottone trigger modale -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"

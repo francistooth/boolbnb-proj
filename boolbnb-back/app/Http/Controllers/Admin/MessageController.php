@@ -12,9 +12,6 @@ use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $messages = Message::with('apartment')
@@ -32,49 +29,28 @@ class MessageController extends Controller
 
         return view('admin.message.index', compact('messages'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function messagesForApartment(string $id)
     {
-        //
+        $apartment = Apartment::where('id', $id)->first();
+
+        $messages = Message::with('apartment')
+            ->where('apartment_id', $id)
+            ->whereHas('apartment', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($message) {
+                return [
+                    'received' => $message,
+                    'apartment_name' => $message->apartment->title,
+                ];
+            });
+
+        return view('admin.message.messagesApartment', compact('messages', 'apartment'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Message $message)
     {
 

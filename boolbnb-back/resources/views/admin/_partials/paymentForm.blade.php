@@ -59,7 +59,8 @@
                 // Inizializza Braintree dropin quando la modale si apre
                 braintree.dropin.create({
                     authorization: client_token,
-                    selector: container
+                    selector: container,
+                    locale: 'it_IT'
                 }, function(err, instance) {
                     if (err) {
                         console.error(err);
