@@ -20,7 +20,7 @@
                         {{-- home button --}}
 
                         <li class="nav-item">
-                            <a href="http://localhost:5173" class="nav-link align-middle px-0">
+                            <a href="http://localhost:5174" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house">
                                 </i>
                                 <span class="ms-1 d-none d-sm-inline">
