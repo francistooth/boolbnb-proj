@@ -93,7 +93,7 @@ export default {
             <div>
                 <label for="name" class="form-label">Nome: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.name?.toString() }}</p>
-                <input v-model="name" type="text" id="name" class="form-control" @input="validateName" required>
+                <input v-model="name" type="text" id="name" class="form-control" @input="validateName" required onkeypress="return /^[a-zA-ZàèéìòùÀÈÉÌÒÙçÇ\s]*$/.test(event.key)">
             </div>
 
             <div>
