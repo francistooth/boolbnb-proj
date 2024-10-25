@@ -14,6 +14,7 @@ export default {
     return {
       store,
       apartment: {
+        id: '',
         title: '',
         description: '',
         room: '',
@@ -34,7 +35,22 @@ export default {
       }
     }
 
-  }, methods: {
+  },
+  methods: {
+    incrementVisit(apartmentId) {
+      console.log('API URL:', store.apiUrl);
+      console.log('Apartment ID:', apartmentId);
+      const data = {
+        apartment_id: apartmentId
+      };
+      axios.post(store.apiUrl + 'visite', data)
+        .then(response => {
+          console.log(response.data.message);
+        })
+        .catch(error => {
+          console.error("Errore nell'incrementare la visita:", error);
+        })
+    },
     getApi(slug) {
 
       axios.get(store.apiUrl + 'dettaglio/' + slug)
@@ -49,17 +65,17 @@ export default {
             this.coordinates.name = this.apartment.title;
             console.log(this.coordinates)
 
+            this.incrementVisit(this.apartment.id)
           } else {
             console.log('errore 404');
             this.$router.push({ name: '404' })
           }
-
         })
-
     }
   },
+
   mounted() {
-    const slug = this.$route.params.slug
+    const slug = this.$route.params.slug;
     this.getApi(slug);
   }
 }
@@ -160,32 +176,4 @@ export default {
     height: 100%;
   }
 }
-
-/* .description {
-  max-height: 120px;
-  overflow: auto
-} */
-
-.service {}
-
-@import 'bootstrap/scss/_functions';
-@import 'bootstrap/scss/_variables';
-@import 'bootstrap/scss/mixins/_breakpoints';
-
-/* visualizzare */
-/* * {
-  border: 1px solid rgb(216, 127, 228);
-
-  @include media-breakpoint-up(sm) {
-    border: 1px solid rgb(9, 0, 128);
-  }
-
-  @include media-breakpoint-up(md) {
-    border: 1px solid rgb(35, 113, 119);
-  }
-
-  @include media-breakpoint-up(lg) {
-    border: 1px solid rgb(255, 174, 0);
-  }
-} */
 </style>

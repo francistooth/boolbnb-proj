@@ -29,4 +29,4 @@ Route::get('/servizi', [PageController::class, 'service']);
 Route::post('/messaggi', [SendMessageController::class, 'store']);
 Route::post('/appartamenti-nel-raggio', [PageController::class, 'getApartmentsInRange']);
 /* Route::get('/utente', [PageController::class, 'getUser'])->middleware('auth'); */
-Route::post('/visite/{apartment_id}', [PageController::class, 'incrementVisit']);
+Route::post('/visite', [PageController::class, 'incrementVisit']);

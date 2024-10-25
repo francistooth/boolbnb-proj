@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
-
+use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -113,11 +114,16 @@ class PageController extends Controller
 
         return response()->json($apartments);
     }
+
+
     public function incrementVisit(Request $request)
     {
 
-        $ip_address = $request->ip();
+        $ip_address = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
         $apartment_id = $request->apartment_id;
-        $seconTimer = Carbon::now()->subSecond(30);
+        Visit::create([
+            'apartment_id' => $apartment_id,
+            'ip_address' => $ip_address
+        ]);
     }
 }
