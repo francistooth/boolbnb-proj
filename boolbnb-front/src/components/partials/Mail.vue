@@ -66,7 +66,7 @@ export default {
 
                     setTimeout(() => {
                         this.sent = false;
-                    }, 2500);
+                    }, 3000);
                 })
                 .catch(error => {
                     this.sending = false;
