@@ -223,6 +223,7 @@ export default {
         </form>
       </div>
       <div class=" col-9 myborder ">
+        <h2 class="d-block">{{ this.apartments.length }} corrispondono alla tua ricerca </h2>
         <div v-if="apartments.length > 0" class="ms-5">
           <router-link v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
