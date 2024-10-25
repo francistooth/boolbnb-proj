@@ -114,9 +114,19 @@ class PageController extends Controller
 
         return response()->json($apartments);
     }
-    public function getUser()
+ /*    public function getUser()
     {
 
         $user = User::where('user_id', Auth::id())->first();
-    }
+        if ($user) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+        $data = [
+            'success' => $success,
+            'result' => $user
+        ];
+        return response()->json($data);
+    } */
 }

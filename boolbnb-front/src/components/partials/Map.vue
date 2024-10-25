@@ -49,15 +49,15 @@ export default {
 
         // Aggiungi il nuovo marker centrale
         centralMarker = addMarker(centralLocation, 'Punto centrale: ' + coordinates.value.name);
-        if (apartments.length > 0) {
-          apartments.value.forEach(apartment => {
-            const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
-            const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]];
-            console.log('Adding apartment marker at:', apartmentLocation);
-            addMarker(apartmentLocation, apartment.title);
-            bounds.extend(apartmentLocation);
-          })
-        };
+        /*  if (apartments.length > 0) { */
+        apartments.value.forEach(apartment => {
+          const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
+          const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]];
+          console.log('Adding apartment marker at:', apartmentLocation);
+          addMarker(apartmentLocation, apartment.title);
+          bounds.extend(apartmentLocation);
+        })
+        /* } */;
         map.fitBounds(bounds, { padding: 50 });
       }
     }

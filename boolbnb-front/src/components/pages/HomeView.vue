@@ -39,11 +39,24 @@ export default {
         .catch(err => { console.log(err.messages) })
 
     },
+    /*   getUser() {
+        axios.get(store.apiUrl + 'utente')
+          .then(res => {
+            console.log(res.data);
+            if (res.data.success) {
+              console.log(res.data.user, 'guarda qui');
+            } else {
+              this.$router.push({ name: '404' })
+            }
+          })
+          .catch(err => { console.error(err.response ? err.response.data : err.message); })
+      }, */
 
   },
   mounted() {
     /* console.log(store); */
     this.getAllapartments()
+    /* this.getUser() */
   }
 }
 </script>
