@@ -26,6 +26,11 @@ export default {
         img_name: '',
         is_visible: '',
         services: []
+      },
+      coordinates: {
+        lat: null,
+        lon: null,
+        name: null
       }
     }
 
@@ -37,6 +42,12 @@ export default {
           if (res.data.success) {
 
             this.apartment = res.data.apartment;
+            let lonLan = this.apartment.coordinate.split(',').map(coord => coord.trim());
+            console.log(lonLan);
+            this.coordinates.lon = lonLan[0];
+            this.coordinates.lat = lonLan[1];
+            this.coordinates.name = this.apartment.title;
+            console.log(this.coordinates)
 
           } else {
             console.log('errore 404');
@@ -110,88 +121,26 @@ export default {
             <div class="tab-pane fade" id="nav-services" role="tabpanel" aria-labelledby="nav-profile-services">
               <div class="py-4">
                 <div class="row">
-                    <div class="col label d-flex align-items-start" v-for="service in apartment.services">
-                        <i class="" :class="service.icon"></i>
-                        <p class="d-sm-none d-lg-block small text-nowrap">: {{ service.name }}</p>
-                    </div>
+                  <div class="col label d-flex align-items-start" v-for="service in apartment.services">
+                    <i class="" :class="service.icon"></i>
+                    <p class="d-sm-none d-lg-block small text-nowrap">: {{ service.name }}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-        <div class="message-card col pt-2">
-            <div class="message-card col">
-                <Mail :slug="apartment.slug">
-                </Mail>
-            </div>
-        </div>
+      <div class="message-card col pt-5">
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :coordinates="coordinates"
+          class="mapborder"></Map>
+      </div>
+      <div class="col-12">
+        <Mail :slug="apartment.slug">
+        </Mail>
+      </div>
     </div>
   </section>
-
-
-
-
-  <!-- 
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-2"></div>
-      <div class="col-4 big-img">
-        <img :src="apartment.img_path" :alt="apartment.img_name">
-      </div>
-      <div class="col-2"></div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-8 offset-2">
-        <h4>{{ apartment.title }}</h4>
-        <h5>Indirizzo:{{ apartment.address }}</h5>
-        <p>{{ apartment.description }}</p>
-        <ul>
-          <li>Letti : {{ apartment.bed }}</li>
-          <li>Bagni : {{ apartment.bathroom }}</li>
-          <li>Stanze : {{ apartment.room }}</li>
-          <li>Metri : {{ apartment.sqm }}</li>
-
-        </ul>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-8 offset-2">
-        <div class="divisor"></div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-8 offset-2">
-        <div class="features">
-          Servizi aggiuntivi:
-          <div class="row">
-            <div class="col-3">
-              <ul class="lh-lg">
-                <li v-for="service in apartment.services">{{ service.name }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-8 offset-2">
-        <div class="divisor"></div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-8 offset-2">
-        <Map :cordinate="apartment" style="width: 500px; height:500px;"></Map>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-8 offset-2">
-       
-      </div>
-    </div>
-  </div> -->
 </template>
 
 
@@ -216,6 +165,8 @@ export default {
   max-height: 120px;
   overflow: auto
 } */
+
+.service {}
 
 @import 'bootstrap/scss/_functions';
 @import 'bootstrap/scss/_variables';
