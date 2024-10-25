@@ -4,17 +4,22 @@ import ApartmentCard from '../general/ApartmentCard.vue';
 import Map from '../partials/Map.vue';
 import { store } from '../../store';
 import axios from 'axios';
+import CardSearch from '../general/CardSearch.vue';
+
 
 export default {
   name: "SearchView",
   components: {
     ApartmentCard,
+    CardSearch,
     Map
   },
   data() {
     return {
       store,
       apartments: [],
+      apartmentSponsor: [],
+      apartmentNoSponsor: [],
       sponsors: [],
       services: [],
       servicesfilter: [],
@@ -26,10 +31,24 @@ export default {
         lat: null,
         lon: null,
         name: null
-      }
+      },
+      suggests: []
     }
   },
   methods: {
+    getSuggest() {
+      if (this.addressFilter != '') {
+        axios.get('https://api.tomtom.com/search/2/geocode/' + this.addressFilter + '.json?key=M9AeCjwAbvaw4tXTx63ReRmUuBtIbnoZ&storeResult=false&limit=5&countrySet=IT&view=Unified&json&minFuzzyLevel=1')
+          .then(result => {
+            console.log(result.data)
+            this.suggests = result.data.results;
+          })
+      }
+    },
+    useSuggest(index) {
+      this.addressFilter = this.suggests[index].address.freeformAddress;
+      this.suggests = [];
+    },
     servicelog() {
       console.log(this.servicesfilter);
 
@@ -76,7 +95,8 @@ export default {
     },
     searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
       console.log(this.$route.params);
-
+      this.apartmentSponsor = [];
+      this.apartmentNoSponsor = [];
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
       this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
@@ -91,8 +111,18 @@ export default {
           // Salva i risultati nel data
           this.apartments = response.data;
           this.loading = false;
-
           console.log(this.apartments);
+
+          this.apartments.forEach(element => {
+            if (element.is_visible) {
+              if (element.sponsors.length > 0) {
+                this.apartmentSponsor.push(element)
+              } else {
+                this.apartmentNoSponsor.push(element)
+              }
+              console.log(this.apartments);
+            }
+          })
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
@@ -143,50 +173,70 @@ export default {
 
   <div class="container-fluid mt-5">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 mb-3">
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
+          :coordinates="coordinates" class="mapborder"></Map>
+      </div>
+      <div class="col-3">
         <form class="container mb-2" action="">
-          <div class="row">
-            <div class="col-3 mb-3">
+          <div class="row row-cols-1">
+            <div class="col mb-1">
               <label for="adressfilter" class="form-label">Indirizzo</label>
-              <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter">
-            </div>
-            <div class="col-3 mb-3">
-              <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control" id="room-number" v-model="roomFilter" min="1" @input="addFilter"
-                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-            </div>
-            <div class=" col-3 mb-3">
-              <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control" id="bed-number" v-model="bedFilter" min="1" @input="addFilter"
-                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-            </div>
-            <div class="col-3 mb-3">
-              <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
-                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-            </div>
-            <div class="col-12 row row-cols-6 d-flex mt-0a">
-              <div v-for='service in services' class=" col d-line  mb-3">
-                <input type="checkbox" class="d-block text-center" :id="service.name" :value="service.name"
-                  v-model="servicesfilter" @change="addFilter">
-                <label :for="service.name" class="form-label ">{{ service.name }}</label>
+              <div class="position-relative">
+                <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter"
+                  @keyup="getSuggest">
+                <ul class="list-group position-absolute top-100 start-0 z-2" v-if="this.suggests.length > 0">
+                  <li class="list-group-item" v-for="suggest, index in suggests" :key="index" @click="addFilter">
+                    <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
+                  </li>
+                </ul>
               </div>
+            </div>
+            <div class="col mb-1">
+              <label for="room-number" class="form-label">Numero di Stanze</label>
+              <input type="number" class="form-control w-25" id="room-number" v-model="roomFilter" min="1"
+                @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class=" col mb-1">
+              <label for="bed-number" class="form-label">Numero di Letti</label>
+              <input type="number" class="form-control w-25" id="bed-number" v-model="bedFilter" min="1"
+                @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class="col mb-1">
+              <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
+              <input type="number" class="form-control w-25" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class="col ">
+              <p class="m-0">Servizi:</p>
+              <ul class="row row-cols-1 p-1">
+                <li v-for='service in services' class=" col d-line text-nowrap ">
+                  <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
+                    @change="addFilter">
+                  <label :for="service.name" class="form-label ">{{ service.name }}</label>
+                </li>
+              </ul>
             </div>
           </div>
         </form>
       </div>
-      <div class="col-8 myborder ">
-
-        <div class="d-flex flex-wrap justify-content-between mx-5  ">
-          <router-link class="sponsorcard" v-for="apartment in apartments"
+      <div class=" col-9 myborder ">
+        <div v-if="apartments.length > 0" class="ms-5">
+          <router-link v-for="apartment in apartmentSponsor"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <ApartmentCard :data="apartment" />
+            <CardSearch :data="apartment" />
           </router-link>
+          <router-link v-for="apartment in apartmentNoSponsor"
+            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+            <CardSearch :data="apartment" />
+          </router-link>
+
         </div>
-      </div>
-      <div class="col-4">
-        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
-          :coordinates="coordinates" class="mapborder"></Map>
+        <div v-else class="ms-5">
+          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -197,27 +247,19 @@ export default {
 
 
 .myborder {
-  height: 80vh;
-  overflow-y: scroll;
+  display: flex;
+  justify-content: flex-start;
+
 }
 
 .mapborder {
-  height: 80vh;
-  width: 100%;
-  border: 2px black solid;
+  height: 400px;
+  width: 80%;
+  margin: auto;
+  border: 2px grey solid;
 }
 
-.boh {
-  width: calc(100%/4 - 20px);
-}
-
-.sponsorcard {
-  width: calc(100%/5 - 20px);
-  height: auto;
-}
-
-
-.boh2 {
-  width: calc(100%/6 - 20px);
+ul {
+  list-style: none;
 }
 </style>
