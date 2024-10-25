@@ -75,7 +75,7 @@ export default {
 footer {
     margin-top: 290px;
     min-height: 70px;
-    background-color: black;
+    background-color: #f5f5f5;
     color: black;
 
     .icon-circle {
@@ -96,7 +96,7 @@ footer {
             font-size: 16px;
 
             &:hover {
-                color: $primary_color;
+                color: gray;
             }
         }
     }
