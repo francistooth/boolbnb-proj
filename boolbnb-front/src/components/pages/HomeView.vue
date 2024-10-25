@@ -53,7 +53,7 @@ export default {
   <div class=" justify-content-center mt-5 pt-4 ">
 
     <h1 class="mx-5 text-center text-uppercase text-primary">Appartamenti in evidenza</h1>
-    <div class="mx-4">
+    <div class="mx-4 my-5">
       <div class="row row-cols-lg-4 row-cols-1 flex-nowrap overflow-x-scroll">
         <ApartmentCard v-for="apartment in sponsors" :data="apartment" />
       </div>

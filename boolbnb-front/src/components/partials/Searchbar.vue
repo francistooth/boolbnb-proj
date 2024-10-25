@@ -75,21 +75,19 @@ export default {
 
 </script>
 <template>
-    <div class="back-img bg-secondary">
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-md-8">
-                <div class="search">
-                    <input type="text" class="form-control" placeholder="cerca alloggi..." @keyup="getSuggest"
-                        v-model="macroSearch">
-                    <button class="btn btn-secondary text-white rounded" @click="searchCoordinate(macroSearch)">
-                        <i class="fas fa-magnifying-glass"></i>
-                    </button>
-                    <ul class="list-group" v-if="this.suggests.length > 0">
-                        <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
-                            <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="search-container col-md-8">
+            <div class="search">
+                <input type="text" class="form-control" placeholder="cerca alloggi..." @keyup="getSuggest"
+                    v-model="macroSearch">
+                <button class="btn btn-primary text-white rounded" @click="searchCoordinate(macroSearch)">
+                    <i class="fas fa-magnifying-glass"></i>
+                </button>
+                <ul class="list-group" v-if="this.suggests.length > 0">
+                    <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
+                        <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -98,56 +96,54 @@ export default {
 <style lang="scss" scoped>
 @use "../../styles/partials/variables.scss" as *;
 
-
-.back-img {
-    min-height: 30vh;
-    width: 100%;
+.search-container {
+    min-height: 10vh;
+    background-color: $primary_color;
     position: relative;
-    margin-top: -280px;
+}
 
+.search {
+    position: absolute;
+    max-width: 1100px;
+    left: 50%;
+    width: calc(100% - 10px);
+    transform: translate(-50%,55px);
+    z-index: 1000;
 
-    .search {
-        position: absolute;
-        max-width: 1100px;
-        left: 50%;
-        width: calc(100% - 10px);
-        transform: translate(-50%,-25px);
-        margin-top: 250px;
-        z-index: 1000;
+    input {
+        height: 60px;
+        text-indent: 25px;
+        border: 3px solid $primary_color;
+        backdrop-filter: blur(4px);
 
-        input {
-            height: 60px;
-            text-indent: 25px;
-            border: 3px solid $secondary_color;
-            backdrop-filter: blur(4px);
+        &:focus {
 
-            &:focus {
-
-                box-shadow: none;
-                border: 3px solid white;
-            }
-        }
-
-        .fa-search {
-
-            position: absolute;
-            top: 20px;
-            left: 16px;
-
-        }
-
-        button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            height: 50px;
-            width: 110px;
-
-        }
-
-        button:hover {
-            background-color: #0047a0;
+            box-shadow: none;
+            border: 3px solid white;
         }
     }
+
+    .fa-search {
+
+        position: absolute;
+        top: 20px;
+        left: 16px;
+
+    }
+
+    button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 50px;
+        width: 110px;
+
+    }
+
+    button:hover {
+        background-color: #0047a0;
+    }
 }
+
+
 </style>

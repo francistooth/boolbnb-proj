@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <div id="mainNavigation">
+    <div class="container-fluid">
         <!-- 
         <nav role="navigation">
             <div class="py-3 text-center border-bottom">
@@ -72,8 +72,15 @@ export default {
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
+@use "../styles/partials/variables.scss" as *;
 
-#mainNavigation a {
+.container-fluid {
+    background: $primary_color;
+    min-height: 10vh;
+    max-height: 20vh;
+}
+
+.container-fluid a {
     font-family: sans-serif;
     font-size: 1.1rem;
     text-transform: uppercase;

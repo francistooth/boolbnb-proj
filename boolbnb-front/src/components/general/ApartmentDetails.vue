@@ -55,15 +55,16 @@ export default {
 </script>
 
 <template>
-  <section class="container">
+  <section class="container mt-5">
     <div class="row house-card">
       <div class=" house-card-hader col-sm-12 col-lg-7">
-        <h2 class="title">{{ apartment.title }}</h2>
-        <h4 class="description">{{ apartment.description }}</h4>
-        <div class="img-container d-flex justify-content-center mx-lg-5">
+        <h2 class="title text-primary">{{ apartment.title }} </h2>
+        <h6 class="subtitle text-primary"> {{ apartment.address }} </h6>
+        <h5 class="description text-primary">{{ apartment.description }}</h5>
+        <div class="img-container d-flex justify-content-center mx-lg-5 my-4">
           <img class="img-fluid" :src="apartment.img_path" :alt="apartment.img_name">
         </div>
-        <div class="house-card-body">
+        <div class="house-card-body mb-3">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab" data-bs-target="#nav-details"
@@ -77,7 +78,7 @@ export default {
               <div class="services row row-cols-2 row-cols-lg-4 mt-2">
                 <div class="service border-light  col d-flex justify-content-center p-lg-3  d-flex">
                   <div class="label  d-flex">
-                    <i class="fa-solid fa-bed"></i>
+                    <i class="fas fa-bed"></i>
                     <h6 class="d-sm-none d-lg-block">letti</h6>:
                   </div>
                   <div class="service-value">{{ apartment.bed }}</div>
@@ -107,10 +108,12 @@ export default {
 
             </div>
             <div class="tab-pane fade" id="nav-services" role="tabpanel" aria-labelledby="nav-profile-services">
-              <div class="row">
-                <div class="col label d-flex align-items-star" v-for="service in apartment.services">
-                  <i class="mt-1" :class="service.icon"></i>
-                  <p class="d-sm-none d-lg-block small text-nowrap">: {{ service.name }}</p>
+              <div class="py-4">
+                <div class="row">
+                    <div class="col label d-flex align-items-start" v-for="service in apartment.services">
+                        <i class="" :class="service.icon"></i>
+                        <p class="d-sm-none d-lg-block small text-nowrap">: {{ service.name }}</p>
+                    </div>
                 </div>
               </div>
 
@@ -121,7 +124,7 @@ export default {
 
       </div>
 
-      <div class="message-card col pt-5">
+      <div class="message-card col">
         <Mail :slug="apartment.slug">
         </Mail>
       </div>
@@ -195,7 +198,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@use "../../styles/general.scss" as *;
+// @use "../../styles/general.scss" as *;
 
 * {
 
@@ -215,8 +218,6 @@ export default {
   max-height: 120px;
   overflow: auto
 } */
-
-.service {}
 
 @import 'bootstrap/scss/_functions';
 @import 'bootstrap/scss/_variables';
