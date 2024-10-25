@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 class PageController extends Controller
@@ -111,5 +113,10 @@ class PageController extends Controller
         }
 
         return response()->json($apartments);
+    }
+    public function getUser()
+    {
+
+        $user = User::where('user_id', Auth::id())->first();
     }
 }

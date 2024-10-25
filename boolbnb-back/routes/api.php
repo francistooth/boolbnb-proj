@@ -27,3 +27,4 @@ Route::get('/filtro-servizi/{slug}', [PageController::class, 'servicesApt']);
 Route::get('/servizi', [PageController::class, 'service']);
 Route::post('/messaggi', [SendMessageController::class, 'store']);
 Route::post('/appartamenti-nel-raggio', [PageController::class, 'getApartmentsInRange']);
+Route::post('/user', [PageController::class, 'getUser']);
