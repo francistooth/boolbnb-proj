@@ -79,10 +79,10 @@ export default {
         resetError(){
             this.errorMessage = '';
             this.apiError = false;
-        }
-
+        },
     },
-}
+    
+    }
 </script>
 
 <template>
@@ -93,19 +93,19 @@ export default {
             <div>
                 <label for="name" class="form-label">Nome: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.name?.toString() }}</p>
-                <input v-model="name" type="text" id="name" class="form-control">
+                <input v-model="name" type="text" id="name" class="form-control" @input="validateName" required>
             </div>
 
             <div>
                 <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.email?.toString() }}</p>
-                <input v-model="email" type="email" id="email" class="form-control">
+                <input v-model="email" type="email" id="email" class="form-control" required>
             </div>
 
             <div>
                 <label for="message" class="form-label">Messaggio: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.message?.toString() }}</p>
-                <textarea v-model="message" rows="8" id="message" class="form-control"></textarea>
+                <textarea v-model="message" rows="8" id="message" class="form-control" required></textarea>
             </div>
 
             <div v-if="!sent">
@@ -137,8 +137,8 @@ border-primary{
 }
 
 section{
-    // height: 580px;
-    height: 100%;
+    height: 560px;
+    // height: 100%;
 
     form {
         margin: 50px auto;
