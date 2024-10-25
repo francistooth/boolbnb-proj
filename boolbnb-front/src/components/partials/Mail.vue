@@ -93,8 +93,8 @@ export default {
             <h5>Invia un messaggio all'host!</h5>
         </div>
 
-        <form v-if="!sending && !apiError" action="#" @submit.prevent="sendForm">
-
+        <form class="border-primary" v-if="!sending && !apiError" action="#" @submit.prevent="sendForm">
+            <h4 class="text-center text-primary"> Contatta il proprietario </h4>
             <div>
                 <label for="name" class="form-label">Nome: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.name?.toString() }}</p>
@@ -135,12 +135,19 @@ export default {
 
 <style lang="scss" scoped>
 
+@use "../../styles/partials/variables.scss" as *;
+
+border-primary{
+    border: 2px solid $primary_color;
+}
+
 section{
-    height: 580px;
+    // height: 580px;
+    height: 100%;
 
     form {
-        margin: 20px auto;
-        width: 50%;
+        margin: 50px auto;
+        width: 60%;
 
         div {
             margin-bottom: 10px;

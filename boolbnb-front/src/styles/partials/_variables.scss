@@ -1,11 +1,11 @@
 /*** VARIABLES ***/
-
+//  ex primary
 //COLORS(bootstrap)
-$primary_color: #f7645f;
+$primary_color: #003580;
 $primary_color_light: lighten(saturate($primary_color, 20%), 10%);
 $primary_color_dark: darken($primary_color, 15%);
 
-$secondary_color: #003580;
+$secondary_color: #f7645f;
 $secondary_color_light: lighten(saturate($secondary_color, 20%), 10%);
 $secondary_color_dark: darken($secondary_color, 15%);
 

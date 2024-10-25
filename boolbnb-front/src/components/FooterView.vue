@@ -1,32 +1,30 @@
 <template>
     <footer class="text-light position-relative">
-        <div class="footer-bg-top-img"></div>
-        <div class="container-fluid px-5">
+        <div class="container">
             <div class="row space-between align-items-center">
                 <div class="col">
-                    <div class="row row-cols-1 row-cols-md-3 g-5 py-5 flex-nowrap
+                    <div class="row row-cols-1 row-cols-md-3 g-5 pt-5 flex-nowrap
                     ">
                         <ul class="list-unstyled col text-nowrap ">
-                            <li><a class="text-secondary hover-primary" href="#">Supporto clienti</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Help center</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Boolbnb center</a></li>
+                            <li><a class="text-dark hover-primary" href="#"><strong> Support </strong></a></li>
+                            <li><a class="text-dark hover-primary" href="#"> Help center </a></li>
+                            <li><a class="text-dark hover-primary" href="#"> AI Help Desk 24/24 </a></li>
                         </ul>
                         <ul class="list-unstyled col text-nowrap mx-2">
-                            <li><a class="text-secondary hover-primary" href="#">Newsroom</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Careers</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Lavora con noi</a></li>
+                            <li><a class="text-dark hover-primary" href="#"><strong> Careers </strong></a></li>
+                            <li><a class="text-dark hover-primary" href="#"> Lavora con noi </a></li>
+                            <li><a class="text-dark hover-primary" href="#"> Internship </a></li>
                         </ul>
                         <ul class="list-unstyled col ">
-                            <li><a class="text-secondary hover-primary" href="#">Partners</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Clienti</a></li>
-                            <li><a class="text-secondary hover-primary" href="#">Investitori</a></li>
+                            <li><a class="text-dark hover-primary" href="#"><strong> Partners </strong></a></li>
+                            <li><a class="text-dark hover-primary" href="#"> Partner help </a></li>
+                            <li><a class="text-dark hover-primary" href="#"> Boolbnb partner </a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col  flex-grow text-center small">
+                <!-- <div class="col flex-grow text-primary text-center small">
                     <i>Made with &hearts;</i>
-
-                </div>
+                </div> -->
                 <div class="col d-flex justify-content-around ">
                     <div class="icon-circle cursor-pointer">
                         <i class="fa-brands fa-facebook"></i>
@@ -68,14 +66,17 @@ export default {
     cursor: pointer;
 }
 
+.container {
+    max-width: 1000px;
+}
+
 .hover-primary:hover {
     color: $primary_color;
 }
 
 footer {
-    margin-top: 290px;
     min-height: 70px;
-    background-color: black;
+    background-color: #f5f5f5;
     color: black;
 
     .icon-circle {
@@ -92,11 +93,11 @@ footer {
         }
 
         i {
-            color: $secondary_color;
+            color: $primary_color;
             font-size: 16px;
 
             &:hover {
-                color: $primary_color;
+                color: gray;
             }
         }
     }

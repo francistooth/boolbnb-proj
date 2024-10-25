@@ -29,7 +29,6 @@ export default {
             :style="{ backgroundImage: 'url(' + data.img_path + ')' }">
             <div class="box text-center p-1">
                 <h5 class="card-title">{{ data.title }}</h5>
-                <p class="card-text ">{{ data.address }}</p>
             </div>
         </div>
     </router-link>
@@ -44,16 +43,6 @@ export default {
     overflow: hidden;
     background-size: cover;
     background-repeat: no-repeat;
-
-    &:hover p {
-        display: block;
-    }
-
-    p {
-        display: none;
-        text-align: center;
-
-    }
 
     .box {
         width: 100%;

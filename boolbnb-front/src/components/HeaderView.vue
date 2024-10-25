@@ -5,29 +5,30 @@ export default {
 </script>
 
 <template>
-    <div id="mainNavigation">
+    <div class="container-fluid">
+        <!-- 
         <nav role="navigation">
             <div class="py-3 text-center border-bottom">
                 <RouterLink to="/"><img src="./../assets/logo_sovversivo.png" width="75" height="75" class="invert" />
                 </RouterLink>
             </div>
-        </nav>
+        </nav> 
+        -->
         <div class="navbar-expand-md">
-            <div class="navbar-dark text-center my-2">
+            <!-- <div class="navbar-dark text-center my-2">
                 <button class="navbar-toggler w-75" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span> <span class="align-middle">Menu</span>
                 </button>
-            </div>
+            </div> -->
             <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto ">
-                    <li class="nav-item">
-                        <router-link to="/">home</router-link>
+                    <li class="nav-item text-center">
+                        <router-link class="nav-link" to="/"> home </router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'search' }">Ricerca Avanzata</router-link>
-
+                    <li class="nav-item text-center">
+                        <router-link class="nav-link" :to="{ name: 'search' }">Ricerca Avanzata</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link><a class="nav-link" href="#">Chi siamo</a></router-link>
@@ -71,25 +72,31 @@ export default {
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
+@use "../styles/partials/variables.scss" as *;
 
-#mainNavigation a {
-    font-family: sans-serif;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
+.container-fluid {
+    background: $primary_color;
+    min-height: 10vh;
+    max-height: 20vh;
 }
 
-.dropdown-menu {
-    background: (0, 0, 0, 0.3);
+.container-fluid a {
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
 }
 
 a.dropdown-toggle {
     color: #dfdfdf !important
 }
 
+a.dropdown-item {
+    color: gray !important
+}
+
 a.dropdown-item:hover {
-    color: #353a5085 !important
+    color: black !important
 }
 
 .nav-item a {
@@ -110,11 +117,5 @@ a.dropdown-item:hover {
     width: 100%;
     z-index: 123;
     padding-bottom: 120px;
-}
-
-#navbarNavDropdown.collapsing .navbar-nav,
-#navbarNavDropdown.show .navbar-nav {
-    background: transparent;
-    padding: 12px;
 }
 </style>
