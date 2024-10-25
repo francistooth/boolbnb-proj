@@ -88,11 +88,6 @@ export default {
 <template>
 
     <section>
-        <div class="text-center">
-            <h4>Sei interessato?</h4>
-            <h5>Invia un messaggio all'host!</h5>
-        </div>
-
         <form class="border-primary" v-if="!sending && !apiError" action="#" @submit.prevent="sendForm">
             <h4 class="text-center text-primary"> Contatta il proprietario </h4>
             <div>

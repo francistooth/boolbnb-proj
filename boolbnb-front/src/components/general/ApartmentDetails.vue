@@ -116,20 +116,17 @@ export default {
                     </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
-
       </div>
 
-      <div class="message-card col pt-2">
-      <div class="message-card col">
-        <Mail :slug="apartment.slug">
-        </Mail>
-      </div>
-
+        <div class="message-card col pt-2">
+            <div class="message-card col">
+                <Mail :slug="apartment.slug">
+                </Mail>
+            </div>
+        </div>
     </div>
   </section>
 
