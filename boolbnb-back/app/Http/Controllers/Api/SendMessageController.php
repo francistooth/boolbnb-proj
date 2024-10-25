@@ -18,7 +18,7 @@ class SendMessageController extends Controller
         $validator = Validator::make(
             $data,
             [
-                'name' => 'required|string|max:100|min:3',
+                'name' => 'required|string|max:50|min:3',
                 'email' => 'required|email|max:100',
                 'message' => 'required|string|min:10|max:2000',
                 'slug' => 'required|string|exists:apartments,slug',
@@ -26,7 +26,7 @@ class SendMessageController extends Controller
             [
                 'name.required' => 'Il campo nome è obbligatorio',
                 'name.string' => 'Il campo nome deve essere una stringa',
-                'name.max' => 'Il campo nome può contenere al massimo :max caratteri',
+                'name.max' => 'Il campo nome può contenere massimo :max caratteri',
                 'name.min' => 'Il campo nome deve contenere almeno :min caratteri',
 
                 'email.required' => 'Il campo email è obbligatorio',
