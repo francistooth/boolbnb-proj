@@ -7,8 +7,9 @@
         </div>
     @endif
 
-    <div class="container d-flex justify-content-between align-items-center mt-4 mb-4">
-        <h2 class="text-secondary"> Messaggi: </h2>
+    <div class="container-fluid d-flex justify-content-between align-items-center mt-4 mb-4">
+        <h2 class="text-secondary"> Messaggi:</h2>
+        <h6 class="text-muted">totale: {{ count($messages) }} messaggi</h6>
     </div>
 
     @if (!$messages || count($messages) === 0)
@@ -52,27 +53,33 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse-{{ $message['received']->id }}" aria-expanded="false"
                                 aria-controls="collapseOne">
-                                Messaggio ricevuto da {{ $message['received']->email }} per
-                                l'apparamento: "{{ $message['apartment_name'] }}"
+                                <div class="w-75">
+                                    Messaggio ricevuto da {{ $message['received']->name }} <span class="text-muted">|</span>
+                                    per:
+                                    "{{ $message['apartment_name'] }}"
+                                </div>
+
+                                <div class="fw-light text-end me-2 w-25">
+                                    il {{ date('d/m/Y \o\r\e H.i', strtotime($message['received']->created_at)) }}
+                                </div>
                             </button>
                         </h2>
                         <div id="collapse-{{ $message['received']->id }}" class="accordion-collapse collapse"
                             aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
                             <div class="accordion-body position-relative">
                                 <div class="mb-2">
-                                    Ricevuto il: {{ date('d/m/Y', strtotime($message['received']->created_at)) }}
-                                    da <strong>{{ $message['received']->email }}</strong>
+                                    Mittente: <strong>{{ $message['received']->email }}</strong>
 
                                 </div>
                                 <div>
                                     {{ $message['received']->message }}
                                 </div>
 
-                                <button type="button" class="btn btn-danger position-absolute"
+                                {{-- <button type="button" class="btn btn-danger position-absolute"
                                     style="top: 15px; right: 15px" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal-{{ $message['received']->id }}">
                                     <i class="fa-solid fa-trash text-light"></i>
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>
