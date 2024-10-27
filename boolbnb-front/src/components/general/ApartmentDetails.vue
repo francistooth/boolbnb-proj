@@ -83,7 +83,7 @@ export default {
 
 <template>
   <section class="container mt-5">
-    <div class="row house-card">
+    <div class="row house-card d-flex">
       <div class=" house-card-hader col-sm-12 col-lg-7">
         <h2 class="title text-primary">{{ apartment.title }} </h2>
         <h6 class="subtitle text-primary"> {{ apartment.address }} </h6>
@@ -147,11 +147,9 @@ export default {
           </div>
         </div>
       </div>
-      <div class="message-card col pt-5">
+      <div class="message-card col-sm-12 col-lg-5 pt-5">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :coordinates="coordinates"
           class="mapborder"></Map>
-      </div>
-      <div class="col-12">
         <Mail :slug="apartment.slug">
         </Mail>
       </div>
@@ -162,12 +160,6 @@ export default {
 
 <style lang="scss" scoped>
 // @use "../../styles/general.scss" as *;
-
-* {
-
-  padding: 0px 5px;
-}
-
 .img-container {
   aspect-ratio: 5/3;
   background-color: rgba(88, 88, 81, 0.226);
@@ -175,5 +167,11 @@ export default {
   img {
     height: 100%;
   }
+}
+
+.mapborder {
+  height: 300px;
+  width: 300px;
+  margin: auto;
 }
 </style>
