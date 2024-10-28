@@ -14,11 +14,11 @@ export default{
 <style lang="scss" scoped>
 
 #loader-container{
+    min-height: 600px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
 
     .loader {
         width: 48px;
