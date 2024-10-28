@@ -73,14 +73,10 @@
                         </h2>
                         <div id="collapse-{{ $message['received']->id }}" class="accordion-collapse collapse"
                             aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                            <div class="accordion-body position-relative">
-                                <div class="mb-2">
-                                    Mittente: <strong>{{ $message['received']->email }}</strong>
-
-                                </div>
-                                <div>
-                                    {{ $message['received']->message }}
-                                </div>
+                            <div class="accordion-body position-relative" style="word-break: break-word;">
+                                Mittente: <strong>{{ $message['received']->email }}</strong>
+                                <br>
+                                {{ $message['received']->message }}
 
                                 {{-- <button type="button" class="btn btn-danger position-absolute"
                                     style="top: 15px; right: 15px" data-bs-toggle="modal"
