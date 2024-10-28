@@ -15,7 +15,11 @@
 
     <div class="container mt-4">
 
-        <h2 class="text-secondary">Modifica appartamento: {{ $apartment->title }}</h2>
+        <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+            <i class="fa-solid fa-caret-left"></i>
+        </a>
+
+        <h2 class="text-secondary my-4">Modifica appartamento: <br> {{ $apartment->title }}</h2>
 
         <form id="apartmentForm" action="{{ route('admin.apartments.update', $apartment) }}" method="post"
             enctype="multipart/form-data">
@@ -38,7 +42,7 @@
                     placeholder="add description">{{ old('description', $apartment->description) }}</textarea>
             </div>
 
-            <div class="d-flex justify-content-between ">
+            <div class="d-md-flex justify-content-between">
                 <div class="form-group mb-3 ">
                     <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                     <input value="{{ old('room', $apartment->room) }}" type="number" id="room" name="room"
@@ -97,19 +101,18 @@
             </div>
 
             <div class="form-group mb-3">
-                <label for="technologies" class="form-label d-block">Servizi disponibili: <strong
+                <label for="services" class="form-label d-block">Servizi disponibili: <strong
                         class="text-danger">*</strong></label>
 
                 <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
                     @foreach ($services as $service)
-                        <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check pb-1"
-                            id="service-{{ $service->id }}" autocomplete="off" 
-                            @if (($errors->any() && in_array($service->id, old('services', []))) ||
-                                (!$errors->any() && $apartment->services->contains($service->id))) checked 
-                            @endif >
+                        <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
+                            id="service-{{ $service->id }}" autocomplete="off"
+                            @if (
+                                ($errors->any() && in_array($service->id, old('services', []))) ||
+                                    (!$errors->any() && $apartment->services->contains($service->id))) checked @endif>
 
-                        <label class="btn btn-outline-primary mb-1"
-                            for="service-{{ $service->id }}">{{ $service->name }}
+                        <label class="btn btn-outline-primary" for="service-{{ $service->id }}">{{ $service->name }}
                         </label>
                     @endforeach
                 </div>
@@ -123,8 +126,8 @@
             <div class="form-group mb-3">
                 <div class="form-check form-switch">
                     <input type="hidden" name="is_visible" value="0">
-                    <input name="is_visible" class="form-check-input" type="checkbox" role="switch" value="1" id="is_visible" @if (($errors->any() && old('is_visible') == 1) ||
-                                (!$errors->any() && $apartment->is_visible == 1)) checked @endif>
+                    <input name="is_visible" class="form-check-input" type="checkbox" role="switch" value="1"
+                        id="is_visible" @if (($errors->any() && old('is_visible') == 1) || (!$errors->any() && $apartment->is_visible == 1)) checked @endif>
                     <label class="form-check-label" for="is_visible">Appartamento visibile al pubblico</label>
                 </div>
             </div>

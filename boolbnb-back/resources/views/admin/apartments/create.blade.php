@@ -1,25 +1,29 @@
 @extends('admin.index')
 
 @section('user')
-    <div class="container">
 
-        <h2> Inserisci appartamento</h2>
-        <h6> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div class="container mt-4">
 
-        <div class="d-flex justify-content-between align-items-center mt-4">
+        <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+            <i class="fa-solid fa-caret-left"></i>
+        </a>
 
-            <form id="apartmentForm" class="d-flex flex-column gap-4" method="POST"
-                action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data">
+        <h2 class="text-secondary my-4">Inserisci appartamento</h2>
+
+        <div class="mt-4">
+
+            <form id="apartmentForm" method="POST" action="{{ route('admin.apartments.store') }}"
+                enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group mb-3">
@@ -40,7 +44,7 @@
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
                 </div>
-                <div class="d-flex justify-content-between ">
+                <div class="d-md-flex justify-content-between">
                     <div class="form-group mb-3">
                         <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                         <input value="{{ old('room') }}" type="number" id="room" name="room"
