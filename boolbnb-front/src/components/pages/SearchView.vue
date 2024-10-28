@@ -250,7 +250,7 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-10 ">
+      <div class="col- ">
 
         <div v-if="apartments.length > 0">
           <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
