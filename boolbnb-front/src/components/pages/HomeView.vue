@@ -4,11 +4,13 @@ import axios from 'axios';
 import { store } from '../../store';
 import Searchbar from '../partials/Searchbar.vue';
 import ApartmentCard from '../general/ApartmentCard.vue';
+import Loader from '../partials/Loader.vue';
 export default {
   name: "HomeView",
   components: {
     ApartmentCard,
-    Searchbar
+    Searchbar,
+    Loader,
 
   },
   data() {
@@ -16,6 +18,7 @@ export default {
       store,
       apartments: [],
       sponsors: [],
+      loading: true,
     }
   },
   methods: {
@@ -31,9 +34,11 @@ export default {
               } else {
                 this.apartments.push(element)
               }
+              this.loading = false;
             });
           } else {
-            this.$router.push({ name: '404' })
+            this.$router.push({ name: '404' });
+            this.loading = false;
           }
         })
         .catch(err => { console.log(err.messages) })
@@ -67,9 +72,11 @@ export default {
 
     <h1 class="mx-5 text-center text-uppercase text-primary">Appartamenti in evidenza</h1>
     <div class="mx-4 my-5">
-      <div class="row row-cols-lg-4 row-cols-1 flex-nowrap overflow-x-scroll">
-        <ApartmentCard v-for="apartment in sponsors" :data="apartment" />
+      <div id="card-container" class="row row-cols-lg-4 row-cols-1 flex-nowrap overflow-x-scroll">
+        <Loader v-if="loading"/>
+        <ApartmentCard v-else v-for="apartment in sponsors" :data="apartment" />
       </div>
+
     </div>
   </div>
 
@@ -85,4 +92,8 @@ toggle menu abbassa il jumbotrone
 searchbar da ridurre
 lista appartamenti da overflow-x-scrollable a scroll y
  */
+
+ #card-container{
+    height: 425px;
+ }
 </style>

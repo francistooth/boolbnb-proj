@@ -14,7 +14,7 @@ export default{
 <style lang="scss" scoped>
 
 #loader-container{
-    margin: 50px auto;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
