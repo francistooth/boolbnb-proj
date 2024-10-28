@@ -33,11 +33,23 @@ export default {
                                 class="text-uppercase fw-bold">Letti:</span> {{ data.bed }} </p>
                         <p class="card-text col-sm-12 col-md-6 col-lg-3 mb-0"><span
                                 class="text-uppercase fw-bold">Bagni:</span> {{ data.bathroom }} </p>
-                        <p class="col-12 mb-0"><span class="text-uppercase fw-bold">Servizi:</span></p>
-                        <ul class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3  overflow-hidden">
-                            <li div="col " v-for="service in data.services"><i :class="service.icon"></i>
-                                {{ service.name }}</li>
-                        </ul>
+                        <div class="dropdown d-sm-block d-md-none">
+                            <button class="btn text-uppercase fw-bold dropdown-toggle p-0" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Servizi:
+                            </button>
+                            <ul class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3  overflow-hidden dropdown-menu">
+                                <li div="col " v-for="service in data.services"><i :class="service.icon"></i>
+                                    {{ service.name }}</li>
+                            </ul>
+                        </div>
+                        <div class=" d-none d-md-block">
+                            <p class="col-12 mb-0 "><span class="text-uppercase fw-bold ">Servizi:</span></p>
+                            <ul class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3  overflow-hidden ">
+                                <li class="col " v-for="service in data.services"><i :class="service.icon"></i>
+                                    {{ service.name }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

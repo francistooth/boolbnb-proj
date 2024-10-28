@@ -109,7 +109,7 @@ export default {
       })
         .then(response => {
           this.apartments = response.data;
-          
+
           console.log(this.apartments);
 
           this.apartments.forEach(element => {
@@ -203,17 +203,18 @@ export default {
 <template>
   <div class="container-fluid mt-5">
     <div class="row">
-        <!-- mappa -->    
+      <!-- mappa -->
       <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
       </div>
       <!-- filtri -->
-      <div class="col-3">
+      <div class="col-sm-12 col-lg-3 ">
         <form class="container mb-2">
-          <div class="row row-cols-1">
-            <div class="col mb-1">
-              <label for="adressfilter" class="form-label">Indirizzo</label>
+          <div class="row ">
+
+            <div class="col-10 mb-1 ">
+              <label for="adressfilter" class="form-label text-uppercase fw-bold">Indirizzo:</label>
               <div class="position-relative">
                 <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter"
                   @keyup="getSuggest">
@@ -222,28 +223,28 @@ export default {
                     <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
                   </li>
                 </ul>
+                <span class="badge text-bg-secondary col-auto me-0">{{ this.apartments.length }} appartamenti</span>
               </div>
             </div>
-            <div class="col mb-1">
-              <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control w-25" id="room-number" v-model="roomFilter" min="1"
+            <div class="col-sm-3 col-lg-10 mb-1">
+              <label for="room-number" class="form-label text-uppercase fw-bold">Stanze:</label>
+              <input type="number" class="form-control " id="room-number" v-model="roomFilter" min="1"
                 @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class=" col mb-1">
-              <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control w-25" id="bed-number" v-model="bedFilter" min="1"
-                @input="addFilter"
+            <div class="col-sm-3 col-lg-10 mb-1">
+              <label for="bed-number" class="form-label text-uppercase fw-bold">Letti:</label>
+              <input type="number" class="form-control " id="bed-number" v-model="bedFilter" min="1" @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col mb-1">
-              <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control w-25" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+            <div class="col-sm-3 col-lg-10 mb-1">
+              <label for="radiusfilter" class="form-label text-nowrap text-uppercase fw-bold">Raggio di ricerca:</label>
+              <input type="number" class="form-control " id="radiusfilter" v-model="radiusFilter" @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col ">
-              <p class="m-0">Servizi:</p>
-              <ul class="row row-cols-1 p-1">
+              <p class="m-0 text-uppercase fw-bold">Servizi:</p>
+              <ul class="row row-cols-sm-auto row-cols-lg-1 p-1">
                 <li v-for='service in services' class=" col d-line text-nowrap ">
                   <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
                     @change="addFilter">
@@ -255,19 +256,16 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-9 ">
-
-        <div v-if="apartments.length > 0" >
+      <div class="col-9 m-auto ">
+        <div v-if="apartments.length > 0">
           <div v-if="isLoading">
             <Loader />
           </div>
           <div v-else>
-            <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
             <router-link v-for="apartment in apartmentsOnPage"
               :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
               <CardSearch :data="apartment" />
             </router-link>
-
             <!-- guarda qui -->
             <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
               <ul class="pagination">
@@ -290,7 +288,7 @@ export default {
           </div>
         </div>
         <div v-else>
-            <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
+          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
         </div>
       </div>
 
