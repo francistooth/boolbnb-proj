@@ -6,7 +6,7 @@
         <div>
             <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
                 <span class="d-none d-md-block">Aggiungi appartamento</span>
-                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-plus d-md-none"></i>
             </a>
         </div>
     </div>
