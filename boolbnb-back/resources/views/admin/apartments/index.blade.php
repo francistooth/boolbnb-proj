@@ -1,11 +1,13 @@
 @extends('admin.index')
 
 @section('user')
-    <div class="container d-flex justify-content-between align-items-center mt-4">
+    <div class="container d-flex justify-content-between align-items-center gap-2 mt-4">
         <h2 class="text-secondary"> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
         <div>
-            <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}"> Aggiungi un appartamento <i
-                    class="fa-solid fa-plus"> </i></a>
+            <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
+                <span class="d-none d-md-block">Aggiungi appartamento</span>
+                <i class="fa-solid fa-plus"></i>
+            </a>
         </div>
     </div>
     <div class="container">
@@ -20,14 +22,14 @@
                 Nessun appartamento aggiunto.
             </div>
         @else
-            <div class="table-responsive mt-5">
+            <div class="table-responsive mt-5 overflow-x-hidden">
                 <table class="table rounded backtable">
                     <thead>
                         <tr>
                             <th scope="col"> Immagine </th>
                             <th scope="col"> Titolo </th>
-                            <th scope="col"> Sponsorizzato </th>
-                            <th scope="col"> Visibile </th>
+                            <th scope="col" class="d-none d-md-table-cell"> Sponsorizzato </th>
+                            <th scope="col" class="d-none d-md-table-cell"> Visibile </th>
                             <th scope="col"> Azioni </th>
                         </tr>
                     </thead>
@@ -63,7 +65,7 @@
                                 </div>
                             </div>
 
-                            <tr class="">
+                            <tr>
                                 <td class="w-10">
                                     <a href="{{ route('admin.apartments.show', $apartment) }}">
                                         <img class="max-h-100 rounded img-apartment"
@@ -71,15 +73,15 @@
                                             alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                     </a>
                                 </td>
-                                <td class="w-25"> {{ $apartment->title }} </td>
+                                <td> {{ $apartment->title }} </td>
 
-                                <td>
+                                <td class="d-none d-md-table-cell">
                                     {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y') : 'Nessuna sponsorizzazione' }}
                                 </td>
 
-                                <td> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
-                                <td class="w-25">
-                                    <div class="d-flex align-items-ctener gap-3 flex-wrap">
+                                <td class="d-none d-md-table-cell"> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
                                         <a class="btn btn-primary text-light"
                                             href="{{ route('admin.apartments.edit', $apartment) }}">
                                             <i class="fa-solid fa-pen">
