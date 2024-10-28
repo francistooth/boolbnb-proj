@@ -161,4 +161,6 @@ section {
                 }
             }
         }
-    }</style>
+    }
+}
+</style>
