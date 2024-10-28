@@ -16,10 +16,6 @@ a {
     color: currentColor;
 }
 
-.aside {
-    height: 100vh;
-}
-
 .background {
     background-image: url("../../public/img/backgroun-image.avif");
     background-repeat: no-repeat;
@@ -64,13 +60,11 @@ $site_theme: #003b95;
 
 .sidenav {
     height: 100%;
-    width: 15%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
+    // position: fixed;
+    // z-index: 1;
+    // top: 0;
+    // left: 0;
     background-color: $site_theme;
-    overflow-x: hidden;
     padding-top: 20px;
 }
 
