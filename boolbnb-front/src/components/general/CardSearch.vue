@@ -14,27 +14,42 @@ export default {
 
 <template>
     <router-link :to="{ name: 'dettagli', params: { slug: data.slug } }">
-        <div class="card d-flex align-items-center  mb-2 p-2">
+        <div class="card d-flex align-items-center mb-2 p-2">
             <div class="row no-gutters ">
-                <div class="col-md-4 me-0 d-flex align-items-center">
-                    <img :src="data.img_path" class="card-img" :alt="data.title">
+                <div class="col-sm-12 col-lg-auto  d-flex justify-content-center align-items-center pe-0">
+                    <img :src="data.img_path" class=" img-fluid" :alt="data.title">
                 </div>
-                <div class="col-md-8 ps-0">
+                <div class="col ">
                     <div class="card-body row">
                         <h5 class=" col-8 card-title">{{ data.title }}</h5>
-                        <div class="col-4"> <button v-if="data.sponsors.length > 0"
+                        <div class="col-4 text-align-end"> <button v-if="data.sponsors.length > 0"
                                 class="badge bg-success">Consigliato</button></div>
-
-                        <small> Indirizzo: {{ data.address }} </small>
-                        <small>Distanza: {{ Math.round(data.distance * 100) / 100 }}Km</small>
-                        <p class="card-text col-3 mb-0">Stanze: {{ data.room }}</p>
-                        <p class="card-text col-3 mb-0">Letti: {{ data.bed }} </p>
-                        <p class="card-text col-3 mb-0">Bagni: {{ data.bathroom }} </p>
-                        <p class="col-12 mb-0">Servizi:</p>
-                        <ul class="row row-cols-2">
-                            <li div="col" v-for="service in data.services"><i :class="service.icon"></i> {{
-                                service.name }}</li>
-                        </ul>
+                        <small><span class="text-uppercase fw-bold">Indirizzo:</span> {{ data.address }} </small>
+                        <small><span class="text-uppercase fw-bold">Distanza:</span> {{ Math.round(data.distance * 100)
+                            / 100 }}Km</small>
+                        <p class="card-text col-sm-12 col-md-6 col-lg-3 mb-0"><span
+                                class="text-uppercase fw-bold">Stanze:</span> {{ data.room }}</p>
+                        <p class="card-text col-sm-12 col-md-6 col-lg-3 mb-0"><span
+                                class="text-uppercase fw-bold">Letti:</span> {{ data.bed }} </p>
+                        <p class="card-text col-sm-12 col-md-6 col-lg-3 mb-0"><span
+                                class="text-uppercase fw-bold">Bagni:</span> {{ data.bathroom }} </p>
+                        <div class="dropdown d-sm-block d-md-none">
+                            <button class="btn text-uppercase fw-bold dropdown-toggle p-0" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Servizi:
+                            </button>
+                            <ul class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3  overflow-hidden dropdown-menu">
+                                <li div="col " v-for="service in data.services"><i :class="service.icon"></i>
+                                    {{ service.name }}</li>
+                            </ul>
+                        </div>
+                        <div class=" d-none d-md-block">
+                            <p class="col-12 mb-0 "><span class="text-uppercase fw-bold ">Servizi:</span></p>
+                            <ul class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3  overflow-hidden ">
+                                <li class="col " v-for="service in data.services"><i :class="service.icon"></i>
+                                    {{ service.name }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
