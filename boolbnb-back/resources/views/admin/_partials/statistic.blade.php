@@ -11,21 +11,25 @@
      <div class="mt-4 text-center">
         <h3>Le visite al tuo appartamento</h3>
 
-        <div class="row justify-content-center" style="width: 50%">
-            <canvas id="myChart"></canvas>
-        </div>
+        {{-- visite annuali dell'appartamento  --}}
 
+        <div class="mx-auto" style="width: 70%">
+            <canvas id="yearlyVisit"></canvas>
+        </div>
     </div>
 
     <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
+
+        // Logica grafico visite annuali 
+
+        var ctx = document.getElementById('yearlyVisit').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar', // tipo di grafico
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // Etichette asse X
+                labels: ['Gennaio' ,' Febbraio' , 'Marzo' , 'Aprile' , 'Maggio' , 'Giugno' , 'Luglio', 'Agosto' , 'Settembre' , 'Ottobre' , 'Novembre', 'Dicembre' ], // Etichette asse X (Mesi)
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3], // Dati per asse Y
+                    label: '# Visite registrate',
+                    data: [12, 19, 3, 5, 2, 3 ,4 , 15 , 19 , 22 , 14 , 9], // Dati per asse Y (Numero delle visite)
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -42,7 +46,7 @@
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 }]
             },
             options: {
@@ -53,6 +57,7 @@
                 }
             }
         });
+
     </script>
 </body>
 </html>
