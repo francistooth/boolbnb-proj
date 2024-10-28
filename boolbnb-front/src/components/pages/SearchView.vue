@@ -280,7 +280,7 @@ export default {
           </nav>
         </div>
         <div v-else>
-          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
+          <h2>Spiacente Non abbiamo appartamenti in questa zona</h2>
         </div>
       </div>
     </div>

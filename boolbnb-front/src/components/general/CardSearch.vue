@@ -16,10 +16,10 @@ export default {
     <router-link :to="{ name: 'dettagli', params: { slug: data.slug } }">
         <div class="card d-flex align-items-center  mb-2 p-2">
             <div class="row no-gutters ">
-                <div class="col-md-4 me-0 d-flex align-items-center">
+                <div class="col-md-3 me-0 d-flex justify-content-center align-items-center">
                     <img :src="data.img_path" class="card-img" :alt="data.title">
                 </div>
-                <div class="col-md-8 ps-0">
+                <div class="col-md-7 ps-0">
                     <div class="card-body row">
                         <h5 class=" col-8 card-title">{{ data.title }}</h5>
                         <div class="col-4"> <button v-if="data.sponsors.length > 0"
