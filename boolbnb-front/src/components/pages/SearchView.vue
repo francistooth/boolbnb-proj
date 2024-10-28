@@ -204,7 +204,7 @@ export default {
           :coordinates="coordinates" class="mapborder"></Map>
       </div>
       <!-- filtri -->
-      <div class="col-3">
+      <div class="col-2">
         <form class="container mb-2">
           <div class="row row-cols-1">
             <div class="col mb-1">
@@ -250,7 +250,7 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-9 ">
+      <div class="col-10 ">
 
         <div v-if="apartments.length > 0">
           <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
