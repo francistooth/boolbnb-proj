@@ -9,12 +9,14 @@
 
     <div class="container-fluid d-flex justify-content-between align-items-center mt-4 mb-4">
         <h3 class="text-secondary"> Messaggi inviati a <span class="fs-2 text-primary">{{ Auth::user()->name }}</span></h3>
-        <h6 class="text-muted">totale: {{ count($messages) }} messaggi</h6>
+        <h6 class="text-muted text-end">totale: {{ count($messages) }} messaggi</h6>
     </div>
 
     @if (!$messages || count($messages) === 0)
-        <div class="alert alert-dark text-center mt-5">
-            nessun messaggio ricevuto.
+        <div class="container">
+            <div class="alert alert-dark text-center mt-5">
+                nessun messaggio ricevuto.
+            </div>
         </div>
     @else
         <div class="container overflow-auto">
@@ -54,13 +56,18 @@
                                 data-bs-target="#collapse-{{ $message['received']->id }}" aria-expanded="false"
                                 aria-controls="collapseOne">
                                 <div class="w-75">
-                                    Messaggio ricevuto da {{ $message['received']->name }} <span class="text-muted">|</span>
+                                    <span class="d-none d-md-inline">Messaggio ricevuto</span>
+                                    da
+                                    {{ $message['received']->name }}
+                                    <span class="text-muted d-none d-md-inline">|</span>
+                                    <br class="d-inline d-md-none">
                                     per:
                                     "{{ $message['apartment_name'] }}"
                                 </div>
 
                                 <div class="fw-light text-end me-2 w-25">
-                                    il {{ date('d/m/Y \o\r\e H.i', strtotime($message['received']->created_at)) }}
+                                    <span class="fw-light d-none d-md-inline">il</span>
+                                    {{ date('d/m/Y \o\r\e H.i', strtotime($message['received']->created_at)) }}
                                 </div>
                             </button>
                         </h2>
