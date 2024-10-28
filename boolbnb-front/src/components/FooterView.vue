@@ -1,10 +1,9 @@
 <template>
-    <footer class="text-light position-relative">
-        <div class="container">
+    <footer class="text-light ">
+        <div class="container-fluid">
             <div class="row space-between align-items-center">
                 <div class="col">
-                    <div class="row row-cols-1 row-cols-md-3 g-5 pt-5 flex-nowrap
-                    ">
+                    <div class="row d-flex justify-content-between align-content-center  pt-5 ">
                         <ul class="list-unstyled col text-nowrap ">
                             <li><a class="text-dark hover-primary" href="#"><strong> Support </strong></a></li>
                             <li><a class="text-dark hover-primary" href="#"> Help center </a></li>
@@ -20,28 +19,26 @@
                             <li><a class="text-dark hover-primary" href="#"> Partner help </a></li>
                             <li><a class="text-dark hover-primary" href="#"> Boolbnb partner </a></li>
                         </ul>
+                        <div class="col d-flex justify-content-around flex-wrap ">
+                            <div class="icon-circle cursor-pointer">
+                                <i class="fa-brands fa-facebook"></i>
+                            </div>
+                            <div class="icon-circle cursor-pointer">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </div>
+                            <div class="icon-circle cursor-pointer">
+                                <i class="fa-brands fa-twitter"></i>
+                            </div>
+                            <div class="icon-circle cursor-pointer">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div class="icon-circle cursor-pointer">
+                                <i class="fa-brands fa-pinterest"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- <div class="col flex-grow text-primary text-center small">
-                    <i>Made with &hearts;</i>
-                </div> -->
-                <div class="col d-flex justify-content-around ">
-                    <div class="icon-circle cursor-pointer">
-                        <i class="fa-brands fa-facebook"></i>
-                    </div>
-                    <div class="icon-circle cursor-pointer">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </div>
-                    <div class="icon-circle cursor-pointer">
-                        <i class="fa-brands fa-twitter"></i>
-                    </div>
-                    <div class="icon-circle cursor-pointer">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <div class="icon-circle cursor-pointer">
-                        <i class="fa-brands fa-pinterest"></i>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </footer>

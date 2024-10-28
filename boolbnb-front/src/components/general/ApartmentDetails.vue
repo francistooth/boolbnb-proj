@@ -96,33 +96,29 @@ export default {
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
               <div class="services row row-cols-2 row-cols-lg-4 mt-2">
-                <div class="service border-light col d-flex justify-content-center p-lg-3">
-                  <div class="label d-flex">
+                <div class="service border-light col d-flex justify-content-center align-items-center p-lg-3">
+                  <div class="label d-flex ">
                     <i class="fas fa-bed"></i>
-                    <h6 class="d-sm-none d-lg-block">letti</h6>:
+                    <h6 class="d-lg-block px-2">letti: {{ apartment.bed }}</h6>
                   </div>
-                  <div class="service-value">{{ apartment.bed }}</div>
                 </div>
-                <div class="service border-light col d-flex justify-content-center p-lg-3">
-                  <div class="label d-flex">
+                <div class="service border-light col d-flex justify-content-center align-items-center p-lg-3">
+                  <div class="label d-flex ">
                     <i class="fa-solid fa-bath"></i>
-                    <h6 class="d-sm-none d-lg-block">bagni</h6>:
+                    <h6 class="d-lg-block px-2">bagni: {{ apartment.bathroom }}</h6>
                   </div>
-                  <div class="service-value">{{ apartment.bathroom }}</div>
                 </div>
-                <div class="service border-light col d-flex justify-content-center p-lg-3">
+                <div class="service border-light col d-flex justify-content-center align-items-center p-lg-3">
                   <div class="label d-flex">
                     <i class="fa-solid fa-people-roof"></i>
-                    <h6 class="d-sm-none d-lg-block">stanze</h6>:
+                    <h6 class="d-lg-block px-2">stanze: {{ apartment.room }}</h6>
                   </div>
-                  <div class="service-value">{{ apartment.room }}</div>
                 </div>
-                <div class="service border-light col d-flex justify-content-center p-lg-3">
+                <div class="service border-light col d-flex justify-content-center align-items-center p-lg-3">
                   <div class="label d-flex">
                     <i class="fa-solid fa-ruler-combined"></i>
-                    <h6 class="d-sm-none d-lg-block">mq</h6>:
+                    <h6 class="d-lg-block px-2">mq: {{ apartment.sqm }}</h6>
                   </div>
-                  <div class="service-value">{{ apartment.sqm }}</div>
                 </div>
               </div>
             </div>
@@ -131,7 +127,7 @@ export default {
                 <div class="row">
                   <div class="col label d-flex align-items-start" v-for="service in apartment.services" :key="service.id">
                     <i :class="service.icon"></i>
-                    <p class="d-sm-none d-lg-block small text-nowrap">: {{ service.name }}</p>
+                    <p class="d-lg-block small text-nowrap">: {{ service.name }}</p>
                   </div>
                 </div>
               </div>
@@ -139,9 +135,22 @@ export default {
           </div>
         </div>
       </div>
-      <div class="message-card col-sm-12 col-lg-5 pt-5">
+      
+      <div class=" col-sm-12 col-lg-5 pt-5 text-center">
+        <div class="pb-5">
+          <button class="btn btn-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Scrivi al Proprietario</button>
+
+          <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header">
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <p><Mail :slug="apartment.slug"></Mail></p>
+            </div>
+          </div>
+        </div>
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :coordinates="coordinates" class="mapborder"></Map>
-        <Mail :slug="apartment.slug"></Mail>
+        
       </div>
     </div>
   </section>
