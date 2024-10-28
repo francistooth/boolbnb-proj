@@ -99,7 +99,6 @@ export default {
       let apartmentSponsor = [];
       let apartmentNoSponsor = [];
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
-      this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
         lat: lat,
         lon: lon,
@@ -122,8 +121,8 @@ export default {
               }
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
+              this.isLoading = false;
             }
-            this.isLoading = false;
           })
         })
         .catch(error => {
@@ -193,6 +192,7 @@ export default {
     } else {
 
       console.log('Nessuna coordinata fornita.');
+      this.isLoading = false;
     }
   }
 }
@@ -201,12 +201,9 @@ export default {
 
 
 <template>
-  <!-- mappa -->
   <div class="container-fluid mt-5">
-    <div v-if="isLoading">
-      <Loader />
-    </div>
-    <div v-else class="row">
+    <div class="row">
+        <!-- mappa -->    
       <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
@@ -260,37 +257,43 @@ export default {
       <!-- risultato ricerca appartamenti -->
       <div class="col-9 ">
 
-        <div v-if="apartments.length > 0">
-          <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
-          <router-link v-for="apartment in apartmentsOnPage"
-            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <CardSearch :data="apartment" />
-          </router-link>
+        <div v-if="apartments.length > 0" >
+          <div v-if="isLoading">
+            <Loader />
+          </div>
+          <div v-else>
+            <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
+            <router-link v-for="apartment in apartmentsOnPage"
+              :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+              <CardSearch :data="apartment" />
+            </router-link>
 
-          <!-- guarda qui -->
-          <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item" :class="page == 1 ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li @click="changePage(index)" v-for="index in pagineTotali" class="page-item"
-                :class="page == index ? 'active' : ''">
-                <a class="page-link" href="#">{{ index }}</a>
-              </li>
-              <li @click="nextPage" class="page-item" :class="page == pagineTotali ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+            <!-- guarda qui -->
+            <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" :class="page == 1 ? 'disabled' : ''">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li @click="changePage(index)" v-for="index in pagineTotali" class="page-item"
+                  :class="page == index ? 'active' : ''">
+                  <a class="page-link" href="#">{{ index }}</a>
+                </li>
+                <li @click="nextPage" class="page-item" :class="page == pagineTotali ? 'disabled' : ''">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
         <div v-else>
-          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
+            <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
         </div>
       </div>
+
     </div>
   </div>
 </template>
