@@ -88,8 +88,10 @@ export default {
           <!-- Tab nav -->
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab" data-bs-target="#nav-details" type="button" role="tab" aria-controls="nav-details" aria-selected="true">Caratteristiche</button>
-              <button class="nav-link" id="nav-profile-services" data-bs-toggle="tab" data-bs-target="#nav-services" type="button" role="tab" aria-controls="nav-services" aria-selected="false">Servizi aggiuntivi</button>
+              <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab" data-bs-target="#nav-details"
+                type="button" role="tab" aria-controls="nav-details" aria-selected="true">Caratteristiche</button>
+              <button class="nav-link" id="nav-profile-services" data-bs-toggle="tab" data-bs-target="#nav-services"
+                type="button" role="tab" aria-controls="nav-services" aria-selected="false">Servizi aggiuntivi</button>
             </div>
           </nav>
           <!-- Tab content -->
@@ -125,7 +127,8 @@ export default {
             <div class="tab-pane fade" id="nav-services" role="tabpanel" aria-labelledby="nav-profile-services">
               <div class="py-4">
                 <div class="row">
-                  <div class="col label d-flex align-items-start" v-for="service in apartment.services" :key="service.id">
+                  <div class="col label d-flex align-items-start" v-for="service in apartment.services"
+                    :key="service.id">
                     <i :class="service.icon"></i>
                     <p class="d-lg-block small text-nowrap">: {{ service.name }}</p>
                   </div>
@@ -135,30 +138,33 @@ export default {
           </div>
         </div>
       </div>
-      
+
       <div class=" col-sm-12 col-lg-5 pt-5 text-center">
         <div class="pb-5">
-          <button class="btn btn-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Scrivi al Proprietario</button>
+          <button class="btn btn-primary " type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Scrivi al
+            Proprietario</button>
 
-          <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+          <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel">
             <div class="offcanvas-header">
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-              <p><Mail :slug="apartment.slug"></Mail></p>
+            <div class="offcanvas-body ">
+              <Mail :slug="apartment.slug"></Mail>
             </div>
           </div>
         </div>
-        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :coordinates="coordinates" class="mapborder"></Map>
-        
+        <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :coordinates="coordinates"
+          class="mapborder"></Map>
+
       </div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-
-section{
+section {
   .img-container {
     aspect-ratio: 5/3;
     background-color: rgba(88, 88, 81, 0.226);
@@ -172,6 +178,10 @@ section{
     height: 300px;
     width: 300px;
     margin: auto;
+  }
+
+  .offcanvas-body {
+    height: 100vh;
   }
 }
 </style>

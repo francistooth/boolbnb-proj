@@ -66,7 +66,8 @@ export default {
                 </button>
                 <ul class="list-group" v-if="this.suggests.length > 0">
                     <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
-                        <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
+                        <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress
+                            }}</a>
                     </li>
                 </ul>
             </div>
@@ -87,9 +88,9 @@ export default {
     position: absolute;
     max-width: 1100px;
     left: 50%;
-    width: calc(100% - 10px);
-    transform: translate(-50%,55px);
-    z-index: 1000;
+    width: calc(100% - 50px);
+    transform: translate(-50%, 55px);
+    z-index: 2;
 
     input {
         height: 60px;
@@ -125,6 +126,4 @@ export default {
         background-color: #0047a0;
     }
 }
-
-
 </style>

@@ -26,6 +26,7 @@ export default {
     <RouterView />
   </main>
   <FooterView />
+
 </template>
 
 <style lang="scss" scoped>
