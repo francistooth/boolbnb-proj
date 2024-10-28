@@ -6,7 +6,8 @@ export default {
   props: {
     apartments: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     },
     coordinates: {
       type: Object,
@@ -45,20 +46,26 @@ export default {
         removeMarkers();
         const centralLocation = [coordinates.value.lon, coordinates.value.lat];
         const bounds = new tt.LngLatBounds();
-        bounds.extend(centralLocation);
+
 
         // Aggiungi il nuovo marker centrale
         centralMarker = addMarker(centralLocation, 'Punto centrale: ' + coordinates.value.name);
-        /*  if (apartments.length > 0) { */
-        apartments.value.forEach(apartment => {
-          const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
-          const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]];
-          console.log('Adding apartment marker at:', apartmentLocation);
-          addMarker(apartmentLocation, apartment.title);
-          bounds.extend(apartmentLocation);
-        })
-        /* } */;
-        map.fitBounds(bounds, { padding: 50 });
+        bounds.extend(centralLocation);
+
+        if (apartments.value) {
+          apartments.value.forEach(apartment => {
+            const coordinatesArray = apartment.coordinate.split(',').map(coord => parseFloat(coord.trim()));
+            const apartmentLocation = [coordinatesArray[0], coordinatesArray[1]];
+            console.log('Adding apartment marker at:', apartmentLocation);
+            addMarker(apartmentLocation, apartment.title);
+            bounds.extend(apartmentLocation);
+          })
+        };
+        map.fitBounds(bounds, { padding: 100 });
+        if (apartments.value.length == 0) {
+          map.setCenter(centralLocation);
+          map.setZoom(15);
+        }
       }
     }
     onMounted(() => {

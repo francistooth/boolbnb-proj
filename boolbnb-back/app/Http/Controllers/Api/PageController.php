@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
-use App\Models\User;
+use App\Models\Visit;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
+
 
 
 class PageController extends Controller
@@ -114,19 +114,16 @@ class PageController extends Controller
 
         return response()->json($apartments);
     }
- /*    public function getUser()
+
+
+    public function incrementVisit(Request $request)
     {
 
-        $user = User::where('user_id', Auth::id())->first();
-        if ($user) {
-            $success = true;
-        } else {
-            $success = false;
-        }
-        $data = [
-            'success' => $success,
-            'result' => $user
-        ];
-        return response()->json($data);
-    } */
+        $ip_address = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
+        $apartment_id = $request->apartment_id;
+        Visit::create([
+            'apartment_id' => $apartment_id,
+            'ip_address' => $ip_address
+        ]);
+    }
 }

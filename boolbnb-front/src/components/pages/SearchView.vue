@@ -18,8 +18,6 @@ export default {
     return {
       store,
       apartments: [],
-      apartmentSponsor: [],
-      apartmentNoSponsor: [],
       sponsors: [],
       services: [],
       servicesfilter: [],
@@ -27,6 +25,8 @@ export default {
       roomFilter: 1,
       bedFilter: 1,
       radiusFilter: 20,
+      page: 1,
+      pageApartments: 5,
       coordinates: {
         lat: null,
         lon: null,
@@ -57,9 +57,7 @@ export default {
       axios.get(store.apiUrl + 'servizi')
         .then(res => {
           this.services = res.data.result
-
         }
-
         ).catch(error => {
           console.error("Errore durante la ricerca dei servizi", error);
         });
@@ -83,7 +81,6 @@ export default {
               radius: String(this.radiusFilter),
               lat: String(this.lat),
               lon: String(this.lon),
-              /* services: String(this.servicesfilter.join(',')), */
               services: String(speranza),
             }
           })
@@ -95,8 +92,8 @@ export default {
     },
     searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
       console.log(this.$route.params);
-      this.apartmentSponsor = [];
-      this.apartmentNoSponsor = [];
+      let apartmentSponsor = [];
+      let apartmentNoSponsor = [];
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
       this.loading = true
       axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
@@ -108,7 +105,6 @@ export default {
         services: services
       })
         .then(response => {
-          // Salva i risultati nel data
           this.apartments = response.data;
           this.loading = false;
           console.log(this.apartments);
@@ -116,10 +112,11 @@ export default {
           this.apartments.forEach(element => {
             if (element.is_visible) {
               if (element.sponsors.length > 0) {
-                this.apartmentSponsor.push(element)
+                apartmentSponsor.push(element)
               } else {
-                this.apartmentNoSponsor.push(element)
+                apartmentNoSponsor.push(element)
               }
+              this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
             }
           })
@@ -133,6 +130,35 @@ export default {
             console.error('Headers:', error.response.headers);
           }
         });
+    },
+    // Metodo per andare alla pagina successiva
+    nextPage() {
+      if (this.page < this.pagineTotali) {
+        this.page++;
+      }
+    },
+
+    // Metodo per andare alla pagina precedente
+    prevPage() {
+      if (this.page > 1) {
+        this.page--;
+      }
+    },
+    changePage(index) {
+      this.page = index;
+      console.log(this.page);
+    }
+  }, computed: {
+    // Calcola il numero totale di pagine
+    pagineTotali() {
+      return Math.ceil(this.apartments.length / this.pageApartments);
+    },
+
+    // Restituisce gli appartamenti della pagina corrente
+    apartmentsOnPage() {
+      const start = (this.page - 1) * this.pageApartments;
+      const end = start + this.pageApartments;
+      return this.apartments.slice(start, end);
     },
   },
   mounted() {
@@ -153,14 +179,14 @@ export default {
       const arrayServices = this.$route.params.services.split(',');
       this.servicesfilter = arrayServices;
     }
-    /* this.servicesfilter = this.$route.params.services ? this.$route.params.services.split(',') : 'Nessun-servizio-selezionato'; */
+
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
-      // Puoi fare ulteriori operazioni qui con lat e lon
+
       this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, services);
 
     } else {
-      // Gestisci il caso in cui lat e lon non sono presenti
+
       console.log('Nessuna coordinata fornita.');
     }
   }
@@ -170,15 +196,16 @@ export default {
 
 
 <template>
-
+  <!-- mappa -->
   <div class="container-fluid mt-5">
     <div class="row">
       <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
       </div>
+      <!-- filtri -->
       <div class="col-3">
-        <form class="container mb-2" action="">
+        <form class="container mb-2">
           <div class="row row-cols-1">
             <div class="col mb-1">
               <label for="adressfilter" class="form-label">Indirizzo</label>
@@ -222,19 +249,37 @@ export default {
           </div>
         </form>
       </div>
-      <div class=" col-9 myborder ">
-        <div v-if="apartments.length > 0" class="ms-5">
-          <router-link v-for="apartment in apartmentSponsor"
-            :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
-            <CardSearch :data="apartment" />
-          </router-link>
-          <router-link v-for="apartment in apartmentNoSponsor"
+      <!-- risultato ricerca appartamenti -->
+      <div class="col-9 ">
+
+        <div v-if="apartments.length > 0">
+          <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
+          <router-link v-for="apartment in apartmentsOnPage"
             :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
             <CardSearch :data="apartment" />
           </router-link>
 
+          <!-- guarda qui -->
+          <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" :class="page == 1 ? 'disabled' : ''">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li @click="changePage(index)" v-for="index in pagineTotali" class="page-item"
+                :class="page == index ? 'active' : ''">
+                <a class="page-link" href="#">{{ index }}</a>
+              </li>
+              <li @click="nextPage" class="page-item" :class="page == pagineTotali ? 'disabled' : ''">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-        <div v-else class="ms-5">
+        <div v-else>
           <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
         </div>
       </div>
@@ -244,13 +289,6 @@ export default {
 
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
-
-
-.myborder {
-  display: flex;
-  justify-content: flex-start;
-
-}
 
 .mapborder {
   height: 400px;

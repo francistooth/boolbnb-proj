@@ -19,10 +19,10 @@ export default {
             message: '',
             sending: false,
             sent: false,
-            apiError:false,
+            apiError: false,
             errorMessage: '',
 
-            errors:{
+            errors: {
                 email: [],
                 message: [],
                 name: [],
@@ -47,7 +47,7 @@ export default {
 
                     console.log(response.data);
 
-                    if(!response.data.success){
+                    if (!response.data.success) {
                         this.errors = response.data.errors;
                     } else {
                         this.sent = true;
@@ -76,13 +76,13 @@ export default {
                 });
         },
 
-        resetError(){
+        resetError() {
             this.errorMessage = '';
             this.apiError = false;
         },
     },
-    
-    }
+
+}
 </script>
 
 <template>
@@ -93,7 +93,8 @@ export default {
             <div>
                 <label for="name" class="form-label">Nome: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.name?.toString() }}</p>
-                <input v-model="name" type="text" id="name" class="form-control" @input="validateName" required onkeypress="return /^[a-zA-ZàèéìòùÀÈÉÌÒÙçÇ\s]*$/.test(event.key)">
+                <input v-model="name" type="text" id="name" class="form-control" @input="validateName" required
+                    onkeypress="return /^[a-zA-ZàèéìòùÀÈÉÌÒÙçÇ\s]*$/.test(event.key)">
             </div>
 
             <div>
@@ -117,7 +118,7 @@ export default {
 
         </form>
 
-        <Loader v-else-if="!apiError"/>
+        <Loader v-else-if="!apiError" />
 
         <div v-if="apiError" class="text-center">
             <h2 class="text-danger">{{ errorMessage }}</h2>
@@ -129,36 +130,35 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
 @use "../../styles/partials/variables.scss" as *;
 
-border-primary{
+border-primary {
     border: 2px solid $primary_color;
 }
 
-section{
+section {
     height: 560px;
     // height: 100%;
 
-    form {
-        margin: 50px auto;
-        width: 60%;
+    section {
+        form {
+            margin: 50px auto;
+            width: 60%;
 
-        div {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            div {
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
 
-            label {
-                width: 100%;
-                text-align: center;
-            }
+                label {
+                    width: 100%;
+                    text-align: center;
+                }
 
-            p.text-danger{
-                font-size: 12px;
+                p.text-danger {
+                    font-size: 12px;
+                }
             }
         }
-    }
-}
-</style>
+    }</style>
