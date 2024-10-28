@@ -14,7 +14,7 @@ export default {
 
 <template>
     <router-link :to="{ name: 'dettagli', params: { slug: data.slug } }">
-        <div class="card d-flex align-items-center  mb-2 p-2">
+        <div class="card d-flex align-items-center w-75 mb-2 p-2">
             <div class="row no-gutters ">
                 <div class="col-md-3 me-0 d-flex justify-content-center align-items-center">
                     <img :src="data.img_path" class="card-img" :alt="data.title">
