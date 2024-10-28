@@ -32,7 +32,12 @@ class MessageController extends Controller
 
     public function messagesForApartment(string $id)
     {
+
         $apartment = Apartment::where('id', $id)->first();
+
+        if ($apartment->user_id !== Auth::id()) {
+            abort(404);
+        }
 
         $messages = Message::with('apartment')
             ->where('apartment_id', $id)
