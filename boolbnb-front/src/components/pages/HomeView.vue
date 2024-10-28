@@ -68,6 +68,6 @@ export default {
 @use "../../styles/general.scss" as *;
 
 #card-container {
-  height: 425px;
+  min-height: 425px;
 }
 </style>
