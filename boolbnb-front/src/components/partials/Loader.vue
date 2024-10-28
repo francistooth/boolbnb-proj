@@ -14,7 +14,7 @@ export default{
 <style lang="scss" scoped>
 
 #loader-container{
-    min-height: 600px;
+    min-height: 350px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
