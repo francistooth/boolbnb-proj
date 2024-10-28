@@ -57,24 +57,27 @@
                                 data-bs-target="#collapse-{{ $message['received']->id }}" aria-expanded="false"
                                 aria-controls="collapseOne">
                                 <div class="w-75">
-                                    Messaggio ricevuto da {{ $message['received']->name }} <span class="text-muted">|</span>
+                                    <span class="d-none d-md-inline">Messaggio ricevuto</span>
+                                    da
+                                    {{ $message['received']->name }}
+                                    <span class="text-muted d-none d-md-inline">|</span>
+                                    <br class="d-inline d-md-none">
                                     per:
                                     "{{ $message['apartment_name'] }}"
                                 </div>
 
                                 <div class="fw-light text-end me-2 w-25">
-                                    il {{ date('d/m/Y \o\r\e H.i', strtotime($message['received']->created_at)) }}
+                                    <span class="fw-light d-none d-md-inline">il</span>
+                                    {{ date('d/m/Y \o\r\e H.i', strtotime($message['received']->created_at)) }}
                                 </div>
                             </button>
                         </h2>
                         <div id="collapse-{{ $message['received']->id }}" class="accordion-collapse collapse"
                             aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-                            <div class="accordion-body position-relative">
+                            <div class="accordion-body position-relative" style="word-break: break-word;">
                                 <div class="mb-2">
                                     Mittente: <strong>{{ $message['received']->email }}</strong>
-
-                                </div>
-                                <div>
+                                    <br>
                                     {{ $message['received']->message }}
                                 </div>
 
