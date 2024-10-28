@@ -37,7 +37,7 @@
                         @foreach ($apartments as $apartment)
                             <!-- modale -->
                             <div class="modal fade" id="deleteModal-{{ $apartment->id }}" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1000">
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -49,7 +49,7 @@
                                         <div class="modal-body">
                                             Sei sicuro di voler eliminare l'appartamento "{{ $apartment->title }}"?
                                         </div>
-                                        <div class="modal-footer">
+                                        <div class="modal-footer d-flex justify-content-center">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Annulla</button>
 
