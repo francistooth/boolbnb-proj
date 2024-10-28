@@ -5,6 +5,7 @@ import Map from '../partials/Map.vue';
 import { store } from '../../store';
 import axios from 'axios';
 import CardSearch from '../general/CardSearch.vue';
+import Loader from '../partials/Loader.vue';
 
 
 export default {
@@ -12,7 +13,8 @@ export default {
   components: {
     ApartmentCard,
     CardSearch,
-    Map
+    Map,
+    Loader,
   },
   data() {
     return {
@@ -32,7 +34,8 @@ export default {
         lon: null,
         name: null
       },
-      suggests: []
+      suggests: [],
+      isLoading: true,
     }
   },
   methods: {
@@ -91,6 +94,7 @@ export default {
         })
     },
     searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
+      this.isLoading = true;
       console.log(this.$route.params);
       let apartmentSponsor = [];
       let apartmentNoSponsor = [];
@@ -106,7 +110,7 @@ export default {
       })
         .then(response => {
           this.apartments = response.data;
-          this.loading = false;
+          
           console.log(this.apartments);
 
           this.apartments.forEach(element => {
@@ -119,11 +123,12 @@ export default {
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
             }
+            this.isLoading = false;
           })
         })
         .catch(error => {
           console.error("Errore durante la ricerca degli appartamenti:", error);
-          this.loading = false;
+          this.isLoading = false;
           if (error.response) {
             console.error('Dati:', error.response.data);
             console.error('Status:', error.response.status);
@@ -198,7 +203,10 @@ export default {
 <template>
   <!-- mappa -->
   <div class="container-fluid mt-5">
-    <div class="row">
+    <div v-if="isLoading">
+      <Loader />
+    </div>
+    <div v-else class="row">
       <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
