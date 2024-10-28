@@ -15,23 +15,27 @@ export default {
 </script>
 
 <template>
-    <header>
-        <div class="d-flex justify-content-between  align-items-center ">
-        
-            <HeaderView />
+  <header>
+    <div class="d-flex justify-content-between  align-items-center ">
 
-        </div>
-    </header>
-    <main>
-        <RouterView />
-    </main>
-    <FooterView />
+      <HeaderView />
+
+    </div>
+  </header>
+  <main>
+    <RouterView />
+  </main>
+  <FooterView />
 </template>
 
 <style lang="scss" scoped>
-
 header {
   margin: 0;
 }
 
+header,
+main,
+footer {
+  min-width: 500px;
+}
 </style>
