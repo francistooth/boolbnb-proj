@@ -199,15 +199,15 @@ export default {
   <!-- mappa -->
   <div class="container-fluid mt-5">
     <div class="row">
-      <div class="col-12 col-lg-8 mb-3">
+      <div class="col-12 mb-3">
         <Map v-if="coordinates.lat !== null && coordinates.lon !== null" :apartments="apartments"
           :coordinates="coordinates" class="mapborder"></Map>
       </div>
       <!-- filtri -->
-      <div class="col-12 col-lg-4 mb-4">
+      <div class="col-3">
         <form class="container mb-2">
-          <div class="row">
-            <div class="col-12 mb-1">
+          <div class="row row-cols-1">
+            <div class="col mb-1">
               <label for="adressfilter" class="form-label">Indirizzo</label>
               <div class="position-relative">
                 <input type="text" class="form-control" id="adressfilter" v-model="addressFilter" @input="addFilter"
@@ -219,27 +219,27 @@ export default {
                 </ul>
               </div>
             </div>
-            <div class="col-12 mb-1">
+            <div class="col mb-1">
               <label for="room-number" class="form-label">Numero di Stanze</label>
-              <input type="number" class="form-control w-50" id="room-number" v-model="roomFilter" min="1"
+              <input type="number" class="form-control w-25" id="room-number" v-model="roomFilter" min="1"
                 @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-12 mb-1">
+            <div class=" col mb-1">
               <label for="bed-number" class="form-label">Numero di Letti</label>
-              <input type="number" class="form-control w-50" id="bed-number" v-model="bedFilter" min="1"
+              <input type="number" class="form-control w-25" id="bed-number" v-model="bedFilter" min="1"
                 @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-12 mb-1">
+            <div class="col mb-1">
               <label for="radiusfilter" class="form-label">Raggio di ricerca</label>
-              <input type="number" class="form-control w-50" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+              <input type="number" class="form-control w-25" id="radiusfilter" v-model="radiusFilter" @input="addFilter"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
-            <div class="col-12">
+            <div class="col ">
               <p class="m-0">Servizi:</p>
-              <ul class="list-unstyled p-1">
-                <li v-for='service in services' class="d-inline-block me-2">
+              <ul class="row row-cols-1 p-1">
+                <li v-for='service in services' class=" col d-line text-nowrap ">
                   <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
                     @change="addFilter">
                   <label :for="service.name" class="form-label ">{{ service.name }}</label>
@@ -250,7 +250,8 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-12">
+      <div class="col-9 ">
+
         <div v-if="apartments.length > 0">
           <h2>{{ this.apartments.length }} appartamenti corrispondono alla tua ricerca </h2>
           <router-link v-for="apartment in apartmentsOnPage"
@@ -258,8 +259,8 @@ export default {
             <CardSearch :data="apartment" />
           </router-link>
 
-          <!-- Paginazione -->
-          <nav v-if="pagineTotali > 1" aria-label="Page navigation example" class="mt-3">
+          <!-- guarda qui -->
+          <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item" :class="page == 1 ? 'disabled' : ''">
                 <a class="page-link" href="#" aria-label="Previous">
