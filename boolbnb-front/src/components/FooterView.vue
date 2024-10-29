@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </footer>
@@ -94,7 +94,7 @@ footer {
             font-size: 16px;
 
             &:hover {
-                color: gray;
+                color: $warning_color;
             }
         }
     }

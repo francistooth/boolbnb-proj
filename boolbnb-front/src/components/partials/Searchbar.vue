@@ -64,9 +64,10 @@ export default {
                 <button class="btn btn-primary text-white rounded" @click="searchCoordinate(macroSearch)">
                     <i class="fas fa-magnifying-glass"></i>
                 </button>
-                <ul class="list-group" v-if="this.suggests.length > 0">
+                <ul class="list-group" v-if="suggests.length > 0">
                     <li class="list-group-item" v-for="suggest, index in suggests" :key="index">
-                        <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress
+                        <a href="#" @click.prevent="searchCoordinate(useSuggest(index))">{{
+                            suggest.address.freeformAddress
                             }}</a>
                     </li>
                 </ul>
@@ -86,11 +87,19 @@ export default {
 
 .search {
     position: absolute;
-    max-width: 1100px;
+    max-width: 80%;
     left: 50%;
+    bottom: 50%;
     width: calc(100% - 50px);
-    transform: translate(-50%, 55px);
+    transform: translate(-50%, 60px);
     z-index: 2;
+
+    .list-group {
+        position: absolute;
+        z-index: 2;
+
+
+    }
 
     input {
         height: 60px;
@@ -101,8 +110,9 @@ export default {
         &:focus {
 
             box-shadow: none;
-            border: 3px solid white;
+            border: 3px solid $warning_color;
         }
+
     }
 
     .fa-search {

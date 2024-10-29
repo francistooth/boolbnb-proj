@@ -23,7 +23,7 @@ export default {
                     <div class="card-body row">
                         <h5 class=" col-8 card-title">{{ data.title }}</h5>
                         <div class="col-4 text-align-end"> <button v-if="data.sponsors.length > 0"
-                                class="badge bg-success">Consigliato</button></div>
+                                class="badge bg-success text-uppercase">Consigliato</button></div>
                         <small><span class="text-uppercase fw-bold">Indirizzo:</span> {{ data.address }} </small>
                         <small><span class="text-uppercase fw-bold">Distanza:</span> {{ Math.round(data.distance * 100)
                             / 100 }}Km</small>

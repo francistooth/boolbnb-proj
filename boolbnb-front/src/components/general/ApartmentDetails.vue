@@ -81,15 +81,15 @@ export default {
     <div v-else class="row house-card d-flex">
       <div class="house-card-hader col-sm-12 col-lg-7">
         <h2 class="title text-primary">{{ apartment.title }} </h2>
-        <h6 class="subtitle text-primary"> Indirizzo:{{ apartment.address }}</h6>
+        <h6 class="subtitle "> Indirizzo:{{ apartment.address }}</h6>
 
         <div class="img-container d-flex justify-content-center mx-lg-5 my-4">
           <img class="img-fluid" :src="apartment.img_path" :alt="apartment.img_name">
         </div>
-        <h5 class="description text-primary">{{ apartment.description }}</h5>
+        <h5 class="description ">{{ apartment.description }}</h5>
         <!-- Dettagli appartamento e servizi -->
         <p>Proprietario:{{ apartment.user.name }} {{ apartment.user.surname }}</p>
-        <p>Visualizzazioni da {{ apartment.visits.length }} utenti</p>
+        <p> {{ apartment.visits.length }} Visualizzazioni</p>
         <div class="house-card-body mb-3">
           <!-- Tab nav -->
           <nav>
@@ -133,8 +133,8 @@ export default {
             <div class="tab-pane fade" id="nav-services" role="tabpanel" aria-labelledby="nav-profile-services">
               <div class="py-4">
                 <div class="row">
-                  <div class="col label d-flex justify-content-center align-items-baseline"
-                    v-for="service in apartment.services" :key="service.id">
+                  <div class="col label d-flex align-items-baseline" v-for="service in apartment.services"
+                    :key="service.id">
                     <i :class="service.icon"></i>
                     <p class="d-lg-block small text-nowrap ms-1"> {{ service.name }}</p>
                   </div>
@@ -173,7 +173,7 @@ export default {
 section {
   .img-container {
     aspect-ratio: 5/3;
-    background-color: rgba(88, 88, 81, 0.226);
+
 
     img {
       height: 100%;

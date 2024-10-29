@@ -121,7 +121,7 @@ export default {
               }
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
-              /* window.scrollTo(0, 0); */
+              window.scrollTo(0, 0);
               this.isLoading = false;
             }
           })
@@ -288,7 +288,7 @@ export default {
           </div>
         </div>
         <div v-else>
-          <h2>Spiacente Non trattiamo appartamenti in questa zona</h2>
+          <h2>Spiacente nessun risultato</h2>
         </div>
       </div>
 

@@ -6,15 +6,7 @@ export default {
 </script>
 
 <template>
-    <div class="container-fluid">
-        <!-- 
-        <nav role="navigation">
-            <div class="py-3 text-center border-bottom">
-                <RouterLink to="/"><img src="./../assets/logo_sovversivo.png" width="75" height="75" class="invert" />
-                </RouterLink>
-            </div>
-        </nav> 
-        -->
+    <div class="container-fluid bg bg-primary">
         <div class="navbar-expand-md">
             <div class="navbar-dark text-center my-2">
                 <button class="navbar-toggler border rounded-2 border-opacity-50 p-1" type="button"
@@ -48,22 +40,6 @@ export default {
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a></li>
                         </ul>
                     </li>
-
-                    <!-- <div
-                        v-if="isGuest"
-                        class="navbar-guest"
-                    >
-                    
-                    </div>
-
-                    <div
-                        v-else
-                        class="navbar-auth"
-                    >
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://127.0.0.1:8000/admin/">Il mio account</a>
-                        </li>
-                    </div> -->
                 </ul>
             </div>
         </div>
@@ -75,12 +51,11 @@ export default {
 @use "../styles/general.scss" as *;
 @use "../styles/partials/variables.scss" as *;
 
-.container-fluid {
+/* .container-fluid {
     background: $primary_color;
-    /* min-height: 10vh;
-    max-height: 20vh; */
+  
 }
-
+ */
 .container-fluid a {
     font-family: sans-serif;
     font-size: 1.1rem;
@@ -88,13 +63,13 @@ export default {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
 }
 
-a.dropdown-toggle {
+/* a.dropdown-toggle {
     color: #dfdfdf !important
 }
-
-a.dropdown-item {
+ */
+/* a.dropdown-item {
     color: gray !important
-}
+} */
 
 a.dropdown-item:hover {
     color: black !important
@@ -110,13 +85,5 @@ a.dropdown-item:hover {
 
 .nav-item {
     min-width: 12vw;
-}
-
-#mainNavigation {
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 123;
-    padding-bottom: 120px;
 }
 </style>
