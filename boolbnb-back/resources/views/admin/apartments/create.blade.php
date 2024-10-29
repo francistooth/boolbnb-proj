@@ -15,7 +15,7 @@
     <div class="container mt-4">
 
         <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
-            <i class="fa-solid fa-caret-left"></i>
+            <i class="fa-solid fa-arrow-left"></i>
         </a>
 
         <h2 class="text-secondary my-4">Inserisci appartamento</h2>

@@ -1,8 +1,6 @@
 @extends('admin.index')
 
 @section('user')
-
-
     <div class="container">
         @if (session('delete'))
             <div class="alert alert-danger mx-auto">
@@ -27,6 +25,10 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
 
         <div class="d-flex justify-content-between align-items-center">
             <div>

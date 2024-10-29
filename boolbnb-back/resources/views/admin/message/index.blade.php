@@ -7,9 +7,16 @@
         </div>
     @endif
 
-    <div class="container-fluid d-flex justify-content-between align-items-center mt-4 mb-4">
-        <h3 class="text-secondary"> Messaggi inviati a <span class="fs-2 text-primary">{{ Auth::user()->name }}</span></h3>
-        <h6 class="text-muted text-end">totale: {{ count($messages) }} messaggi</h6>
+    <div class="container-fluid">
+        <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+            <h3 class="text-secondary"> Messaggi inviati a <span class="fs-2 text-primary">{{ Auth::user()->name }}</span>
+            </h3>
+            <h6 class="text-muted text-end">totale: {{ count($messages) }} messaggi</h6>
+        </div>
     </div>
 
     @if (!$messages || count($messages) === 0)
