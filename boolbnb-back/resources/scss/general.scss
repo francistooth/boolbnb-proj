@@ -52,11 +52,18 @@ $site_theme: #003b95;
 }
 
 // nav fixed
+#sidebarMenu {
+    text-align: center;
 
-.sidenav {
-    height: 100%;
-    background-color: $site_theme;
-    padding-top: 20px;
+    @media (min-width: 992px) {
+        text-align: left;
+    }
+
+    .sidenav {
+        height: 100%;
+        background-color: $site_theme;
+        padding-top: 20px;
+    }
 }
 
 // create, edit apartment form
