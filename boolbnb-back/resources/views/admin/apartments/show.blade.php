@@ -1,6 +1,8 @@
 @extends('admin.index')
 
 @section('user')
+
+
     <div class="container">
         @if (session('delete'))
             <div class="alert alert-danger mx-auto">

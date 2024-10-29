@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart.js</title>
-    <!-- Includi Bootstrap per utilizzare la modale -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Grafico per visite appartamenti -->
+   
     <div class="mt-4 text-center">
         <h3>Le visite al tuo appartamento</h3>
 
-        <!-- Selezione dell'intervallo di tempo -->
         <div class="mt-2">
             <label for="startDate">Data Inizio:</label>
             <input type="date" id="startDate" name="startDate">
@@ -20,18 +18,15 @@
             <label for="endDate">Data Fine:</label>
             <input type="date" id="endDate" name="endDate">
             <br>
-
             <button onclick="filterData()">Ricerca</button>
             <button onclick="resetData()">Reset</button>
         </div>
 
-        <!-- Grafico delle visite annuali -->
         <div class="mx-auto" style="width: 70%">
             <canvas id="yearlyVisit"></canvas>
         </div>
     </div>
 
-    <!-- Modale di avviso per errore nella ricerca -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -50,15 +45,38 @@
             </div>
         </div>
     </div>
-
+     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Dati di esempio per le visite mensili
-        const monthlyData = [12, 19, 3, 5, 2, 3, 4, 15, 19, 22, 14, 9];
-        const labels = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+        // Trasformo le visite in un file json in modo che javascript lo possa interpretare 
+        const visitsData = @json($visits);
 
-        // Logica per inizializzare il grafico
+        // Converto le date in Mese/Anno 
+        function getMonthName(dateString) {
+            const date = new Date(dateString);
+            const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+                                "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+            return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        // Aggregazione dei dati per mese
+        const monthlyVisits = visitsData.reduce((acc, visit) => {
+            const monthYear = getMonthName(visit.date);
+            if (!acc[monthYear]) {
+                acc[monthYear] = 0;
+            }
+            acc[monthYear] += visit.count;
+            return acc;
+        }, {});
+
+        // Estrazione delle etichette e dei dati aggregati
+        const labels = Object.keys(monthlyVisits);
+        const data = Object.values(monthlyVisits);
+
+        // Configurazione del grafico
         var ctx = document.getElementById('yearlyVisit').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -66,7 +84,7 @@
                 labels: labels,
                 datasets: [{
                     label: '# Visite registrate',
-                    data: monthlyData,
+                    data: data,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 2
@@ -84,33 +102,38 @@
             const startDate = new Date(document.getElementById('startDate').value);
             const endDate = new Date(document.getElementById('endDate').value);
 
-            // Validazione delle date
             if (!startDate || !endDate || startDate > endDate) {
-                // Mostra la modale di errore
                 $('#errorModal').modal('show');
                 return;
             }
 
-            // Filtro i dati in base alle date selezionate
-            const startMonth = startDate.getMonth();
-            const endMonth = endDate.getMonth();
-            const filteredData = monthlyData.slice(startMonth, endMonth + 1);
+            const filteredData = visitsData.filter(visit => {
+                const visitDate = new Date(visit.date);
+                return visitDate >= startDate && visitDate <= endDate;
+            });
 
-            // Aggiornamento grafico con i nuovi dati inseriti
-            myChart.data.labels = labels.slice(startMonth, endMonth + 1);
-            myChart.data.datasets[0].data = filteredData;
+            // Aggregazione dei dati filtrati
+            const filteredMonthlyVisits = filteredData.reduce((acc, visit) => {
+                const monthYear = getMonthName(visit.date);
+                if (!acc[monthYear]) {
+                    acc[monthYear] = 0;
+                }
+                acc[monthYear] += visit.count;
+                return acc;
+            }, {});
+
+            myChart.data.labels = Object.keys(filteredMonthlyVisits);
+            myChart.data.datasets[0].data = Object.values(filteredMonthlyVisits);
             myChart.update();
         }
 
         // Funzione per resettare il grafico ai dati iniziali
         function resetData() {
-            // Reset delle date input
             document.getElementById('startDate').value = '';
             document.getElementById('endDate').value = '';
 
-            // Ripristina i dati originali nel grafico
             myChart.data.labels = labels;
-            myChart.data.datasets[0].data = monthlyData;
+            myChart.data.datasets[0].data = data;
             myChart.update();
         }
     </script>
