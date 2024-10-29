@@ -32,8 +32,8 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="text-secondary"> Dettaglio appartamento </h2>
-                <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6>
+                <h2> Dettaglio appartamento </h2>
+                {{-- <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6> --}}
             </div>
             <div class="alert alert-secondary text-center">
                 @if ($sponsor)
@@ -42,7 +42,7 @@
                         Fino al {{ \Carbon\Carbon::parse($sponsor)->format('d/m/Y') }}
                     </button>
                 @else
-                    <button class="btn btn-light">
+                    <button class="btn btn-secondary">
                         Nessuna sponsorizzazione
                     </button>
                 @endif
@@ -90,25 +90,25 @@
                         <span class="card-text">
                             {{ $apartment->address }}
                         </span>
+                        <h5 class="mt-2">Visibile:
+                            <span class="small">
+                                @if ($apartment->is_visible)
+                                    Si
+                                @else
+                                    No
+                                @endif
+                            </span>
+                        </h5>
                     </div>
-
-                    {{-- Visibilità --}}
-
-                    <h5 class="mt-2">Visibilità</h5>
-                    <button class="btn btn-success">
-                        @if ($apartment->is_visible)
-                            <i class="fa-solid fa-eye"></i>
-                        @else
-                            <i class="fa-solid fa-eye-slash"></i>
-                        @endif
-                    </button>
                     {{-- messaggi ricevuti --}}
-                    <button class="btn btn-warning text-white"><a
-                            href="{{ route('admin.message.index', ['apartment' => $apartment->id]) }}"><i
-                                class="fa-regular fa-envelope"></i></a>
-                    </button>
+                    <a class="btn btn-secondary text-light ms-3"
+                        href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
+                        <i class="fa-regular fa-envelope"></i>
+
+                    </a>
+
                     {{-- modifica appartamento --}}
-                    <a class="btn btn-secondary text-light" href="{{ route('admin.apartments.edit', $apartment) }}">
+                    <a class="btn btn-secondary text-light " href="{{ route('admin.apartments.edit', $apartment) }}">
                         <i class="fa-solid fa-pen">
                         </i>
                     </a>
@@ -145,7 +145,5 @@
             @include('admin._partials.statistic')
 
         </div>
-    </div>
-    </div>
     </div>
 @endsection

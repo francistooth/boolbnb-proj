@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart.js</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
 </head>
+
 <body>
-   
+
     <div class="mt-4 text-center">
         <h3>Le visite al tuo appartamento</h3>
 
         <div class="mt-2">
-            <label for="startDate">Data Inizio:</label>
-            <input type="date" id="startDate" name="startDate">
+            <label class="text-uppercase" for="startDate">Data Inizio:</label>
+            <input class="mb-2" type="date" id="startDate" name="startDate">
             <br>
-            <label for="endDate">Data Fine:</label>
-            <input type="date" id="endDate" name="endDate">
+            <label class="text-uppercase" for="endDate">Data Fine:</label>
+            <input class="mb-2" type="date" id="endDate" name="endDate">
             <br>
-            <button onclick="filterData()">Ricerca</button>
-            <button onclick="resetData()">Reset</button>
+            <button class="btn btn-secondary" onclick="filterData()">Ricerca</button>
+            <button class="btn btn-danger" onclick="resetData()">Reset</button>
         </div>
 
         <div class="mx-auto">
@@ -45,20 +47,21 @@
             </div>
         </div>
     </div>
-     
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Trasformo le visite in un file json in modo che javascript lo possa interpretare 
+        // Trasformo le visite in un file json in modo che javascript lo possa interpretare
         const visitsData = @json($visits);
 
-        // Converto le date in Mese/Anno 
+        // Converto le date in Mese/Anno
         function getMonthName(dateString) {
             const date = new Date(dateString);
             const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-                                "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+                "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+            ];
             return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
         }
 
@@ -91,11 +94,14 @@
                 }]
             },
             options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-            y: { beginAtZero: true }
-            }}
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
 
         // Funzione per filtrare i dati in base all'intervallo di date
@@ -139,4 +145,5 @@
         }
     </script>
 </body>
+
 </html>

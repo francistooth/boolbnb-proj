@@ -109,7 +109,7 @@
                             <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
                                 id="service-{{ $service->id }}" autocomplete="off"
                                 @if (in_array($service->id, old('services', []))) checked @endif>
-                            <label class="btn btn-outline-primary"
+                            <label class="btn btn-outline-warning"
                                 for="service-{{ $service->id }}">{{ $service->name }}</label>
                         @endforeach
                     </div>

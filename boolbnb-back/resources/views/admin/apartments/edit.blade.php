@@ -19,7 +19,7 @@
             <i class="fa-solid fa-arrow-left"></i>
         </a>
 
-        <h2 class="text-secondary my-4">Modifica appartamento: <br> {{ $apartment->title }}</h2>
+        <h2 class="my-4">Modifica appartamento: <br> {{ $apartment->title }}</h2>
 
         <form id="apartmentForm" action="{{ route('admin.apartments.update', $apartment) }}" method="post"
             enctype="multipart/form-data">
@@ -114,12 +114,12 @@
                         <label class="btn btn-outline-primary" for="service-{{ $service->id }}">{{ $service->name }}
                         </label> --}}
 
-                        <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
+                        <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check "
                             id="service-{{ $service->id }}" autocomplete="off"
                             @if (
                                 ($errors->any() && in_array($service->id, old('services', []))) ||
                                     (!$errors->any() && $apartment->services->contains($service->id))) checked @endif>
-                        <label class="btn btn-outline-primary"
+                        <label class="btn btn-outline-warning"
                             for="service-{{ $service->id }}">{{ $service->name }}</label>
                     @endforeach
                 </div>
