@@ -44,7 +44,7 @@
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
                 </div>
-                <div class="d-md-flex justify-content-between">
+                <div class="d-md-flex justify-content-between gap-4">
                     <div class="form-group mb-3">
                         <label for="room">Numero stanze: <strong class="text-danger">*</strong></label>
                         <input value="{{ old('room') }}" type="number" id="room" name="room"
