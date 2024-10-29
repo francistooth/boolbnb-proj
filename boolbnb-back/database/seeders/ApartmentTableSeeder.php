@@ -20,6 +20,7 @@ class ApartmentTableSeeder extends Seeder
 
 
         $apartments = config('apartments');
+        $i = 1;
         foreach ($apartments as $apartment) {
             $new_apartment = new Apartment();
             $new_apartment->title = $apartment['title'];
@@ -33,12 +34,10 @@ class ApartmentTableSeeder extends Seeder
             $new_apartment->address = $apartment['address'];
             $new_apartment->coordinate = Helper::generateCoordinate($new_apartment->address);
             // $new_apartment->img_path = "/img/apartment" . rand(1, 16) . ".jpg";
-
-
-            $new_apartment->img_path = 'uploads/apartment' . rand(1, 16) . '.jpg';
-
+            $new_apartment->img_path = 'uploads/apartment' . $i . '.jpg';
             $new_apartment->img_name = $new_apartment->img_path;
             $new_apartment->is_visible = true;
+            $i++;
             $new_apartment->save();
         }
     }

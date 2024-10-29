@@ -210,10 +210,9 @@ export default {
           :coordinates="coordinates" class="mapborder"></Map>
       </div>
       <!-- filtri -->
-      <div class="col-sm-12 col-lg-3 ">
+      <div class="col-sm-12 col-lg-3 pe-lg-0 me-lg-0 ">
         <form class="container mb-2">
           <div class="row ">
-
             <div class="col-10 mb-1 ">
               <label for="adressfilter" class="form-label text-uppercase fw-bold">Indirizzo:</label>
               <div class="position-relative">
@@ -246,10 +245,10 @@ export default {
             <div class="col ">
               <p class="m-0 text-uppercase fw-bold">Servizi:</p>
               <ul class="row row-cols-sm-auto row-cols-lg-1 p-1">
-                <li v-for='service in services' class=" col d-line text-nowrap ">
+                <li v-for='service in services' class=" col-5 d-line text-nowrap ms-2 ">
                   <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
                     @change="addFilter">
-                  <label :for="service.name" class="form-label ">{{ service.name }}</label>
+                  <label :for="service.name" class="form-label ms-1">{{ service.name }}</label>
                 </li>
               </ul>
             </div>
@@ -257,7 +256,7 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-9 m-auto ">
+      <div class="col-9 m-auto ms-lg-0 ps-lg-0 ">
         <div v-if="apartments.length > 0">
           <div v-if="isLoading">
             <Loader />
