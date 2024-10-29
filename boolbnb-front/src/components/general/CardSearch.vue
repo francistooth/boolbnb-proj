@@ -17,7 +17,7 @@ export default {
         <div class="card d-flex align-items-center mb-2 p-2">
             <div class="row no-gutters ">
                 <div class="col-sm-12 col-lg-auto  d-flex justify-content-center align-items-center pe-0">
-                    <img :src="data.img_path" class=" img-fluid" :alt="data.title">
+                    <img :src="data.img_path" class="img-fluid" :alt="data.title" style="object-fit: cover;">
                 </div>
                 <div class="col ">
                     <div class="card-body row">
