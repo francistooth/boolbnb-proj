@@ -15,21 +15,22 @@
                         {{ substr(Auth::user()->name, 0, 1) }}{{ substr(Auth::user()->surname, 0, 1) }}
                     </span>
 
-                    <ul class="nav flex-column mb-auto pe-0" id="menu">
+                    <ul class="nav flex-column mb-auto pe-0 " id="menu">
                         <li class="nav-item">
-                            <a href="http://localhost:5174" class="nav-link align-middle px-0">
+                            <a href="http://localhost:5174" class="nav-link align-middle text-light px-0">
                                 <i class="fs-4 bi-house"></i>
-                                <span class="ms-1 d-none d-lg-inline">{{ __('Vai al sito') }}</span>
+                                <span class="ms-1 d-none d-lg-inline ">{{ __('Vai al sito') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.apartments.index') }}" class="nav-link align-middle px-0">
+                            <a href="{{ route('admin.apartments.index') }}" class="nav-link align-middle text-light px-0">
                                 <i class="p-1 fs-5 fa-solid fa-table-list"></i>
                                 <span class="ms-1 d-none d-lg-inline">{{ __('Appartamenti') }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.message.index', Auth::id()) }}" class="nav-link align-middle px-0">
+                            <a href="{{ route('admin.message.index', Auth::id()) }}"
+                                class="nav-link text-light align-middle px-0">
                                 <i class="p-1 fs-5 fa-regular fa-envelope"></i>
                                 <span class="ms-1 d-none d-lg-inline">{{ __('Messaggi') }}</span>
                             </a>

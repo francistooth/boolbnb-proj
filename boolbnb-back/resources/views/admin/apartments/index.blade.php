@@ -2,7 +2,7 @@
 
 @section('user')
     <div class="container d-flex justify-content-between align-items-center gap-2 mt-4">
-        <h2 class="text-secondary"> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }} </h2>
+        <h2> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }}</h2>
         <div>
             <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
                 <span class="d-none d-md-block">Aggiungi appartamento</span>
@@ -50,7 +50,7 @@
                                             Sei sicuro di voler eliminare l'appartamento "{{ $apartment->title }}"?
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="button" class="btn btn-danger"
                                                 data-bs-dismiss="modal">Annulla</button>
 
                                             <!-- form eliminazione -->
@@ -58,7 +58,7 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Conferma</button>
+                                                <button type="submit" class="btn btn-success">Conferma</button>
                                             </form>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                         </a>
 
                                         <!-- bottone trigger modale -->
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#deleteModal-{{ $apartment->id }}">
                                             <i class="fa-solid fa-trash text-light"></i>
                                         </button>
