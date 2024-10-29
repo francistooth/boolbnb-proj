@@ -13,12 +13,12 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/ricerca-avanzata/:lat?/:lon?/:address?/:beds?/:rooms?/:radius?/:services?/",
+      path: "/advanced-search/:lat?/:lon?/:address?/:beds?/:rooms?/:radius?/:services?/",
       name: "search",
       component: SearchView,
     },
     {
-      path: "/dettagli-appartamento/:slug",
+      path: "/details/:slug",
       name: "dettagli",
       component: ApartmentDetails,
     },
