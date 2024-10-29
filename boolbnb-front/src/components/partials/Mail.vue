@@ -137,13 +137,11 @@ border-primary {
 }
 
 section {
-    height: 560px;
-    // height: 100%;
 
     section {
         form {
-            margin: 50px auto;
-            width: 60%;
+            margin: auto;
+            width: 100%;
 
             div {
                 margin-bottom: 10px;

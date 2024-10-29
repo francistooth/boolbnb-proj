@@ -37,7 +37,7 @@ class PageController extends Controller
     public function apartment($slug)
     {
 
-        $apartment = Apartment::where('slug', $slug)->with('services', 'sponsors')->first();
+        $apartment = Apartment::where('slug', $slug)->with('services', 'sponsors', 'user', 'visits')->first();
         if ($apartment) {
             $success = true;
             if ($apartment->img_path) {

@@ -16,13 +16,13 @@ export default {
         </nav> 
         -->
         <div class="navbar-expand-md">
-            <!-- <div class="navbar-dark text-center my-2">
-                <button class="navbar-toggler w-75" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span> <span class="align-middle">Menu</span>
+            <div class="navbar-dark text-center my-2">
+                <button class="navbar-toggler border rounded-2 border-opacity-50 p-1" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> <span class="align-middle text-light">Menu</span>
                 </button>
-            </div> -->
+            </div>
             <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto ">
                     <li class="nav-item text-center">
@@ -38,12 +38,12 @@ export default {
                         <router-link><a class="nav-link" href="#">Contatti</a></router-link>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <li class="nav-item dropdown d-flex justify-content-center">
+                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             accedi
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">Accedi</a></li>
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a></li>
                         </ul>
@@ -77,8 +77,8 @@ export default {
 
 .container-fluid {
     background: $primary_color;
-    min-height: 10vh;
-    max-height: 20vh;
+    /* min-height: 10vh;
+    max-height: 20vh; */
 }
 
 .container-fluid a {
