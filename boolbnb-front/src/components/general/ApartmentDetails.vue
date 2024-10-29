@@ -50,12 +50,15 @@ export default {
         .then(res => {
           if (res.data.success) {
             this.apartment = res.data.apartment;
+            console.log(this.apartment);
+
             let lonLan = this.apartment.coordinate.split(',').map(coord => coord.trim());
             this.coordinates.lon = lonLan[0];
             this.coordinates.lat = lonLan[1];
             this.coordinates.name = this.apartment.title;
 
             this.incrementVisit(this.apartment.id);
+
             this.isLoaded = true; // Dati caricati
           } else {
             this.$router.push({ name: '404' });
