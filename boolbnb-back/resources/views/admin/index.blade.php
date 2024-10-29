@@ -5,8 +5,8 @@
         <div class="row flex-nowrap">
 
             <!-- Barra laterale con comportamento responsive -->
-            <nav class="col-1 col-lg-2 px-sm-2 px-0 aside vh-100 text-center text-lg-start" id="sidebarMenu">
-                <div class="row flex-column align-items-sm-start px-3 pt-2 text-white sidenav">
+            <nav class="col-1 col-lg-2 px-2 px-0 aside vh-100 text-center text-lg-start" id="sidebarMenu">
+                <div class="row flex-column align-items-sm-start px-lg-3 pt-2 text-white sidenav">
                     <span class="fs-5 py-4 d-none d-lg-inline">
                         {{ Auth::user()->name }} {{ Auth::user()->surname }}
                     </span>
@@ -38,7 +38,7 @@
 
                     <a href="http://localhost:5173" class="nav-link align-middle px-0 py-3"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fs-5 p-1 fa-solid fa-arrow-right-from-bracket"></i>
+                        <i class="fs-5 fa-solid fa-arrow-right-from-bracket"></i>
                         <span class="ms-1 d-none d-lg-inline">{{ __('Logout') }}</span>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
