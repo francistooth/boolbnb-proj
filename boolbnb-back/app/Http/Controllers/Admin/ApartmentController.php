@@ -11,6 +11,7 @@ use App\Models\ApartmentSponsor;
 use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\User;
+use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -106,9 +107,17 @@ class ApartmentController extends Controller
         } else {
             $sponsor = null;
         }
+        
+        // passo le visite filtrate per id 
+        // $visits = Visit::where('apartment_id', $apartment->id)->get();
 
+        $visits = Visit::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->where('apartment_id', $apartment->id)
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
 
-        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken', 'sponsor'));
+        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken', 'sponsor', 'visits'));
     }
 
     /**

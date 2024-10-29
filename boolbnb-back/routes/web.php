@@ -41,7 +41,8 @@ Route::middleware(['auth', 'verified'])
         Route::resource('sponsor', SponsorController::class)->except(['edit', 'update', 'destroy']);
         Route::resource('message', MessageController::class)->except(['create', 'edit', 'update']);
         /* probabilmente il visit controller serve solo nelle route api */
-        Route::resource('visit', VisitController::class)->except(['index', 'create', 'edit', 'update', 'destroy']);
+        // Route::resource('visit', VisitController::class)->except(['index', 'create', 'edit', 'update', 'destroy']);
+        Route::resource('admin/visits', VisitController::class);
     });
 
 // guest routes
