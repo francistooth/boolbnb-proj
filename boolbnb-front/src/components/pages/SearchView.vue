@@ -121,6 +121,7 @@ export default {
               }
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
+              /* window.scrollTo(0, 0); */
               this.isLoading = false;
             }
           })
