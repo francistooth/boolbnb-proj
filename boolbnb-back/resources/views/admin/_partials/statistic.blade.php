@@ -22,7 +22,7 @@
             <button onclick="resetData()">Reset</button>
         </div>
 
-        <div class="mx-auto" style="width: 70%">
+        <div class="mx-auto">
             <canvas id="yearlyVisit"></canvas>
         </div>
     </div>
@@ -91,10 +91,11 @@
                 }]
             },
             options: {
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+            y: { beginAtZero: true }
+            }}
         });
 
         // Funzione per filtrare i dati in base all'intervallo di date

@@ -108,10 +108,10 @@
                                 class="fa-regular fa-envelope"></i></a>
                     </button>
                     {{-- modifica appartamento --}}
-                    <button class="btn btn-secondary text-light" href="{{ route('admin.apartments.edit', $apartment) }}">
+                    <a class="btn btn-secondary text-light" href="{{ route('admin.apartments.edit', $apartment) }}">
                         <i class="fa-solid fa-pen">
                         </i>
-                    </button>
+                    </a>
                 </div>
 
             </div>
@@ -125,7 +125,7 @@
                         @include('admin._partials.paymentForm')
 
                         <div class="card my-3 text-center" style="width: 18rem;">
-                            <div class="card-body">
+                            <div class="card-body bronze">
                                 <h5 class="card-title">{{ $sponsor->title }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
                                 <p class="card-text">{{ $sponsor->duration }} ore</p>
