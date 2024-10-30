@@ -15,8 +15,17 @@
         @endif
 
         @if (session('sponsor_success'))
-            <div class="alert alert-success">
-                {{ session('sponsor_success') }}
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="sponsorToast" class="toast align-items-center text-bg-success border-0" role="alert"
+                    aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ session('sponsor_success') }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
             </div>
         @endif
 
@@ -25,6 +34,34 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        <!-- modale eliminazione -->
+        <div class="modal fade" id="deleteModal-{{ $apartment->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma
+                            Eliminazione</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Sei sicuro di voler eliminare l'appartamento "{{ $apartment->title }}"?
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <!-- form eliminazione -->
+                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-success">Conferma</button>
+                        </form>
+
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annulla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
             <i class="fa-solid fa-arrow-left"></i>
@@ -112,6 +149,13 @@
                         <i class="fa-solid fa-pen">
                         </i>
                     </a>
+
+                    <!-- bottone trigger modale eliminazione -->
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal-{{ $apartment->id }}">
+                        <i class="fa-solid fa-trash text-light"></i>
+                    </button>
+
                 </div>
 
             </div>
@@ -146,4 +190,16 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sponsor = document.getElementById('sponsorToast');
+            if (sponsor) {
+                var toast = new bootstrap.Toast(sponsor, {
+                    delay: 5000
+                });
+                toast.show();
+            }
+        });
+    </script>
 @endsection
