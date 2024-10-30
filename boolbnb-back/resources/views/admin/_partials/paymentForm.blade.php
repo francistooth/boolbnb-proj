@@ -29,9 +29,9 @@
                     <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
                     <input type="hidden" name="amount" value="{{ $sponsor->price }}">
 
-                    <button type="submit" class="btn btn-success text-white">Acquista</button>
+                    <button type="submit" class="btn btn-success text-white my-3">Acquista</button>
 
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-danger my-3" data-bs-dismiss="modal">Annulla</button>
 
                 </form>
             </div>

@@ -70,7 +70,7 @@
                                 <div class="w-75">
                                     <span class="d-none d-md-inline">Messaggio ricevuto</span>
                                     da
-                                    {{ $message['received']->name }}
+                                    <strong>{{ $message['received']->name }}</strong>
                                     <span class="text-muted d-none d-md-inline">|</span>
                                     <br class="d-inline d-md-none">
                                     per:

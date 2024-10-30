@@ -57,7 +57,7 @@ class PaymentController extends Controller
             // crea la relazione sponsor apartment con la nuova data di fine
             $apartment->sponsors()->attach($sponsor->id, ['ending_date' => $date]);
 
-            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y'));
+            return redirect()->route('admin.apartments.show', $request->apartment_id)->with('sponsor_success', 'Pagamento effettuato con successo! L\'appartamento sarà sponsorizzato fino al ' . $date->format('d/m/Y \o\r\e H:i'));
         } else {
             return redirect()->route('admin.apartments.show', $request->apartment_id)->with('error', 'Il pagamento è stato rifiutato, riprova!');
         }
