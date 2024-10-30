@@ -1,25 +1,27 @@
 @extends('admin.index')
 
 @section('user')
-    <div class="container d-flex justify-content-between align-items-center gap-2 mt-4 mb-4">
-        <h2>
-            @if (!$apartments->isEmpty())
-                {{ count($apartments) }}
-            @endif Appartamenti:
-        </h2>
-        <div>
-            <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
-                <span class="d-none d-md-block">Aggiungi appartamento</span>
-                <i class="fa-solid fa-plus d-md-none"></i>
-            </a>
-        </div>
-    </div>
     <div class="container">
         @if (session('delete'))
             <div class="alert alert-danger d-block">
                 {{ session('delete') }}
             </div>
         @endif
+
+        <div class="container d-flex justify-content-between align-items-center gap-2 mt-4 mb-4">
+            <h2>
+                @if (!$apartments->isEmpty())
+                    {{ count($apartments) }}
+                @endif
+                Appartamenti:
+            </h2>
+            <div>
+                <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
+                    <span class="d-none d-md-block">Aggiungi appartamento</span>
+                    <i class="fa-solid fa-plus d-md-none"></i>
+                </a>
+            </div>
+        </div>
 
         @if ($apartments->isEmpty())
             <div class="alert alert-dark text-center mt-5">
