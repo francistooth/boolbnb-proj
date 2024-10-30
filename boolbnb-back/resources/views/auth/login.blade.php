@@ -5,7 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center">{{ __('Accedi') }}</div>
+                    <div class="card-header text-center text-light" style="background-color: #144172">{{ __('Accedi') }}
+                    </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
@@ -46,20 +47,18 @@
                             </div>
 
                             <div class="mb-4 row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
+                                <div class="form-check d-flex justify-content-center gap-1">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                        {{ old('remember') ? 'checked' : '' }}>
 
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Ricordami') }}
-                                        </label>
-                                    </div>
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Ricordami') }}
+                                    </label>
                                 </div>
                             </div>
 
-                            <div class="mb-4 row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                            <div class="mb-4 row mb-0 text-center">
+                                <div>
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Accedi') }}
                                     </button>
@@ -67,11 +66,9 @@
                             </div>
 
                             <div class="mb-4 row mb-0">
-                                <div class="col-md-8 offset-md-3">
-                                    <a class="btn btn-link" href="{{ route('register') }}">
-                                        {{ __('Non hai un account? Registrati') }}
-                                    </a>
-                                </div>
+                                <a class="btn btn-link" href="{{ route('register') }}">
+                                    {{ __('Non hai un account? Registrati') }}
+                                </a>
                             </div>
                         </form>
                     </div>
