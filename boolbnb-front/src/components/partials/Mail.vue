@@ -82,6 +82,12 @@ export default {
         },
     },
 
+    computed: {
+        isEmailValid() {
+            const emailPattern = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+            return emailPattern.test(this.email);
+        }
+    },
 }
 </script>
 
@@ -100,7 +106,7 @@ export default {
             <div>
                 <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
                 <p class="text-danger">{{ errors.email?.toString() }}</p>
-                <input v-model="email" type="email" id="email" class="form-control" required>
+                <input v-model="email" type="email" id="email" class="form-control" :class="{ 'is-invalid': email && !isEmailValid }" required>
             </div>
 
             <div>
@@ -148,6 +154,10 @@ section {
                 display: flex;
                 justify-content: center;
                 flex-wrap: wrap;
+
+                .is-invalid {
+                    border-color: red;
+                }
 
                 label {
                     width: 100%;
