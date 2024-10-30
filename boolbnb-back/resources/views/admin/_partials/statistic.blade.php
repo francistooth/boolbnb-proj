@@ -14,14 +14,14 @@
         <h3>Le visite al tuo appartamento</h3>
 
         <div class="mt-2">
-            <label class="text-uppercase" for="startDate">Data Inizio:</label>
-            <input class="mb-2" type="date" id="startDate" name="startDate">
+            <label class="text-uppercase" for="startDate" >Data Inizio:</label>
+            <input class="mb-2" type="date" value="{{$dateEndGraph->format('Y-m-d')}}" id="startDate" name="startDate" >
             <br>
             <label class="text-uppercase" for="endDate">Data Fine:</label>
-            <input class="mb-2" type="date" id="endDate" name="endDate">
+            <input class="mb-2" type="date" value="{{$currentlyDate->format('Y-m-d')}}" id="endDate" name="endDate">
             <br>
             <button class="btn btn-secondary" onclick="filterData()">Ricerca</button>
-            <button class="btn btn-danger" onclick="resetData()">Reset</button>
+            <button class="btn btn-danger" onclick="resetData()">Annulla</button>
         </div>
 
         <div class="mx-auto">
@@ -53,6 +53,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+       
         // Trasformo le visite in un file json in modo che javascript lo possa interpretare
         const visitsData = @json($visits);
 
@@ -106,13 +107,24 @@
 
         // Funzione per filtrare i dati in base all'intervallo di date
         function filterData() {
-            const startDate = new Date(document.getElementById('startDate').value);
-            const endDate = new Date(document.getElementById('endDate').value);
 
-            if (!startDate || !endDate || startDate > endDate) {
+            // Controllo che le date siano inserite 
+            const startDateValue = document.getElementById('startDate').value;
+            const endDateValue = document.getElementById('endDate').value;
+                if (!startDateValue || !endDateValue) {
                 $('#errorModal').modal('show');
                 return;
             }
+
+            // Controllo che la data d'inizio non sia maggiore di quella di fine 
+            const startDate = new Date(startDateValue);
+            const endDate = new Date(endDateValue);
+
+            if(startDate > endDate){
+                $('#errorModal').modal('show');
+                return;
+            }
+
 
             const filteredData = visitsData.filter(visit => {
                 const visitDate = new Date(visit.date);
@@ -136,8 +148,8 @@
 
         // Funzione per resettare il grafico ai dati iniziali
         function resetData() {
-            document.getElementById('startDate').value = '';
-            document.getElementById('endDate').value = '';
+            document.getElementById('startDate').value = '{{$dateEndGraph->format('Y-m-d')}}';
+            document.getElementById('endDate').value = '{{$currentlyDate->format('Y-m-d')}}';
 
             myChart.data.labels = labels;
             myChart.data.datasets[0].data = data;
