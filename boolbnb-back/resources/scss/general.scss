@@ -102,3 +102,8 @@ $site_theme: #144272;
     max-width: 70%;
     height: 400px;
 }
+
+.custom-tooltip {
+    --bs-tooltip-bg: #144172d3;
+    --bs-tooltip-color: white;
+}

@@ -5,7 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center">{{ __('Registrazione') }}</div>
+                    <div class="card-header text-center text-light" style="background-color: #144172">
+                        {{ __('Registrazione') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
@@ -36,7 +37,10 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password">
+                                        required autocomplete="new-password" data-bs-toggle="tooltip"
+                                        data-bs-placement="right"
+                                        data-bs-title="La password deve contenere almeno 8 caratteri con una lettera minuscola, una lettera maiuscola, un numero e un carattere speciale."
+                                        data-bs-custom-class="custom-tooltip">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -57,11 +61,11 @@
                                 </div>
 
 
-                            <div class="mt-2 row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="password-error-messages text-danger"></div>
+                                <div class="mt-2 row">
+                                    <div class="col-md-6 offset-md-4">
+                                        <div class="password-error-messages text-danger"></div>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
 
 
@@ -136,6 +140,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+
             document.getElementById('email').addEventListener('input', function() {
                 const emailInput = this;
                 const emailValue = emailInput.value;
@@ -161,7 +169,7 @@
                     }
 
                     if (passwordInput.value !== passwordConfirmInput.value) {
-                        errorMessages.push('Le password devono combaciare');
+                        errorMessages.push('Le password non corrispondono');
                     }
 
                     if (errorMessages.length > 0) {
