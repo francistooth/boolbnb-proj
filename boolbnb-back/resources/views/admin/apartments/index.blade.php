@@ -1,8 +1,12 @@
 @extends('admin.index')
 
 @section('user')
-    <div class="container d-flex justify-content-between align-items-center gap-2 mt-4">
-        <h2> Appartamenti di {{ Auth::user()->name }} {{ Auth::user()->surname }}</h2>
+    <div class="container d-flex justify-content-between align-items-center gap-2 mt-4 mb-4">
+        <h2>
+            @if (!$apartments->isEmpty())
+                {{ count($apartments) }}
+            @endif Appartamenti:
+        </h2>
         <div>
             <a class="btn btn-secondary" href="{{ route('admin.apartments.create') }}">
                 <span class="d-none d-md-block">Aggiungi appartamento</span>
@@ -22,7 +26,11 @@
                 Nessun appartamento aggiunto.
             </div>
         @else
-            <div class="table-responsive mt-5 overflow-x-hidden">
+            <div class="ms-2">
+
+            </div>
+
+            <div class="table-responsive overflow-x-hidden">
                 <table class="table rounded backtable">
                     <thead>
                         <tr>
