@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
                 'email.unique' => 'La email inserita è già stata utilizzata',
 
                 'password.required' => 'Il campo password è obbligatorio',
-                'password.confirmed' => 'Le password devono combaciare',
+                'password.confirmed' => 'Le password non corrispondono',
                 'password.min' => 'Il campo password deve contenere almeno :min caratteri',
                 'password.max' => 'Il campo password può contenere massimo :max caratteri',
                 'password.regex' => 'La password deve contenere almeno una lettera minuscola, una lettera maiuscola, un numero e un carattere speciale.',
