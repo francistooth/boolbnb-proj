@@ -58,9 +58,6 @@
                                             Sei sicuro di voler eliminare l'appartamento "{{ $apartment->title }}"?
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-danger"
-                                                data-bs-dismiss="modal">Annulla</button>
-
                                             <!-- form eliminazione -->
                                             <form action="{{ route('admin.apartments.destroy', $apartment) }}"
                                                 method="POST">
@@ -68,6 +65,9 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-success">Conferma</button>
                                             </form>
+
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Annulla</button>
                                         </div>
                                     </div>
                                 </div>
