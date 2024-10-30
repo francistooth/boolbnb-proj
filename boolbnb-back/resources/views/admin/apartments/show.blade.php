@@ -96,9 +96,32 @@
                 <div class="col-sm-7">
                     <div class="card-body">
                         {{-- Nome appartamento --}}
-                        <h3 class="card-title">
-                            {{ $apartment->title }}
-                        </h3>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">
+                                {{ $apartment->title }}
+                            </h3>
+                            <div>
+                                {{-- messaggi ricevuti --}}
+                                <a class="btn btn-secondary text-light ms-3"
+                                    href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
+                                    <i class="fa-regular fa-envelope"></i>
+
+                                </a>
+
+                                {{-- modifica appartamento --}}
+                                <a class="btn btn-secondary text-light "
+                                    href="{{ route('admin.apartments.edit', $apartment) }}">
+                                    <i class="fa-solid fa-pen">
+                                    </i>
+                                </a>
+
+                                <!-- bottone trigger modale eliminazione -->
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal-{{ $apartment->id }}">
+                                    <i class="fa-solid fa-trash text-light"></i>
+                                </button>
+                            </div>
+                        </div>
 
                         {{-- Descrizione appartamento --}}
                         <p class="card-text"> {{ $apartment->description }} </p>
@@ -137,27 +160,8 @@
                             </span>
                         </h5>
                     </div>
-                    {{-- messaggi ricevuti --}}
-                    <a class="btn btn-secondary text-light ms-3"
-                        href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
-                        <i class="fa-regular fa-envelope"></i>
-
-                    </a>
-
-                    {{-- modifica appartamento --}}
-                    <a class="btn btn-secondary text-light " href="{{ route('admin.apartments.edit', $apartment) }}">
-                        <i class="fa-solid fa-pen">
-                        </i>
-                    </a>
-
-                    <!-- bottone trigger modale eliminazione -->
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal-{{ $apartment->id }}">
-                        <i class="fa-solid fa-trash text-light"></i>
-                    </button>
 
                 </div>
-
             </div>
 
             <div>
