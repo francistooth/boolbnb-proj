@@ -65,7 +65,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-4 row mb-0">
                                 <div class="col-md-8 offset-md-3">
                                     <a class="btn btn-link" href="{{ route('register') }}">
@@ -79,4 +79,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('email').addEventListener('input', function() {
+            const emailInput = this;
+            const emailValue = emailInput.value;
+            const emailPattern = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+            if (emailPattern.test(emailValue)) {
+                emailInput.classList.remove('is-invalid');
+            } else {
+                emailInput.classList.add('is-invalid');
+            }
+        });
+    </script>
 @endsection
