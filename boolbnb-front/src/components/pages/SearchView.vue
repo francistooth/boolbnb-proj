@@ -211,6 +211,7 @@ export default {
       </div>
       <!-- filtri -->
       <div class="col-sm-12 col-lg-3 pe-lg-0 me-lg-0 ">
+        <span class="badge text-bg-secondary px-2 float-end me-3">{{ this.apartments.length }} appartamenti</span>
         <form class="container mb-2">
           <div class="row ">
             <div class="col-10 mb-1 ">
@@ -223,7 +224,7 @@ export default {
                     <a href="#" @click="searchCoordinate(useSuggest(index))">{{ suggest.address.freeformAddress }}</a>
                   </li>
                 </ul>
-                <span class="badge text-bg-secondary col-auto me-0">{{ this.apartments.length }} appartamenti</span>
+
               </div>
             </div>
             <div class="col-sm-3 col-lg-10 mb-1">
