@@ -1,7 +1,6 @@
 <script>
 export default {
-    name: "HeaderView",
-
+  name: "HeaderView",
 }
 </script>
 
@@ -15,19 +14,16 @@ export default {
                     <span class="navbar-toggler-icon"></span> <span class="align-middle text-light">Menu</span>
                 </button>
             </div>
-            <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="text-center my-3 collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto ">
                     <li class="nav-item text-center">
                         <router-link class="nav-link" to="/"> home </router-link>
                     </li>
-                    <li class="nav-item text-center">
-                        <router-link class="nav-link" :to="{ name: 'search' }">Ricerca Avanzata</router-link>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/team"> Chi siamo </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link><a class="nav-link" href="#">Chi siamo</a></router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link><a class="nav-link" href="#">Contatti</a></router-link>
+                        <router-link class="nav-link" to="/contacts"> Contatti </router-link>
                     </li>
 
                     <li class="nav-item dropdown d-flex justify-content-center">
@@ -51,25 +47,12 @@ export default {
 @use "../styles/general.scss" as *;
 @use "../styles/partials/variables.scss" as *;
 
-/* .container-fluid {
-    background: $primary_color;
-  
-}
- */
 .container-fluid a {
     font-family: sans-serif;
     font-size: 1.1rem;
     text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4)
 }
-
-/* a.dropdown-toggle {
-    color: #dfdfdf !important
-}
- */
-/* a.dropdown-item {
-    color: gray !important
-} */
 
 a.dropdown-item:hover {
     color: black !important
@@ -84,6 +67,6 @@ a.dropdown-item:hover {
 }
 
 .nav-item {
-    min-width: 12vw;
+  min-width: 12vw;
 }
 </style>

@@ -3,6 +3,7 @@ import HomeView from "../components/pages/HomeView.vue";
 import SearchView from "../components/pages/SearchView.vue";
 import ApartmentDetails from "../components/general/ApartmentDetails.vue";
 import Error404 from "../components/pages/Error404.vue";
+import TeamView from "../components/pages/TeamView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: "/details/:slug",
       name: "dettagli",
       component: ApartmentDetails,
+    },
+    {
+      path: "/team",
+      name: "TeamView",
+      component: TeamView,
     },
     {
       path: "/404",

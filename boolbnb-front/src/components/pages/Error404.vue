@@ -6,8 +6,8 @@ export default {
 
 
 <template>
-  <div>
-    <h1>Errore 404</h1>
+  <div class="container text-center">
+    <h1 class="my-4">Errore 404</h1>
     <p>
       Pagina non trovata
     </p>
@@ -18,4 +18,5 @@ export default {
 
 <style lang="scss" scoped>
 @use "../../styles/general.scss" as *;
+
 </style>
