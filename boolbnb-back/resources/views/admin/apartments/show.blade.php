@@ -2,14 +2,8 @@
 
 @section('user')
     <div class="container">
-        @if (session('delete'))
-            <div class="alert alert-danger mx-auto">
-                {{ session('delete') }}
-            </div>
-        @endif
-
         @if (session('update'))
-            <div class="alert alert-success mx-auto">
+            <div class="alert alert-success text-center">
                 {{ session('update') }}
             </div>
         @endif
@@ -30,7 +24,7 @@
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center">
                 {{ session('error') }}
             </div>
         @endif
