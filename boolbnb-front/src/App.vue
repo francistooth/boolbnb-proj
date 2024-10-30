@@ -34,6 +34,14 @@ header {
   margin: 0;
 }
 
+main {
+  min-height: 80vh;
+}
+
+footer {
+  padding: 0;
+}
+
 header,
 main,
 footer {

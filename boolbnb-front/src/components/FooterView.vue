@@ -70,7 +70,7 @@ strong:hover {
 
 footer {
     @media screen and (min-width: 640px) {
-      position: fixed;
+      position: relative;
       bottom: 0;
     }
 
