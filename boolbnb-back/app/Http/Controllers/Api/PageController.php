@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\Visit;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -118,12 +118,19 @@ class PageController extends Controller
 
     public function incrementVisit(Request $request)
     {
-
+        $sixtySecondsAgo = Carbon::now()->subSeconds(60);
         $ip_address = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
         $apartment_id = $request->apartment_id;
-        Visit::create([
-            'apartment_id' => $apartment_id,
-            'ip_address' => $ip_address
-        ]);
+
+        $recentVisit = Visit::where('apartment_id', $apartment_id)
+            ->where('created_at', '>=', $sixtySecondsAgo)
+            ->exists();
+
+        if (!$recentVisit) {
+            Visit::create([
+                'apartment_id' => $apartment_id,
+                'ip_address' => $ip_address,
+            ]);
+        }
     }
 }

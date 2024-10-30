@@ -256,7 +256,7 @@ export default {
         </form>
       </div>
       <!-- risultato ricerca appartamenti -->
-      <div class="col-9 m-auto ms-lg-0 ps-lg-0 ">
+      <div class="col-9 mx-auto ms-lg-0 ps-lg-0 ">
         <div v-if="apartments.length > 0">
           <div v-if="isLoading">
             <Loader />
@@ -300,7 +300,7 @@ export default {
 @use "../../styles/general.scss" as *;
 
 .mapborder {
-  height: 400px;
+  height: 300px;
   width: 80%;
   margin: auto;
   border: 2px grey solid;
