@@ -117,7 +117,12 @@ class ApartmentController extends Controller
             ->orderBy('date', 'asc')
             ->get();
 
-        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken', 'sponsor', 'visits'));
+         // definisco la data corrente 
+        $currentlyDate = Carbon::now();
+
+        $dateEndGraph = Carbon::now()->subDays(365);
+
+        return view('admin.apartments.show', compact('apartment', 'sponsors', 'clientToken', 'sponsor', 'visits', 'currentlyDate', 'dateEndGraph'));
     }
 
     /**
