@@ -88,7 +88,7 @@ export default {
         </div>
         <h5 class="description ">{{ apartment.description }}</h5>
         <!-- Dettagli appartamento e servizi -->
-        <p>Proprietario:{{ apartment.user.name }} {{ apartment.user.surname }}</p>
+        <p>Proprietario: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
         <p> {{ apartment.visits.length }} Visualizzazioni</p>
         <div class="house-card-body mb-3">
           <!-- Tab nav -->

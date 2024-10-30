@@ -11,7 +11,7 @@
     <title>BoolBnB</title>
 
 
-    <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="https://logosandtypes.com/wp-content/uploads/2024/02/blusmart.svg">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
