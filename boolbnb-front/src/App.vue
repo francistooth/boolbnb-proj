@@ -37,6 +37,6 @@ header {
 header,
 main,
 footer {
-  min-width: 500px;
+  min-width: 300px;
 }
 </style>

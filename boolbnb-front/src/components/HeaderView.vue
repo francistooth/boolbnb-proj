@@ -15,13 +15,10 @@ export default {
                     <span class="navbar-toggler-icon"></span> <span class="align-middle text-light">Menu</span>
                 </button>
             </div>
-            <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="text-center my-3 collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto ">
                     <li class="nav-item text-center">
                         <router-link class="nav-link" to="/"> home </router-link>
-                    </li>
-                    <li class="nav-item text-center">
-                        <router-link class="nav-link" :to="{ name: 'search' }">Ricerca Avanzata</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link><a class="nav-link" href="#">Chi siamo</a></router-link>

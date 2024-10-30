@@ -82,10 +82,10 @@ export default {
             clickable: true,
         }"
         :breakpoints="{
-            1024: { slidesPerView: 4 },
-            768: { slidesPerView: 3 },
-            640: { slidesPerView: 2 },
-            320: { slidesPerView: 1 },
+          1024: { slidesPerView: 4 },
+          768: { slidesPerView: 3 },
+          640: { slidesPerView: 2 },
+          320: { slidesPerView: 1 },
         }"
         :navigation="true"
         :autoplay="{

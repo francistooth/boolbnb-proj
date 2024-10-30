@@ -3,21 +3,21 @@
         <div class="container-fluid">
             <div class="row space-between align-items-center">
                 <div class="col">
-                    <div class="row d-flex justify-content-between align-content-center  pt-5 ">
+                    <div class="row d-flex flex-col-sm justify-content-between align-content-center  py-3">
                         <ul class="list-unstyled col text-nowrap ">
-                            <li><a class="text-dark hover-primary" href="#"><strong> Support </strong></a></li>
-                            <li><a class="text-dark hover-primary" href="#"> Help center </a></li>
-                            <li><a class="text-dark hover-primary" href="#"> AI Help Desk 24/24 </a></li>
+                            <li><a class="text-dark" href="#"><strong> Support </strong></a></li>
+                            <li><a class="text-dark" href="#"> Help center </a></li>
+                            <li><a class="text-dark" href="#"> AI Help Desk 24/24 </a></li>
                         </ul>
-                        <ul class="list-unstyled col text-nowrap mx-2">
-                            <li><a class="text-dark hover-primary" href="#"><strong> Careers </strong></a></li>
-                            <li><a class="text-dark hover-primary" href="#"> Lavora con noi </a></li>
-                            <li><a class="text-dark hover-primary" href="#"> Internship </a></li>
+                        <ul class="list-unstyled col text-nowrap">
+                            <li><a class="text-dark" href="#"><strong> Careers </strong></a></li>
+                            <li><a class="text-dark" href="#"> Lavora con noi </a></li>
+                            <li><a class="text-dark" href="#"> Internship </a></li>
                         </ul>
                         <ul class="list-unstyled col ">
-                            <li><a class="text-dark hover-primary" href="#"><strong> Partners </strong></a></li>
-                            <li><a class="text-dark hover-primary" href="#"> Partner help </a></li>
-                            <li><a class="text-dark hover-primary" href="#"> Boolbnb partner </a></li>
+                            <li><a class="text-dark" href="#"><strong> Partners </strong></a></li>
+                            <li><a class="text-dark" href="#"> Partner help </a></li>
+                            <li><a class="text-dark" href="#"> Boolbnb partner </a></li>
                         </ul>
                         <div class="col d-flex justify-content-around flex-wrap ">
                             <div class="icon-circle cursor-pointer">
@@ -31,9 +31,6 @@
                             </div>
                             <div class="icon-circle cursor-pointer">
                                 <i class="fa-brands fa-instagram"></i>
-                            </div>
-                            <div class="icon-circle cursor-pointer">
-                                <i class="fa-brands fa-pinterest"></i>
                             </div>
                         </div>
                     </div>
@@ -63,15 +60,28 @@ export default {
     cursor: pointer;
 }
 
-.container {
-    max-width: 1000px;
+.container-fluid {
+  max-width: 80%;
 }
 
-.hover-primary:hover {
-    color: $primary_color;
+strong:hover {
+  color: $warning_color;
 }
 
 footer {
+    @media screen and (min-width: 640px) {
+      position: fixed;
+      bottom: 0;
+    }
+
+    @media screen and (max-width: 640px) {
+      .flex-col-sm {
+        flex-direction: column;
+        gap: 0;
+        text-align: left;
+      }
+    }
+    width: 100%;
     min-height: 70px;
     background-color: #f5f5f5;
     color: black;
@@ -86,7 +96,7 @@ footer {
         justify-content: space-around;
 
         &:hover {
-            background-color: #ffffff;
+          background-color: #ffffff;
         }
 
         i {
@@ -94,7 +104,7 @@ footer {
             font-size: 16px;
 
             &:hover {
-                color: $warning_color;
+              color: $warning_color;
             }
         }
     }
