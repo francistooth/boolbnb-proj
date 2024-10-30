@@ -76,7 +76,7 @@
                 @if ($sponsor)
                     <p>Sponsorizzato</p>
                     <button class="btn btn-success">
-                        Fino al {{ \Carbon\Carbon::parse($sponsor)->format('d/m/Y') }}
+                        Fino al {{ \Carbon\Carbon::parse($sponsor)->format('d/m/Y \o\r\e H:i') }}
                     </button>
                 @else
                     <button class="btn btn-secondary">
@@ -92,36 +92,37 @@
                 <div class="col-sm-5">
                     <img src="{{ asset('storage/' . $apartment->img_path) }}" class="img-thumbnail"
                         onerror="this.src='/img/default-image.jpg'">
+
+                    <div class="text-center mt-4">
+                        {{-- messaggi ricevuti --}}
+                        <a class="btn btn-secondary text-light"
+                            href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
+                            <i class="fa-regular fa-envelope"></i>
+
+                        </a>
+
+                        {{-- modifica appartamento --}}
+                        <a class="btn btn-secondary text-light mx-2"
+                            href="{{ route('admin.apartments.edit', $apartment) }}">
+                            <i class="fa-solid fa-pen">
+                            </i>
+                        </a>
+
+                        <!-- bottone trigger modale eliminazione -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal-{{ $apartment->id }}">
+                            <i class="fa-solid fa-trash text-light"></i>
+                        </button>
+                    </div>
+
+
                 </div>
                 <div class="col-sm-7">
-                    <div class="card-body">
+                    <div class="card-body ">
                         {{-- Nome appartamento --}}
-                        <div class="d-flex justify-content-between">
-                            <h3 class="card-title">
-                                {{ $apartment->title }}
-                            </h3>
-                            <div>
-                                {{-- messaggi ricevuti --}}
-                                <a class="btn btn-secondary text-light ms-3"
-                                    href="{{ route('admin.message.messagesForApartment', ['apa_id' => $apartment->id]) }}">
-                                    <i class="fa-regular fa-envelope"></i>
-
-                                </a>
-
-                                {{-- modifica appartamento --}}
-                                <a class="btn btn-secondary text-light "
-                                    href="{{ route('admin.apartments.edit', $apartment) }}">
-                                    <i class="fa-solid fa-pen">
-                                    </i>
-                                </a>
-
-                                <!-- bottone trigger modale eliminazione -->
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal-{{ $apartment->id }}">
-                                    <i class="fa-solid fa-trash text-light"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <h3 class="card-title">
+                            {{ $apartment->title }}
+                        </h3>
 
                         {{-- Descrizione appartamento --}}
                         <p class="card-text"> {{ $apartment->description }} </p>

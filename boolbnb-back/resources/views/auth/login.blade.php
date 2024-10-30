@@ -51,9 +51,14 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                         {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label me-5" for="remember">
                                         {{ __('Ricordami') }}
                                     </label>
+
+                                    <input class="form-check-input" type="checkbox" name="pwd" id="pwd"
+                                        onclick="togglePwd()">
+
+                                    <label class="form-check-label" for="pwd">Mostra la password</label>
                                 </div>
                             </div>
 
@@ -78,6 +83,15 @@
     </div>
 
     <script>
+        function togglePwd() {
+            const pwd = document.getElementById("password");
+            if (pwd.type === "password") {
+                pwd.type = "text";
+            } else {
+                pwd.type = "password";
+            }
+        }
+
         document.getElementById('email').addEventListener('input', function() {
             const emailInput = this;
             const emailValue = emailInput.value;
