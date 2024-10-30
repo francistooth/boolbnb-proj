@@ -16,7 +16,7 @@ class VisitTableSeeder extends Seeder
     public function run(): void
     {
 
-        for ($i = 0; $i < 300; $i++) {
+        for ($i = 0; $i < 3000; $i++) {
             $new_visit = new Visit();
             $new_visit->ip_address = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
             $new_visit->apartment_id = Apartment::inRandomOrder()->pluck('id')->first();
