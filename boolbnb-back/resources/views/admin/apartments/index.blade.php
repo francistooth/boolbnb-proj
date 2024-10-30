@@ -86,7 +86,7 @@
                                 <td> {{ $apartment->title }} </td>
 
                                 <td class="d-none d-md-table-cell">
-                                    {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y') : 'Nessuna sponsorizzazione' }}
+                                    {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y \o\r\e H:i') : 'Nessuna sponsorizzazione' }}
                                 </td>
 
                                 <td class="d-none d-md-table-cell"> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
