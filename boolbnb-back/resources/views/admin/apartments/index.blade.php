@@ -74,15 +74,17 @@
                                 </div>
                             </div>
 
-                            <tr>
+                            <tr onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
+                                style="cursor: pointer;">
+
                                 <td class="w-10">
-                                    <a href="{{ route('admin.apartments.show', $apartment) }}">
-                                        <img class="max-h-100 rounded img-apartment"
-                                            src="{{ asset('storage/' . $apartment->img_path) }}"
-                                            alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
-                                    </a>
+                                    <img class="rounded img-apartment" src="{{ asset('storage/' . $apartment->img_path) }}"
+                                        alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                 </td>
-                                <td> {{ $apartment->title }} </td>
+
+                                <td>
+                                    {{ $apartment->title }}
+                                </td>
 
                                 <td class="d-none d-md-table-cell">
                                     {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y \o\r\e H:i') : 'Nessuna sponsorizzazione' }}
