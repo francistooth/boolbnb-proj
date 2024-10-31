@@ -184,6 +184,7 @@ section {
     height: 300px;
     width: 300px;
     margin: auto;
+    margin-bottom: 40px;
   }
 
   .offcanvas-body {
