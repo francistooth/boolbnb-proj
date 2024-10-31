@@ -61,7 +61,7 @@
             <i class="fa-solid fa-arrow-left"></i>
         </a>
 
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center text-center text-md-start">
             <div>
                 <h2> Dettaglio appartamento </h2>
                 {{-- <h6 class="text-secondary"> Proprietario: {{ Auth::user()->name }} {{ Auth::user()->surname }} </h6> --}}
@@ -112,7 +112,7 @@
 
                 </div>
                 <div class="col-sm-7">
-                    <div class="card-body ">
+                    <div class="card-body text-center text-sm-start">
                         {{-- Nome appartamento --}}
                         <h3 class="card-title">
                             {{ $apartment->title }}
@@ -167,8 +167,8 @@
                         {{-- modale per pagamento, dropin Braintree, form per pagamento --}}
                         @include('admin._partials.paymentForm')
 
-                        <div class="card my-3 text-center" style="width: 18rem;">
-                            <div class="card-body bronze">
+                        <div id="sponsor-{{ $sponsor->title }}" class="card my-3 text-center" style="width: 18rem;">
+                            <div class="card-body">
                                 <h5 class="card-title">{{ $sponsor->title }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $sponsor->price }} €</h6>
                                 <p class="card-text">{{ $sponsor->duration }} ore</p>
