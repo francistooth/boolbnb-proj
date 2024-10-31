@@ -6,6 +6,7 @@ import { store } from '../../store';
 import axios from 'axios';
 import CardSearch from '../general/CardSearch.vue';
 import Loader from '../partials/Loader.vue';
+import Paginator from '../partials/Paginator.vue';
 
 
 export default {
@@ -15,10 +16,13 @@ export default {
     CardSearch,
     Map,
     Loader,
+    Paginator
   },
   data() {
     return {
       store,
+      url: 'http://localhost:8000/api/appartamenti-nel-raggio?page=1',
+
       apartments: [],
       sponsors: [],
       services: [],
@@ -26,9 +30,12 @@ export default {
       addressFilter: '',
       roomFilter: 1,
       bedFilter: 1,
+      total: '',
       radiusFilter: 20,
-      page: 1,
-      pageApartments: 5,
+      paginatorData: {
+        current_page: '',
+        links: []
+      },
       coordinates: {
         lat: null,
         lon: null,
@@ -65,7 +72,7 @@ export default {
           console.error("Errore durante la ricerca dei servizi", error);
         });
     },
-    addFilter() {
+    addFilter(url) {
       const cityName = this.addressFilter
       console.log(this.servicesfilter.join(','));
       const speranza = this.servicesfilter.join(',');
@@ -87,19 +94,19 @@ export default {
               services: String(speranza),
             }
           })
-          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter, speranza);
+          this.searchApartmentfilter(this.lat, this.lon, this.roomFilter, this.bedFilter, this.radiusFilter, this.addressFilter, speranza, url);
         })
         .catch(er => {
           console.log(er.message);
         })
     },
-    searchApartmentfilter(lat, lon, rooms, beds, radius, address, services) {
+    searchApartmentfilter(lat, lon, rooms, beds, radius, address, services, url) {
       this.isLoading = true;
       console.log(this.$route.params);
       let apartmentSponsor = [];
       let apartmentNoSponsor = [];
       console.log('Lat:', lat, 'Lon:', lon, 'Radius:', radius, 'stanza', rooms, 'letti', beds, 'indirizzo', address, 'servizi', services);
-      axios.post('http://localhost:8000/api/appartamenti-nel-raggio', {
+      axios.post(url, {
         lat: lat,
         lon: lon,
         radius: radius,
@@ -108,9 +115,11 @@ export default {
         services: services
       })
         .then(response => {
-          this.apartments = response.data;
-
-          console.log(this.apartments);
+          this.apartments = response.data.data;
+          this.paginatorData.current_page = response.data.current_page;
+          this.paginatorData.links = response.data.links;
+          this.total = response.data.total;
+          console.log(response.data.current_page);
 
           this.apartments.forEach(element => {
             if (element.is_visible) {
@@ -120,7 +129,7 @@ export default {
                 apartmentNoSponsor.push(element)
               }
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
-              console.log(this.apartments);
+              /*  console.log(this.apartments); */
               window.scrollTo(0, 0);
               this.isLoading = false;
             }
@@ -135,35 +144,6 @@ export default {
             console.error('Headers:', error.response.headers);
           }
         });
-    },
-    // Metodo per andare alla pagina successiva
-    nextPage() {
-      if (this.page < this.pagineTotali) {
-        this.page++;
-      }
-    },
-
-    // Metodo per andare alla pagina precedente
-    prevPage() {
-      if (this.page > 1) {
-        this.page--;
-      }
-    },
-    changePage(index) {
-      this.page = index;
-      console.log(this.page);
-    }
-  }, computed: {
-    // Calcola il numero totale di pagine
-    pagineTotali() {
-      return Math.ceil(this.apartments.length / this.pageApartments);
-    },
-
-    // Restituisce gli appartamenti della pagina corrente
-    apartmentsOnPage() {
-      const start = (this.page - 1) * this.pageApartments;
-      const end = start + this.pageApartments;
-      return this.apartments.slice(start, end);
     },
   },
   mounted() {
@@ -188,7 +168,7 @@ export default {
     if (lat && lon) {
       console.log('Lat:', lat, 'Lon:', lon);
 
-      this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, services);
+      this.searchApartmentfilter(lat, lon, rooms, beds, this.radiusFilter, this.addressFilter, services, this.url);
 
     } else {
 
@@ -211,7 +191,7 @@ export default {
       </div>
       <!-- filtri -->
       <div class="col-sm-12 col-lg-3 pe-lg-0 me-lg-0 ">
-        <span class="badge text-bg-secondary px-2 float-end me-3">{{ this.apartments.length }} appartamenti</span>
+        <span class="badge text-bg-secondary px-2 float-end me-3">{{ this.total }} appartamenti</span>
         <form class="container mb-2">
           <div class="row ">
             <div class="col-10 mb-1 ">
@@ -230,17 +210,19 @@ export default {
             <div class="col-sm-3 col-lg-10 mb-1">
               <label for="room-number" class="form-label text-uppercase fw-bold">Stanze:</label>
               <input type="number" class="form-control " id="room-number" v-model="roomFilter" min="1"
-                @input="addFilter"
+                @input="addFilter(url)"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col-sm-3 col-lg-10 mb-1">
               <label for="bed-number" class="form-label text-uppercase fw-bold">Letti:</label>
-              <input type="number" class="form-control " id="bed-number" v-model="bedFilter" min="1" @input="addFilter"
+              <input type="number" class="form-control " id="bed-number" v-model="bedFilter" min="1"
+                @input="addFilter(url)"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col-sm-3 col-lg-10 mb-1">
               <label for="radiusfilter" class="form-label text-nowrap text-uppercase fw-bold">Raggio di ricerca:</label>
-              <input type="number" class="form-control " id="radiusfilter" v-model="radiusFilter" @input="addFilter"
+              <input type="number" class="form-control " id="radiusfilter" v-model="radiusFilter"
+                @input="addFilter(url)"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
             </div>
             <div class="col ">
@@ -248,7 +230,7 @@ export default {
               <ul class="row row-cols-sm-auto row-cols-lg-1 p-1">
                 <li v-for='service in services' class=" col-5 d-line text-nowrap ms-2 ">
                   <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
-                    @change="addFilter">
+                    @change="addFilter(url)">
                   <label :for="service.name" class="form-label ms-1">{{ service.name }}</label>
                 </li>
               </ul>
@@ -263,29 +245,11 @@ export default {
             <Loader />
           </div>
           <div v-else>
-            <router-link v-for="apartment in apartmentsOnPage"
-              :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+            <router-link v-for="apartment in apartments" :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
               <CardSearch :data="apartment" />
             </router-link>
             <!-- guarda qui -->
-            <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item" :class="page == 1 ? 'disabled' : ''">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li @click="changePage(index)" v-for="index in pagineTotali" class="page-item"
-                  :class="page == index ? 'active' : ''">
-                  <a class="page-link" href="#">{{ index }}</a>
-                </li>
-                <li @click="nextPage" class="page-item" :class="page == pagineTotali ? 'disabled' : ''">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Paginator v-if="this.total > 9" :data="paginatorData" @callApi="addFilter" />
           </div>
         </div>
         <div v-else>
