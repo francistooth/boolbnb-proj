@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       store,
-      url: 'http://localhost:8000/api/appartamenti-nel-raggio?page=1',
+      page: 1,
+      url: 'http://localhost:8000/api/appartamenti-nel-raggio',
 
       apartments: [],
       sponsors: [],
@@ -33,7 +34,7 @@ export default {
       total: '',
       radiusFilter: 20,
       paginatorData: {
-        current_page: '',
+        current_page: 1,
         links: []
       },
       coordinates: {
@@ -119,7 +120,7 @@ export default {
           this.paginatorData.current_page = response.data.current_page;
           this.paginatorData.links = response.data.links;
           this.total = response.data.total;
-          console.log(response.data.current_page);
+          console.log(response.data, response.data.current_page);
 
           this.apartments.forEach(element => {
             if (element.is_visible) {
@@ -182,7 +183,7 @@ export default {
 
 
 <template>
-  <div class="container-fluid mt-5">
+  <div class="container-fluid my-3">
     <div class="row">
       <!-- mappa -->
       <div class="col-12 mb-3">
