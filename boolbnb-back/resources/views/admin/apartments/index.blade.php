@@ -96,7 +96,7 @@
                                     class="d-none d-md-table-cell pointer"> {{ $apartment->is_visible ? 'Si' : 'No' }}
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-2 z-3">
+                                    <div class="d-flex justify-content-center flex-wrap flex-md-nowrap gap-2 z-3">
                                         <a class="btn btn-primary text-light"
                                             href="{{ route('admin.apartments.edit', $apartment) }}">
                                             <i class="fa-solid fa-pen">
