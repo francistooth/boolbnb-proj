@@ -185,66 +185,6 @@
                     }
                 });
             });
-
-            // JavaScript per selezione data nascita
-            window.onload = function() {
-                const daySelect = document.getElementById('day');
-                const monthSelect = document.getElementById('month');
-                const yearSelect = document.getElementById('year');
-
-                // popola gli anni (dall'anno corrente -17 anni fino a 100 anni fa)
-                const currentYear = new Date().getFullYear() - 17;
-                for (let i = currentYear; i >= currentYear - 100; i--) {
-                    let option = document.createElement('option');
-                    option.value = i;
-                    option.text = i;
-                    yearSelect.appendChild(option);
-                }
-
-                // popola i giorni in base al mese e all'anno
-                function populateDays(month, year) {
-                    // cancella i giorni attualmente esistenti
-                    daySelect.innerHTML = '<option value="" disabled selected>Giorno</option>';
-
-                    let daysInMonth;
-                    switch (month) {
-                        case 2: // febbraio
-                            // controlla se l'anno è bisestile
-                            daysInMonth = year % 4 === 0 ? 29 : 28;
-                            break;
-                        case 4, 6, 9, 11: // aprile, giugno, settembre, novembre
-                            daysInMonth = 30;
-                            break;
-                        default: // altri mesi
-                            daysInMonth = 31;
-                            break;
-                    }
-
-                    // popola la selezione dei giorni
-                    for (let i = 1; i <= daysInMonth; i++) {
-                        let option = document.createElement('option');
-                        option.value = i;
-                        option.text = i;
-                        daySelect.appendChild(option);
-                    }
-                }
-
-                // quando il mese cambia, aggiorna i giorni
-                monthSelect.addEventListener('change', function() {
-                    const selectedMonth = parseInt(monthSelect.value);
-                    const selectedYear = parseInt(yearSelect.value) ||
-                        currentYear; // Se l'anno non è selezionato, usa l'anno corrente
-                    populateDays(selectedMonth, selectedYear);
-                });
-
-                // quando l'anno cambia, aggiorna i giorni (per verificare gli anni bisestili)
-                yearSelect.addEventListener('change', function() {
-                    const selectedMonth = parseInt(monthSelect.value) ||
-                        1; // se il mese non è selezionato, usa gennaio
-                    const selectedYear = parseInt(yearSelect.value);
-                    populateDays(selectedMonth, selectedYear);
-                });
-            };
         </script>
     </div>
 @endsection
