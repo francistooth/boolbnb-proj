@@ -39,7 +39,7 @@
                             <th scope="col"> Titolo </th>
                             <th scope="col" class="d-none d-md-table-cell"> Sponsorizzato </th>
                             <th scope="col" class="d-none d-md-table-cell"> Visibile </th>
-                            <th scope="col"> Azioni </th>
+                            <th scope="col" class="d-none d-md-table-cell"> Azioni </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,8 +95,8 @@
                                 <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
                                     class="d-none d-md-table-cell pointer"> {{ $apartment->is_visible ? 'Si' : 'No' }}
                                 </td>
-                                <td>
-                                    <div class="d-flex justify-content-center flex-wrap flex-md-nowrap gap-2 z-3">
+                                <td class="d-none d-md-table-cell">
+                                    <div class="d-flex justify-content-center gap-2 z-3">
                                         <a class="btn btn-primary text-light"
                                             href="{{ route('admin.apartments.edit', $apartment) }}">
                                             <i class="fa-solid fa-pen">
