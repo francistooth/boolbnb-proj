@@ -97,15 +97,7 @@
                     <label for="services" class="form-label d-block">Servizi disponibili: <strong
                             class="text-danger">*</strong></label>
                     <div class="d-flex justify-content-center flex-wrap gap-2" style="width: 90%; margin: 0 auto;">
-                        {{-- <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group"> --}}
                         @foreach ($services as $service)
-                            {{-- <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
-                                id="service-{{ $service->id }}" autocomplete="off"
-                                @if (in_array($service->id, old('services', []))) checked @endif>
-
-                            <label class="btn btn-outline-primary"
-                                for="service-{{ $service->id }}">{{ $service->name }}</label> --}}
-
                             <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
                                 id="service-{{ $service->id }}" autocomplete="off"
                                 @if (in_array($service->id, old('services', []))) checked @endif>
@@ -139,7 +131,9 @@
                         <label class="form-check-label" for="is_visible">Appartamento visibile al pubblico</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Crea Appartamento</button>
+                <button type="submit" class="btn btn-success">Conferma</button>
+                <a type="reset" href="{{ route('admin.apartments.index') }}" class="btn btn-danger">Annulla</a>
+
             </form>
         </div>
     </div>

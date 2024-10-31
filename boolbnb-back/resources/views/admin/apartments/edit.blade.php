@@ -105,15 +105,7 @@
                         class="text-danger">*</strong></label>
 
                 <div class="d-flex justify-content-center flex-wrap gap-2" style="width: 90%; margin: 0 auto;">
-                    {{-- <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group"> --}}
                     @foreach ($services as $service)
-                        {{-- <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check"
-                            id="service-{{ $service->id }}" autocomplete="off"
-                            @if (($errors->any() && in_array($service->id, old('services', []))) || (!$errors->any() && $apartment->services->contains($service->id))) checked @endif>
-
-                        <label class="btn btn-outline-primary" for="service-{{ $service->id }}">{{ $service->name }}
-                        </label> --}}
-
                         <input value="{{ $service->id }}" name="services[]" type="checkbox" class="btn-check "
                             id="service-{{ $service->id }}" autocomplete="off"
                             @if (
