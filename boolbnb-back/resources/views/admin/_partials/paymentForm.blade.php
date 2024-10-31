@@ -2,12 +2,13 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 139px">Conferma
-                    Pagamento</h1>
+            {{-- <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            </div> --}}
             <div class="modal-body text-center">
+                <h3>Conferma
+                    Pagamento</h3>
                 Acquisto sponsor "{{ $sponsor->title }}" per un totale di €
                 {{ $sponsor->price }}.
                 <br>
