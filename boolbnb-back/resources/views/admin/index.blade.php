@@ -12,7 +12,7 @@
                     </span>
 
                     <span class="fs-5 py-4 px-0 d-lg-none">
-                        {{ substr(Auth::user()->name, 0, 1) }}{{ substr(Auth::user()->surname, 0, 1) }}
+                        {{ substr(Auth::user()->name, 0, 1) }}
                     </span>
 
                     <ul class="nav flex-column mb-auto pe-0 " id="menu">
