@@ -3,7 +3,7 @@
 @section('user')
     <div class="container">
         @if (session('delete'))
-            <div class="alert alert-danger d-block text-center">
+            <div id="delete-alert" class="alert alert-danger d-block text-center">
                 {{ session('delete') }}
             </div>
         @endif
@@ -76,20 +76,25 @@
 
                             <tr>
 
-                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="pointer w-10">
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
+                                    class="pointer w-10">
                                     <img class="rounded img-apartment" src="{{ asset('storage/' . $apartment->img_path) }}"
                                         alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                 </td>
 
-                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="pointer">
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
+                                    class="pointer">
                                     {{ $apartment->title }}
                                 </td>
 
-                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="d-none d-md-table-cell pointer">
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
+                                    class="d-none d-md-table-cell pointer">
                                     {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y \o\r\e H:i') : 'Nessuna sponsorizzazione' }}
                                 </td>
 
-                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="d-none d-md-table-cell pointer"> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
+                                    class="d-none d-md-table-cell pointer"> {{ $apartment->is_visible ? 'Si' : 'No' }}
+                                </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2 z-3">
                                         <a class="btn btn-primary text-light"
@@ -122,5 +127,11 @@
     <!-- JS bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Wg4A6lB1J6LOuYxgAs5f0bb5RmXsO1Huxy5Dke++dJzD5y" crossorigin="anonymous">
+    </script>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('delete-alert').classList.add('d-none');
+        }, 3000);
     </script>
 @endsection
