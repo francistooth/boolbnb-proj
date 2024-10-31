@@ -7,7 +7,9 @@
     <!-- USER INPUT -->
     <input type="text" id="address" value="{{ $old }}" name="address"
         class="form-control @error('address') is-invalid @enderror" placeholder="Es: Via del Corso 73, 00186 Roma"
-        required autocomplete="off">
+        required autocomplete="off" data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-title="L'indirizzo deve essere del formato: 'Via o Piazza ecc.. NomeVia Civico, CAP Città'"
+        data-bs-custom-class="custom-tooltip">
 
     <!-- RISULTATI API -->
     <div id="address-suggestions" class="list-group"></div>
@@ -24,7 +26,14 @@
     @enderror
 </div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     document.addEventListener('DOMContentLoaded', function() {
         const addressInput = document.getElementById('address');
         const suggestionsBox = document.getElementById('address-suggestions');
@@ -48,7 +57,7 @@
                 })
                 .then(data => {
                     suggestionsArray = data.results.map(result => result.address
-                    .freeformAddress); // Salva i risultati nell'array
+                        .freeformAddress); // Salva i risultati nell'array
                     showSuggestions(data.results);
                     // Controlla se il valore iniziale è valido
                     if (initialAddressValue && suggestionsArray.includes(initialAddressValue)) {
@@ -73,9 +82,9 @@
                     suggestionItem.addEventListener('click', function() {
                         addressInput.value = result.address.freeformAddress;
                         suggestionsBox.innerHTML =
-                        ''; // Nascondi i suggerimenti dopo aver selezionato
+                            ''; // Nascondi i suggerimenti dopo aver selezionato
                         errorMessage.textContent =
-                        ''; // Rimuovi l'errore se selezionato un indirizzo valido
+                            ''; // Rimuovi l'errore se selezionato un indirizzo valido
                     });
 
                     suggestionsBox.appendChild(suggestionItem);
@@ -115,7 +124,7 @@
             if (suggestionsArray.length === 0 || !suggestionsArray.includes(addressValue)) {
                 event.preventDefault(); // Blocca l'invio del form
                 errorMessage.textContent =
-                'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
+                    'Indirizzo non valido. Seleziona un indirizzo dalla lista.'; // Mostra l'errore
             }
         });
 
