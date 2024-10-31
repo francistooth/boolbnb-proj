@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       store,
+      total: '',
       apartments: [],
       sponsors: [],
       services: [],
@@ -27,8 +28,10 @@ export default {
       roomFilter: 1,
       bedFilter: 1,
       radiusFilter: 20,
-      page: 1,
-      pageApartments: 5,
+      paginatorData: {
+        current_page: 1,
+        links: [],
+      },
       coordinates: {
         lat: null,
         lon: null,
@@ -108,9 +111,14 @@ export default {
         services: services
       })
         .then(response => {
-          this.apartments = response.data;
-
+          this.apartments = response.data.data;
+          this.paginatorData.current_page = response.data.current_page;
+          this.paginatorData.links = response.data.links;
+          this.total = response.data.total;
+          console.log(response.data);
           console.log(this.apartments);
+          console.log(response.data.current_page);
+          console.log(response.data.links);
 
           this.apartments.forEach(element => {
             if (element.is_visible) {
@@ -121,6 +129,7 @@ export default {
               }
               this.apartments = apartmentSponsor.concat(apartmentNoSponsor)
               console.log(this.apartments);
+              ;
               window.scrollTo(0, 0);
               this.isLoading = false;
             }
@@ -135,35 +144,6 @@ export default {
             console.error('Headers:', error.response.headers);
           }
         });
-    },
-    // Metodo per andare alla pagina successiva
-    nextPage() {
-      if (this.page < this.pagineTotali) {
-        this.page++;
-      }
-    },
-
-    // Metodo per andare alla pagina precedente
-    prevPage() {
-      if (this.page > 1) {
-        this.page--;
-      }
-    },
-    changePage(index) {
-      this.page = index;
-      console.log(this.page);
-    }
-  }, computed: {
-    // Calcola il numero totale di pagine
-    pagineTotali() {
-      return Math.ceil(this.apartments.length / this.pageApartments);
-    },
-
-    // Restituisce gli appartamenti della pagina corrente
-    apartmentsOnPage() {
-      const start = (this.page - 1) * this.pageApartments;
-      const end = start + this.pageApartments;
-      return this.apartments.slice(start, end);
     },
   },
   mounted() {
@@ -263,23 +243,22 @@ export default {
             <Loader />
           </div>
           <div v-else>
-            <router-link v-for="apartment in apartmentsOnPage"
-              :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
+            <router-link v-for="apartment in apartments" :to="{ name: 'dettagli', params: { slug: apartment.slug } }">
               <CardSearch :data="apartment" />
             </router-link>
-            <!-- guarda qui -->
-            <nav v-if="pagineTotali > 1" aria-label="Page navigation example">
+
+            <nav v-if="paginatorData.links.length > 1" aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item" :class="page == 1 ? 'disabled' : ''">
                   <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li @click="changePage(index)" v-for="index in pagineTotali" class="page-item"
-                  :class="page == index ? 'active' : ''">
+                <li @click="changePage(index)" v-for="(link, index) in paginatorData.links" class="page-item"
+                  :class="paginatorData.current_page == index ? 'active' : ''">
                   <a class="page-link" href="#">{{ index }}</a>
                 </li>
-                <li @click="nextPage" class="page-item" :class="page == pagineTotali ? 'disabled' : ''">
+                <li class="page-item" :class="paginatorData.current_page == paginatorData.links ? 'disabled' : ''">
                   <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>

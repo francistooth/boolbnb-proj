@@ -101,7 +101,7 @@ class PageController extends Controller
                 ->havingRaw('COUNT(apartment_service.service_id) = ?', [count($servicesId)]);
         }
 
-        $apartments = $apartments->with('services', 'sponsors')->orderBy('distance')->get();
+        $apartments = $apartments->with('services', 'sponsors')->orderBy('distance')->paginate(10);
 
         foreach ($apartments as $apartment) {
             if ($apartment->img_path) {
