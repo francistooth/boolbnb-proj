@@ -6,7 +6,7 @@ export default {
 
 <template>
   <div class="container-fluid my-4">
-    <h1 class="text-center">Il Team</h1>
+    <h1 class="mb-5 text-center">Il Team</h1>
     <div class="d-flex flex-wrap justify-content-center gap-3">
       <div class="card" style="width:18rem;">
         <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="...">

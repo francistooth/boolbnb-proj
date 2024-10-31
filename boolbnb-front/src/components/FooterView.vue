@@ -19,7 +19,7 @@
                             <li><a class="text-dark" href="#"> Partner help </a></li>
                             <li><a class="text-dark" href="#"> Boolbnb partner </a></li>
                         </ul>
-                        <div class="col d-flex justify-content-around flex-wrap ">
+                        <div class="col d-flex align-items-center justify-content-around flex-wrap ">
                             <div class="icon-circle cursor-pointer">
                                 <i class="fa-brands fa-facebook"></i>
                             </div>

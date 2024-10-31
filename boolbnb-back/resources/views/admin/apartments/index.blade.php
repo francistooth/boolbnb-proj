@@ -74,25 +74,24 @@
                                 </div>
                             </div>
 
-                            <tr onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'"
-                                style="cursor: pointer;">
+                            <tr>
 
-                                <td class="w-10">
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="pointer w-10">
                                     <img class="rounded img-apartment" src="{{ asset('storage/' . $apartment->img_path) }}"
                                         alt="{{ $apartment->img_name }}" onerror="this.src='/img/default-image.jpg'">
                                 </td>
 
-                                <td>
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="pointer">
                                     {{ $apartment->title }}
                                 </td>
 
-                                <td class="d-none d-md-table-cell">
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="d-none d-md-table-cell pointer">
                                     {{ $sponsored_apartments[$apartment->id] ? 'Fino al ' . \Carbon\Carbon::parse($sponsored_apartments[$apartment->id])->format('d/m/Y \o\r\e H:i') : 'Nessuna sponsorizzazione' }}
                                 </td>
 
-                                <td class="d-none d-md-table-cell"> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
+                                <td onclick="window.location='{{ route('admin.apartments.show', $apartment) }}'" class="d-none d-md-table-cell pointer"> {{ $apartment->is_visible ? 'Si' : 'No' }} </td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-2">
+                                    <div class="d-flex align-items-center gap-2 z-3">
                                         <a class="btn btn-primary text-light"
                                             href="{{ route('admin.apartments.edit', $apartment) }}">
                                             <i class="fa-solid fa-pen">

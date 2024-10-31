@@ -35,7 +35,7 @@ header {
 }
 
 main {
-  min-height: 80vh;
+  height: 80vh;
 }
 
 footer {
