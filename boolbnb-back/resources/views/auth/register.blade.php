@@ -116,7 +116,7 @@
 
 
                             <div class="mb-4 row mb-0 justify-content-center">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Registrati') }}
                                     </button>
