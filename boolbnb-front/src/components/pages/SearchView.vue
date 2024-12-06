@@ -246,7 +246,7 @@ export default {
             <div class="col ">
               <p class="m-0 text-uppercase fw-bold">Servizi:</p>
               <ul class="row row-cols-sm-auto row-cols-lg-1 p-1">
-                <li v-for='service in services' class=" col-5 d-line text-nowrap ms-2 ">
+                <li v-for='service in services' class="col-sm-12 col-md-auto d-line text-nowrap ms-2 ">
                   <input type="checkbox" :id="service.name" :value="service.name" v-model="servicesfilter"
                     @change="addFilter">
                   <label :for="service.name" class="form-label ms-1">{{ service.name }}</label>
